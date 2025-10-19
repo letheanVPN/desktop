@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterOutlet } from '@angular/router';
 
@@ -58,7 +58,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
       </nav>
     </div>
 
-    <div class="lg:pl-20">
+    <div class="lg:pl-20 pb-10">
       <div class="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-gray-200 bg-white px-4 shadow-xs sm:gap-x-6 sm:px-6 lg:px-8 dark:border-white/10 dark:bg-gray-900 dark:shadow-none dark:before:pointer-events-none dark:before:absolute dark:before:inset-0 dark:before:bg-black/10">
         <button type="button" (click)="sidebarOpen = true" class="-m-2.5 p-2.5 text-gray-700 lg:hidden dark:text-gray-400">
           <span class="sr-only">Open sidebar</span>
@@ -126,12 +126,39 @@ import { RouterLink, RouterOutlet } from '@angular/router';
     <aside class="fixed top-16 bottom-0 left-20 hidden w-96 overflow-y-auto border-r border-gray-200 px-4 py-6 sm:px-6 lg:px-8 xl:block dark:border-white/10">
       <!-- Secondary column (hidden on smaller screens) -->
     </aside>
-  `
+
+    <footer class="fixed inset-x-0 bottom-0 z-40 h-10 border-t border-gray-200 bg-white dark:border-white/10 dark:bg-gray-900 lg:left-20">
+      <div class="flex h-full items-center justify-between px-4 sm:px-6 lg:px-8 xl:ml-96">
+        <span class="text-sm text-gray-500 dark:text-gray-400">v0.0.1</span>
+        <span class="text-sm text-gray-500 dark:text-gray-400">{{ time }}</span>
+      </div>
+    </footer>
+  `,
 })
-export class ApplicationFrame {
+export class ApplicationFrame implements OnInit, OnDestroy {
   sidebarOpen = false;
   userMenuOpen = false;
   currentRole = 'Developer';
+  time: string = '';
+  private intervalId: number | undefined;
+
+  ngOnInit(): void {
+    this.updateTime();
+    this.intervalId = window.setInterval(() => {
+      this.updateTime();
+    }, 1000);
+  }
+
+  ngOnDestroy(): void {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
+  }
+
+  updateTime(): void {
+    const now = new Date();
+    this.time = now.toLocaleTimeString();
+  }
 
   navigation = [
     { name: 'Dashboard', href: '#', current: true, icon: '<path d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" stroke-linecap="round" stroke-linejoin="round" />' },
