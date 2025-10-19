@@ -3,6 +3,16 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@bindings/*": [
+        "bindings/github.com/letheanVPN/desktop/services/*"
+      ],
+      "@lthn/*": [
+        "bindings/github.com/letheanVPN/desktop/services/*"
+      ]
+    },
+    "allowJs": true,
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,

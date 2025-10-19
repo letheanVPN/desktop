@@ -2,7 +2,13 @@ module github.com/letheanVPN/desktop
 
 go 1.24.0
 
-require github.com/wailsapp/wails/v3 v3.0.0-alpha.36
+require (
+	github.com/letheanVPN/blockchain/utils/sdk/client/go v0.0.0-20251019181237-88d435762805
+	github.com/wailsapp/wails/v3 v3.0.0-alpha.36
+	golang.org/x/net v0.46.0
+)
+
+replace github.com/letheanVPN/blockchain/utils/sdk/client/go => ../blockchain/utils/sdk/client/go
 
 require (
 	dario.cat/mergo v1.0.1 // indirect
@@ -39,10 +45,9 @@ require (
 	github.com/wailsapp/go-webview2 v1.0.22 // indirect
 	github.com/wailsapp/mimetype v1.4.1 // indirect
 	github.com/xanzy/ssh-agent v0.3.3 // indirect
-	golang.org/x/crypto v0.36.0 // indirect
-	golang.org/x/net v0.37.0 // indirect
-	golang.org/x/sys v0.31.0 // indirect
-	golang.org/x/text v0.23.0 // indirect
+	golang.org/x/crypto v0.43.0 // indirect
+	golang.org/x/sys v0.37.0 // indirect
+	golang.org/x/text v0.30.0 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 )

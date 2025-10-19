@@ -6,6 +6,7 @@ import (
 	"log"
 	"time"
 
+	"github.com/letheanVPN/desktop/services/blockchain"
 	"github.com/letheanVPN/desktop/services/config"
 	"github.com/wailsapp/wails/v3/pkg/application"
 )
@@ -14,12 +15,18 @@ import (
 var assets embed.FS
 
 func main() {
+	configService := config.New(config.ClientHub, assets)
+	letheanService := lthn.NewLetheanService()
 
 	app := application.New(application.Options{
 		Name:        "desktop",
 		Description: "Lethean Desktop",
 		Assets: application.AssetOptions{
 			Handler: application.AssetFileServerFS(assets),
+		},
+		Services: []application.Service{
+			application.NewService(configService),
+			application.NewService(letheanService),
 		},
 		Mac: application.MacOptions{
 			ApplicationShouldTerminateAfterLastWindowClosed: false,
@@ -32,17 +39,8 @@ func main() {
 		URL:   "/", // Load the default Angular route
 	})
 
-	// --- Create Blockchain Status Window ---
-	//app.Window.NewWithOptions(application.WebviewWindowOptions{
-	//	Title: "Blockchain Status",
-	//	URL:   "/#/blockchain", // Load the blockchain Angular route
-	//	Width: 400,
-	//	Height: 300,
-	//})
-
 	// Create and configure the app using the ConfigService AFTER the windows are created
-	configService := config.NewConfigService()
-	configService.ConfigureApp(app, config.ClientHub, assets)
+	configService.BuildMenu(app)
 
 	go func() {
 		for {

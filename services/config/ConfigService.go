@@ -19,18 +19,24 @@ const (
 	ClientHub    Brand = "client-hub"
 )
 
-type ConfigService struct {
+type DisplayConfigService struct {
+	brand  Brand
+	assets embed.FS
 }
 
-func NewConfigService() *ConfigService {
-	return &ConfigService{}
+// New creates a new config service
+func New(brand Brand, assets embed.FS) *DisplayConfigService {
+	return &DisplayConfigService{
+		brand:  brand,
+		assets: assets,
+	}
 }
 
-// ConfigureApp applies settings to the main application object
-func (s *ConfigService) ConfigureApp(app *application.App, brand Brand, assets embed.FS) {
-	fmt.Printf("Configuring app for brand: %s\n", brand)
+// BuildMenu applies settings to the main application object
+func (s *DisplayConfigService) BuildMenu(app *application.App) {
+	fmt.Printf("Configuring app for brand: %s", s.brand)
 	// --- Setup System Tray ---
-	iconBytes, _ := assets.ReadFile("frontend/browser/favicon.ico")
+	iconBytes, _ := s.assets.ReadFile("frontend/browser/favicon.ico")
 	systray := app.SystemTray.New()
 	systray.SetTooltip("My Application Tooltip") // Windows
 	systray.SetLabel("LTHN")                     // Windows
@@ -69,7 +75,7 @@ func (s *ConfigService) ConfigureApp(app *application.App, brand Brand, assets e
 	workspace.Add("New").OnClick(func(ctx *application.Context) {})
 	workspace.Add("List").OnClick(func(ctx *application.Context) {})
 	// just sudo code demo to remind later me;
-	switch brand {
+	switch s.brand {
 	case AdminHub:
 		trayMenu.Add("Manage Workspace").OnClick(func(ctx *application.Context) {})
 	case ServerHub:
