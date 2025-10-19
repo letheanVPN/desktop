@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/letheanVPN/desktop/services/blockchain"
-	"github.com/letheanVPN/desktop/services/config"
+	"github.com/letheanVPN/desktop/services/display"
 	"github.com/wailsapp/wails/v3/pkg/application"
 )
 
@@ -15,8 +15,7 @@ import (
 var assets embed.FS
 
 func main() {
-	configService := config.New(config.ClientHub, assets)
-	letheanService := lthn.NewLetheanService()
+	displayService := display.New(display.ClientHub, assets)
 
 	app := application.New(application.Options{
 		Name:        "desktop",
@@ -25,8 +24,8 @@ func main() {
 			Handler: application.AssetFileServerFS(assets),
 		},
 		Services: []application.Service{
-			application.NewService(configService),
-			application.NewService(letheanService),
+			application.NewService(displayService),
+			application.NewService(lthn.NewLetheanService()),
 		},
 		Mac: application.MacOptions{
 			ApplicationShouldTerminateAfterLastWindowClosed: false,
@@ -34,13 +33,13 @@ func main() {
 	})
 
 	// --- Create Main Window ---
-	app.Window.NewWithOptions(application.WebviewWindowOptions{
+	displayService.OpenWindow(app, "main", application.WebviewWindowOptions{
 		Title: "Lethean Desktop",
-		URL:   "/", // Load the default Angular route
+		URL:   "#/editor/monaco", // Load the default Angular route
 	})
 
 	// Create and configure the app using the ConfigService AFTER the windows are created
-	configService.BuildMenu(app)
+	displayService.BuildMenu(app)
 
 	go func() {
 		for {

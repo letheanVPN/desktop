@@ -1,4 +1,4 @@
-package config
+package display
 
 import (
 	"embed"
@@ -19,22 +19,29 @@ const (
 	ClientHub    Brand = "client-hub"
 )
 
-type DisplayConfigService struct {
-	brand  Brand
-	assets embed.FS
+type ServiceDisplay struct {
+	brand         Brand
+	assets        embed.FS
+	windowHandles map[string]*application.WebviewWindow
 }
 
-// New creates a new config service
-func New(brand Brand, assets embed.FS) *DisplayConfigService {
-	return &DisplayConfigService{
-		brand:  brand,
-		assets: assets,
+// New creates a new display service
+func New(brand Brand, assets embed.FS) *ServiceDisplay {
+	return &ServiceDisplay{
+		brand:         brand,
+		assets:        assets,
+		windowHandles: make(map[string]*application.WebviewWindow),
 	}
 }
 
+func (s *ServiceDisplay) OpenWindow(app *application.App, name string, options application.WebviewWindowOptions) {
+	window := app.Window.NewWithOptions(options)
+	s.windowHandles[name] = window
+}
+
 // BuildMenu applies settings to the main application object
-func (s *DisplayConfigService) BuildMenu(app *application.App) {
-	fmt.Printf("Configuring app for brand: %s", s.brand)
+func (s *ServiceDisplay) BuildMenu(app *application.App) {
+	fmt.Printf("Configuring app for brand: %s\n", s.brand)
 	// --- Setup System Tray ---
 	iconBytes, _ := s.assets.ReadFile("frontend/browser/favicon.ico")
 	systray := app.SystemTray.New()
