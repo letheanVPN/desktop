@@ -3,6 +3,7 @@ package config
 import (
 	"embed"
 	"fmt"
+	"runtime"
 
 	"github.com/wailsapp/wails/v3/pkg/application"
 )
@@ -44,7 +45,13 @@ func (s *ConfigService) ConfigureApp(app *application.App, brand Brand, assets e
 		Hidden:    true,
 	})
 	systray.AttachWindow(window)
-
+	appMenu := app.Menu.New()
+	if runtime.GOOS == "darwin" {
+		appMenu.AddRole(application.AppMenu)
+	}
+	appMenu.AddRole(application.FileMenu)
+	appMenu.AddRole(application.ViewMenu)
+	appMenu.AddRole(application.EditMenu)
 	trayMenu := app.Menu.New()
 	trayMenu.Add("Open").OnClick(func(ctx *application.Context) {
 		windows := app.Window.GetAll()
@@ -58,7 +65,9 @@ func (s *ConfigService) ConfigureApp(app *application.App, brand Brand, assets e
 			window.Hide()
 		}
 	})
-
+	workspace := appMenu.AddSubmenu("Workspace")
+	workspace.Add("New").OnClick(func(ctx *application.Context) {})
+	workspace.Add("List").OnClick(func(ctx *application.Context) {})
 	// just sudo code demo to remind later me;
 	switch brand {
 	case AdminHub:
@@ -68,6 +77,7 @@ func (s *ConfigService) ConfigureApp(app *application.App, brand Brand, assets e
 	case GatewayHub:
 		trayMenu.Add("Routing Table").OnClick(func(ctx *application.Context) {})
 	case DeveloperHub:
+		appMenu.AddSubmenu("Developer")
 		trayMenu.Add("Debug Console").OnClick(func(ctx *application.Context) {})
 	case ClientHub:
 		trayMenu.Add("Connect").OnClick(func(ctx *application.Context) {})
@@ -77,6 +87,11 @@ func (s *ConfigService) ConfigureApp(app *application.App, brand Brand, assets e
 	trayMenu.Add("Quit").OnClick(func(ctx *application.Context) {
 		app.Quit()
 	})
+
+	appMenu.AddRole(application.WindowMenu)
+	appMenu.AddRole(application.HelpMenu)
+
 	systray.SetMenu(trayMenu)
+	app.Menu.Set(appMenu)
 
 }
