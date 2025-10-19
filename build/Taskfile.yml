@@ -21,9 +21,12 @@ tasks:
     cmds:
       - npm install
 
+  # This task builds the Angular frontend.
+  # It expects 'build' and 'build:dev' scripts in your frontend/package.json
+  # e.g. "build": "ng build", "build:dev": "ng build --configuration development"
   build:frontend:
     label: build:frontend (PRODUCTION={{.PRODUCTION}})
-    summary: Build the frontend project
+    summary: Build the Angular frontend
     dir: frontend
     sources:
       - "**/*"
@@ -71,13 +74,17 @@ tasks:
     cmds:
       - wails3 generate icons -input appicon.png -macfilename darwin/icons.icns -windowsfilename windows/icon.ico
 
+  # This task runs the Angular dev server (ng serve) for live development.
+  # It's used by 'wails dev'.
   dev:frontend:
-    summary: Runs the frontend in development mode
+    summary: Runs the Angular dev server for live development
     dir: frontend
     deps:
       - task: install:frontend:deps
     cmds:
-      - npm run dev -- --port {{.VITE_PORT}} --strictPort
+      # The '--' is important to pass the flags to the 'ng serve' command.
+      # 'npm start' should be configured to run 'ng serve' in package.json.
+      - npm start -- --port {{.VITE_PORT | default "4200"}}
 
   update:build-assets:
     summary: Updates the build assets

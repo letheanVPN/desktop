@@ -29,18 +29,21 @@ func NewConfigService() *ConfigService {
 func (s *ConfigService) ConfigureApp(app *application.App, brand Brand, assets embed.FS) {
 	fmt.Printf("Configuring app for brand: %s\n", brand)
 	// --- Setup System Tray ---
-	iconBytes, _ := assets.ReadFile("frontend/dist/wails.png")
+	iconBytes, _ := assets.ReadFile("frontend/browser/favicon.ico")
 	systray := app.SystemTray.New()
 	systray.SetTooltip("My Application Tooltip") // Windows
+	systray.SetLabel("LTHN")                     // Windows
 	systray.SetIcon(iconBytes)
 
 	// Create a window
-	//window := app.Window.NewWithOptions(application.WebviewWindowOptions{
-	//	Title:     "Window 1",
-	//	URL:       "/",
-	//	Frameless: true,
-	//})
-	// systray.AttachWindow(window)
+	window := app.Window.NewWithOptions(application.WebviewWindowOptions{
+		Title:     "System Tray Status",
+		URL:       "/#/system-tray", // Load the system tray Angular route
+		Width:     400,
+		Frameless: true,
+		Hidden:    true,
+	})
+	systray.AttachWindow(window)
 
 	trayMenu := app.Menu.New()
 	trayMenu.Add("Open").OnClick(func(ctx *application.Context) {

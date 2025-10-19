@@ -26,18 +26,21 @@ func main() {
 		},
 	})
 
+	// --- Create Main Window ---
 	app.Window.NewWithOptions(application.WebviewWindowOptions{
-		Title: "Window 1",
-		Mac: application.MacWindow{
-			InvisibleTitleBarHeight: 50,
-			Backdrop:                application.MacBackdropTranslucent,
-			TitleBar:                application.MacTitleBarHiddenInset,
-		},
-		BackgroundColour: application.NewRGB(27, 38, 54),
-		URL:              "/",
+		Title: "Lethean Desktop",
+		URL:   "/", // Load the default Angular route
 	})
 
-	// Create and configure the app using the ConfigService AFTER the window is created
+	// --- Create Blockchain Status Window ---
+	//app.Window.NewWithOptions(application.WebviewWindowOptions{
+	//	Title: "Blockchain Status",
+	//	URL:   "/#/blockchain", // Load the blockchain Angular route
+	//	Width: 400,
+	//	Height: 300,
+	//})
+
+	// Create and configure the app using the ConfigService AFTER the windows are created
 	configService := config.NewConfigService()
 	configService.ConfigureApp(app, config.ClientHub, assets)
 
