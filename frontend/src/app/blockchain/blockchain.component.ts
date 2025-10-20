@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FetchBlockData } from '@lthn/blockchain/letheanservice';
+import { Component } from '@angular/core';
+// import {FetchBlockData} from '@lthn/blockchain/service';
 
 @Component({
   selector: 'app-blockchain',
@@ -7,12 +7,9 @@ import { FetchBlockData } from '@lthn/blockchain/letheanservice';
   imports: [],
   template: `<p>Hello from the Blockchain Route!</p>`
 })
-export class BlockchainComponent implements OnInit {
-  ngOnInit() {
-    this.fetchData();
-  }
+export class BlockchainComponent  {
 
-  async fetchData() {
-    await FetchBlockData();
-  }
+  // async fetchData() {
+  //   await FetchBlockData("0");
+  // }
 }

@@ -5,20 +5,6 @@ import (
 	"encoding/hex"
 )
 
-var keyMap = map[rune]rune{
-	'o': '0',
-	'l': '1',
-	'e': '3',
-	'a': '4',
-	's': 'z',
-	't': '7',
-	'0': 'o',
-	'1': 'l',
-	'3': 'e',
-	'4': 'a',
-	'7': 't',
-}
-
 // SetKeyMap sets the key map for the notarisation process.
 func SetKeyMap(newKeyMap map[rune]rune) {
 	keyMap = newKeyMap

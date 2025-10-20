@@ -10,20 +10,21 @@ import (
 	"github.com/letheanVPN/desktop/services/crypt/lib/lthn"
 )
 
-func Hash(lib string, payload string) string {
+// Hash computes a hash of the payload using the specified algorithm.
+func (s *Service) Hash(lib HashType, payload string) string {
 	switch lib {
-	case "lthn":
+	case LTHN:
 		return lthn.Hash(payload)
-	case "sha512":
+	case SHA512:
 		hash := sha512.Sum512([]byte(payload))
 		return hex.EncodeToString(hash[:])
-	case "sha1":
+	case SHA1:
 		hash := sha1.Sum([]byte(payload))
 		return hex.EncodeToString(hash[:])
-	case "md5":
+	case MD5:
 		hash := md5.Sum([]byte(payload))
 		return hex.EncodeToString(hash[:])
-	case "sha256":
+	case SHA256:
 		fallthrough
 	default:
 		hash := sha256.Sum256([]byte(payload))

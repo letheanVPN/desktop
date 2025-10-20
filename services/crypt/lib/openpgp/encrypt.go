@@ -10,10 +10,6 @@ import (
 	"github.com/ProtonMail/go-crypto/openpgp/armor"
 )
 
-const (
-	pgpMessageHeader = "PGP MESSAGE"
-)
-
 // EncryptPGP encrypts data for a recipient, optionally signing it.
 func EncryptPGP(recipientID, data string, signerID, signerPassphrase *string) (string, error) {
 	recipient, err := GetPublicKey(recipientID)
@@ -51,6 +47,9 @@ func EncryptPGP(recipientID, data string, signerID, signerPassphrase *string) (s
 		return "", fmt.Errorf("failed to close armored writer: %w", err)
 	}
 
+	// Debug print the encrypted message
+	fmt.Printf("Encrypted Message:\n%s\n", buf.String())
+
 	return buf.String(), nil
 }
 
@@ -61,16 +60,24 @@ func DecryptPGP(recipientID, message, passphrase string, signerID *string) (stri
 		return "", fmt.Errorf("failed to get private key: %w", err)
 	}
 
-	var verificationKeyRing openpgp.EntityList
+	// For this API version, the keyring must contain all keys for decryption and verification.
+	keyring := openpgp.EntityList{privateKeyEntity}
+	var expectedSigner *openpgp.Entity
+
 	if signerID != nil {
 		publicKeyEntity, err := GetPublicKey(*signerID)
 		if err != nil {
 			return "", fmt.Errorf("could not get public key for verification: %w", err)
 		}
-		verificationKeyRing = openpgp.EntityList{publicKeyEntity}
+		keyring = append(keyring, publicKeyEntity)
+		expectedSigner = publicKeyEntity
 	}
 
-	md, err := openpgp.ReadMessage(strings.NewReader(message), openpgp.EntityList{privateKeyEntity}, verificationKeyRing, nil)
+	// Debug print the message before decryption
+	fmt.Printf("Message to Decrypt:\n%s\n", message)
+
+	// We pass the combined keyring, and nil for the prompt function because the private key is already decrypted.
+	md, err := openpgp.ReadMessage(strings.NewReader(message), keyring, nil, nil)
 	if err != nil {
 		return "", fmt.Errorf("failed to read PGP message: %w", err)
 	}
@@ -80,6 +87,8 @@ func DecryptPGP(recipientID, message, passphrase string, signerID *string) (stri
 		return "", fmt.Errorf("failed to read decrypted body: %w", err)
 	}
 
+	// The signature is checked automatically if the public key is in the keyring.
+	// We still need to check for errors and that the signer was who we expected.
 	if signerID != nil {
 		if md.SignatureError != nil {
 			return "", fmt.Errorf("signature verification failed: %w", md.SignatureError)
@@ -87,9 +96,8 @@ func DecryptPGP(recipientID, message, passphrase string, signerID *string) (stri
 		if md.SignedBy == nil {
 			return "", fmt.Errorf("message is not signed, but signature verification was requested")
 		}
-		// Check if the signer is who we expect
-		if verificationKeyRing[0].PrimaryKey.KeyId != md.SignedBy.PublicKey.KeyId {
-			return "", fmt.Errorf("signature from unexpected key id: got %X, want %X", md.SignedBy.PublicKey.KeyId, verificationKeyRing[0].PrimaryKey.KeyId)
+		if expectedSigner.PrimaryKey.KeyId != md.SignedBy.PublicKey.KeyId {
+			return "", fmt.Errorf("signature from unexpected key id: got %X, want %X", md.SignedBy.PublicKey.KeyId, expectedSigner.PrimaryKey.KeyId)
 		}
 	}
 

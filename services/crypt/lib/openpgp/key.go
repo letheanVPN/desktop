@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"crypto"
 	"fmt"
+	"path/filepath"
 	"strings"
 	"time"
 
@@ -14,19 +15,14 @@ import (
 	"github.com/letheanVPN/desktop/services/filesystem"
 )
 
-const (
-	userDirectory = "users"
-)
-
-// KeyPair holds the generated armored keys and revocation certificate.
-type KeyPair struct {
-	PublicKey             string
-	PrivateKey            string
-	RevocationCertificate string
-}
-
 // CreateKeyPair generates a new OpenPGP key pair.
-func CreateKeyPair(username, password string) (*KeyPair, error) {
+// The password parameter is optional. If not provided, the private key will not be encrypted.
+func CreateKeyPair(username string, passwords ...string) (*KeyPair, error) {
+	var password string
+	if len(passwords) > 0 {
+		password = passwords[0]
+	}
+
 	entity, err := openpgp.NewEntity(username, "Lethean Desktop", "", &packet.Config{
 		RSABits:     4096,
 		DefaultHash: crypto.SHA256,
@@ -35,28 +31,29 @@ func CreateKeyPair(username, password string) (*KeyPair, error) {
 		return nil, fmt.Errorf("failed to create new entity: %w", err)
 	}
 
-	// Encrypt the private key with the given passphrase.
-	if err := entity.PrivateKey.Encrypt([]byte(password)); err != nil {
-		return nil, fmt.Errorf("failed to encrypt private key: %w", err)
-	}
-
-	// Serialize public key
-	publicKey, err := serializeEntity(entity, openpgp.PublicKeyType)
-	if err != nil {
-		return nil, err
-	}
-
-	// Serialize private key
-	privateKey, err := serializeEntity(entity, openpgp.PrivateKeyType)
-	if err != nil {
-		return nil, err
-	}
-
-	// Create and serialize revocation certificate
+	// The private key is initially unencrypted after NewEntity.
+	// Generate revocation certificate while the private key is unencrypted.
 	revocationCert, err := createRevocationCertificate(entity)
 	if err != nil {
-		// This is not a fatal error, but we should log it.
-		revocationCert = ""
+		revocationCert = "" // Non-critical, proceed without it if it fails
+	}
+
+	// Encrypt the private key only if a password is provided, after revocation cert generation.
+	if password != "" {
+		if err := entity.PrivateKey.Encrypt([]byte(password)); err != nil {
+			return nil, fmt.Errorf("failed to encrypt private key: %w", err)
+		}
+	}
+
+	publicKey, err := serializeEntity(entity, openpgp.PublicKeyType, "") // Public key doesn't need password
+	if err != nil {
+		return nil, err
+	}
+
+	// Private key serialization. The key is already in its final encrypted/unencrypted state.
+	privateKey, err := serializeEntity(entity, openpgp.PrivateKeyType, "") // No password needed here for serialization
+	if err != nil {
+		return nil, err
 	}
 
 	return &KeyPair{
@@ -66,17 +63,30 @@ func CreateKeyPair(username, password string) (*KeyPair, error) {
 	}, nil
 }
 
+// CreateServerKeyPair creates and stores a key pair for the server in a specific directory.
+func CreateServerKeyPair(keysDir string) error {
+	serverKeyPath := filepath.Join(keysDir, "server.lthn.pub")
+	// Passphrase is derived from the path itself, consistent with original logic.
+	passphrase := lthn.Hash(serverKeyPath)
+	return createAndStoreKeyPair("server", passphrase, keysDir)
+}
+
 // GetPublicKey retrieves an armored public key for a given ID.
+// DEPRECATED: This function uses a hardcoded path and should be replaced by a workspace-aware method.
 func GetPublicKey(id string) (*openpgp.Entity, error) {
-	path := fmt.Sprintf("%s/%s.lthn.pub", userDirectory, id)
-	return readEntity(path)
+	// This still uses a hardcoded 'users' directory, which should eventually be removed.
+	path := filepath.Join("users", fmt.Sprintf("%s.lthn.pub", id))
+	return readEntity(filesystem.Local, path)
 }
 
 // GetPrivateKey retrieves and decrypts an armored private key.
+// DEPRECATED: This function uses a hardcoded path and should be replaced by a workspace-aware method.
 func GetPrivateKey(id, passphrase string) (*openpgp.Entity, error) {
-	path := fmt.Sprintf("%s/%s.lthn.key", userDirectory, id)
-	entity, err := readEntity(path)
+	// This still uses a hardcoded 'users' directory, which should eventually be removed.
+	path := filepath.Join("users", fmt.Sprintf("%s.lthn.key", id))
+	entity, err := readEntity(filesystem.Local, path)
 	if err != nil {
+		fmt.Printf("DEBUG: GetPrivateKey for %s: readEntity returned error: %v\n", id, err)
 		return nil, err
 	}
 
@@ -90,7 +100,6 @@ func GetPrivateKey(id, passphrase string) (*openpgp.Entity, error) {
 		}
 	}
 
-	// Check for key expiry
 	var primaryIdentity *openpgp.Identity
 	for _, identity := range entity.Identities {
 		if identity.SelfSignature.IsPrimaryId != nil && *identity.SelfSignature.IsPrimaryId {
@@ -100,7 +109,7 @@ func GetPrivateKey(id, passphrase string) (*openpgp.Entity, error) {
 	}
 	if primaryIdentity == nil {
 		for _, identity := range entity.Identities {
-			primaryIdentity = identity // fallback to first identity
+			primaryIdentity = identity
 			break
 		}
 	}
@@ -118,56 +127,45 @@ func GetPrivateKey(id, passphrase string) (*openpgp.Entity, error) {
 	return entity, nil
 }
 
-// CreateUserKeyPair creates and stores a key pair for a user.
-func CreateUserKeyPair(username, password string) error {
-	usernameHash := lthn.Hash(username)
-	return createAndStoreKeyPair(usernameHash, password, userDirectory)
-}
-
-// CreateServerKeyPair creates and stores a key pair for the server.
-func CreateServerKeyPair() error {
-	pubKeyPath := fmt.Sprintf("%s/server.lthn.pub", userDirectory)
-	fullPath, err := filesystem.Path(pubKeyPath)
-	if err != nil {
-		return fmt.Errorf("could not resolve server public key path: %w", err)
-	}
-	passphrase := lthn.Hash(fullPath)
-	return createAndStoreKeyPair("server", passphrase, userDirectory)
-}
-
 // --- Helper Functions ---
 
-// createAndStoreKeyPair generates keys and writes them to the filesystem.
 func createAndStoreKeyPair(id, password, dir string) error {
-	keyPair, err := CreateKeyPair(id, password)
+	var keyPair *KeyPair
+	var err error
+
+	if password != "" {
+		keyPair, err = CreateKeyPair(id, password)
+	} else {
+		keyPair, err = CreateKeyPair(id)
+	}
+
 	if err != nil {
 		return fmt.Errorf("failed to create key pair for id %s: %w", id, err)
 	}
 
-	if err := filesystem.EnsureDir(dir); err != nil {
-		return fmt.Errorf("failed to ensure user directory exists: %w", err)
+	if err := filesystem.Local.EnsureDir(dir); err != nil {
+		return fmt.Errorf("failed to ensure key directory exists: %w", err)
 	}
 
 	files := map[string]string{
-		fmt.Sprintf("%s/%s.lthn.pub", dir, id): keyPair.PublicKey,
-		fmt.Sprintf("%s/%s.lthn.key", dir, id): keyPair.PrivateKey,
-		fmt.Sprintf("%s/%s.lthn.rev", dir, id): keyPair.RevocationCertificate,
+		filepath.Join(dir, fmt.Sprintf("%s.lthn.pub", id)): keyPair.PublicKey,
+		filepath.Join(dir, fmt.Sprintf("%s.lthn.key", id)): keyPair.PrivateKey,
+		filepath.Join(dir, fmt.Sprintf("%s.lthn.rev", id)): keyPair.RevocationCertificate, // Re-enabled
 	}
 
 	for path, content := range files {
 		if content == "" {
-			continue // Don't write empty revocation certs
+			continue
 		}
-		if err := filesystem.Write(path, content); err != nil {
+		if err := filesystem.Local.Write(path, content); err != nil {
 			return fmt.Errorf("failed to write key file %s: %w", path, err)
 		}
 	}
 	return nil
 }
 
-// readEntity reads an armored PGP entity (key) from the filesystem.
-func readEntity(path string) (*openpgp.Entity, error) {
-	keyArmored, err := filesystem.Read(path)
+func readEntity(m filesystem.Medium, path string) (*openpgp.Entity, error) {
+	keyArmored, err := m.Read(path)
 	if err != nil {
 		return nil, fmt.Errorf("failed to read key file %s: %w", path, err)
 	}
@@ -182,8 +180,7 @@ func readEntity(path string) (*openpgp.Entity, error) {
 	return entityList[0], nil
 }
 
-// serializeEntity armors and serializes a PGP entity.
-func serializeEntity(entity *openpgp.Entity, keyType string) (string, error) {
+func serializeEntity(entity *openpgp.Entity, keyType string, password string) (string, error) {
 	buf := new(bytes.Buffer)
 	writer, err := armor.Encode(buf, keyType, nil)
 	if err != nil {
@@ -191,7 +188,9 @@ func serializeEntity(entity *openpgp.Entity, keyType string) (string, error) {
 	}
 
 	if keyType == openpgp.PrivateKeyType {
-		err = entity.SerializePrivate(writer, nil)
+		// Serialize the private key in its current in-memory state.
+		// Encryption is handled by CreateKeyPair before this function is called.
+		err = entity.SerializePrivateWithoutSigning(writer, nil)
 	} else {
 		err = entity.Serialize(writer)
 	}
@@ -205,7 +204,6 @@ func serializeEntity(entity *openpgp.Entity, keyType string) (string, error) {
 	return buf.String(), nil
 }
 
-// createRevocationCertificate generates an armored revocation certificate for an entity.
 func createRevocationCertificate(entity *openpgp.Entity) (string, error) {
 	buf := new(bytes.Buffer)
 	writer, err := armor.Encode(buf, openpgp.SignatureType, nil)
@@ -221,6 +219,7 @@ func createRevocationCertificate(entity *openpgp.Entity) (string, error) {
 		IssuerKeyId:  &entity.PrimaryKey.KeyId,
 	}
 
+	// SignKey requires an unencrypted private key.
 	if err := sig.SignKey(entity.PrimaryKey, entity.PrivateKey, nil); err != nil {
 		return "", fmt.Errorf("failed to sign revocation: %w", err)
 	}

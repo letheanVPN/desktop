@@ -1,4 +1,4 @@
-.PHONY: build dev package
+.PHONY: build dev package test
 
 build:
 	wails3 build
@@ -8,6 +8,9 @@ dev: bindings
 
 package:
 	wails3 package
+
+test:
+	go test ./services/*
 
 bindings:
 	wails3 generate bindings

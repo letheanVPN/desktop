@@ -7,7 +7,7 @@ import (
 )
 
 // Luhn validates a number using the Luhn algorithm.
-func Luhn(payload string) bool {
+func (s *Service) Luhn(payload string) bool {
 	payload = strings.ReplaceAll(payload, " ", "")
 	sum := 0
 	isSecond := false
@@ -31,7 +31,7 @@ func Luhn(payload string) bool {
 }
 
 // Fletcher16 computes the Fletcher-16 checksum.
-func Fletcher16(payload string) uint16 {
+func (s *Service) Fletcher16(payload string) uint16 {
 	data := []byte(payload)
 	var sum1, sum2 uint16
 	for _, b := range data {
@@ -42,7 +42,7 @@ func Fletcher16(payload string) uint16 {
 }
 
 // Fletcher32 computes the Fletcher-32 checksum.
-func Fletcher32(payload string) uint32 {
+func (s *Service) Fletcher32(payload string) uint32 {
 	data := []byte(payload)
 	// Pad with 0 to make it even length for uint16 conversion
 	if len(data)%2 != 0 {
@@ -59,7 +59,7 @@ func Fletcher32(payload string) uint32 {
 }
 
 // Fletcher64 computes the Fletcher-64 checksum.
-func Fletcher64(payload string) uint64 {
+func (s *Service) Fletcher64(payload string) uint64 {
 	data := []byte(payload)
 	// Pad to multiple of 4
 	if len(data)%4 != 0 {
