@@ -1,6 +1,7 @@
 package config
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"os"
@@ -11,6 +12,7 @@ import (
 )
 
 const appName = "lethean"
+const configFileName = "config.json"
 
 // ErrSetupRequired is returned by ServiceStartup if config.json is missing.
 var ErrSetupRequired = errors.New("setup required: config.json not found")
@@ -57,6 +59,7 @@ func NewService() (*Service, error) {
 		ConfigDir:     filepath.Join(userHomeDir, "config"),
 		DataDir:       filepath.Join(userHomeDir, "data"),
 		WorkspacesDir: filepath.Join(userHomeDir, "workspaces"),
+		DefaultRoute:  "/", // Set default route here
 	}
 
 	// Ensure all base directories exist using the standard os library.
@@ -74,4 +77,18 @@ func NewService() (*Service, error) {
 // Get returns the loaded configuration.
 func (s *Service) Get() *Config {
 	return s.config
+}
+
+// Save writes the current configuration to config.json.
+func (s *Service) Save() error {
+	configPath := filepath.Join(s.config.ConfigDir, configFileName)
+	data, err := json.MarshalIndent(s.config, "", "  ")
+	if err != nil {
+		return fmt.Errorf("failed to marshal config: %w", err)
+	}
+
+	if err := os.WriteFile(configPath, data, 0644); err != nil {
+		return fmt.Errorf("failed to write config file: %w", err)
+	}
+	return nil
 }

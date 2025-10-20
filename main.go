@@ -41,6 +41,7 @@ func main() {
 		Services: []application.Service{
 			application.NewService(displayService),
 			application.NewService(letheanService),
+			application.NewService(configService),
 			//application.NewService(cryptService),
 			//application.NewService(workspaceService),
 		},
@@ -59,6 +60,13 @@ func main() {
 		displayService.OpenWindow(app, "main", application.WebviewWindowOptions{
 			Title: "Desktop Setup",
 			URL:   "#/setup",
+		})
+	} else {
+		displayService.OpenWindow(app, "main", application.WebviewWindowOptions{
+			Title:  "Desktop",
+			Height: 900,
+			Width:  1200,
+			URL:    "#" + cfg.DefaultRoute,
 		})
 	}
 

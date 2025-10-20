@@ -8,4 +8,5 @@ type Config struct {
 	WorkspacesDir string // The root directory for all workspaces.
 	RootDir       string // The top-level application directory (e.g., ~/Lethean).
 	UserHomeDir   string // The user's home directory.
+	DefaultRoute  string // The default route for the application.
 }
