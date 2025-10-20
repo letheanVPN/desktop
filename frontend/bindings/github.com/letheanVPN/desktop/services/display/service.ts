@@ -25,6 +25,13 @@ export function OpenWindow(app: application$0.App | null, name: string, options:
 }
 
 /**
+ * SelectDirectory opens a directory selection dialog and returns the selected path.
+ */
+export function SelectDirectory(): $CancellablePromise<string> {
+    return $Call.ByID(2987446826);
+}
+
+/**
  * Startup is called by Wails when the application starts.
  * It orchestrates the setup of all UI elements.
  */

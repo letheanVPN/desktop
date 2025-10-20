@@ -3,6 +3,8 @@ package main
 import (
 	"embed"
 	"log"
+	"os"
+	"path/filepath"
 
 	"github.com/letheanVPN/desktop/services/blockchain"
 	"github.com/wailsapp/wails/v3/pkg/application"
@@ -51,10 +53,14 @@ func main() {
 	})
 	displayService.Setup(app)
 	// --- Run Application ---
-	displayService.OpenWindow(app, "main", application.WebviewWindowOptions{
-		Title: "Lethean Code Editor",
-		URL:   "#/editor/monaco", // Load the default Angular route
-	})
+	configFilePath := filepath.Join(cfg.ConfigDir, "config.json")
+	_, err = os.Stat(configFilePath)
+	if os.IsNotExist(err) {
+		displayService.OpenWindow(app, "main", application.WebviewWindowOptions{
+			Title: "Desktop Setup",
+			URL:   "#/setup",
+		})
+	}
 
 	err = app.Run()
 

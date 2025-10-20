@@ -16,3 +16,14 @@ func (s *Service) OpenWindow(app *application.App, name string, options applicat
 	s.windowHandles[name] = window
 	window.Show()
 }
+
+// SelectDirectory opens a directory selection dialog and returns the selected path.
+func (s *Service) SelectDirectory() (string, error) {
+	dialog := application.OpenFileDialog()
+	dialog.SetTitle("Select Project Directory")
+	if path, err := dialog.PromptForSingleSelection(); err == nil {
+		// Use selected directory path
+		return path, nil
+	}
+	return "", nil
+}

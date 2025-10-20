@@ -13,4 +13,4 @@ test:
 	go test ./services/*
 
 bindings:
-	wails3 generate bindings
+	wails3 generate bindings -ts

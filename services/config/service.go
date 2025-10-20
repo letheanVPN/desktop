@@ -1,6 +1,7 @@
 package config
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -10,6 +11,9 @@ import (
 )
 
 const appName = "lethean"
+
+// ErrSetupRequired is returned by ServiceStartup if config.json is missing.
+var ErrSetupRequired = errors.New("setup required: config.json not found")
 
 // Service provides access to the application's configuration.
 type Service struct {
