@@ -6,7 +6,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/letheanVPN/desktop/services/blockchain"
+	lthn "github.com/letheanVPN/desktop/services/blockchain"
 	"github.com/letheanVPN/desktop/services/display"
 	"github.com/wailsapp/wails/v3/pkg/application"
 )
@@ -34,7 +34,7 @@ func main() {
 
 	// --- Create Main Window ---
 	displayService.OpenWindow(app, "main", application.WebviewWindowOptions{
-		Title: "Lethean Desktop",
+		Title: "Lethean Code Editor",
 		URL:   "#/editor/monaco", // Load the default Angular route
 	})
 

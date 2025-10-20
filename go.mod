@@ -3,6 +3,7 @@ module github.com/letheanVPN/desktop
 go 1.24.0
 
 require (
+	github.com/ProtonMail/go-crypto v1.1.6
 	github.com/letheanVPN/blockchain/utils/sdk/client/go v0.0.0-20251019181237-88d435762805
 	github.com/wailsapp/wails/v3 v3.0.0-alpha.36
 	golang.org/x/net v0.46.0
@@ -13,7 +14,6 @@ replace github.com/letheanVPN/blockchain/utils/sdk/client/go => ../blockchain/ut
 require (
 	dario.cat/mergo v1.0.1 // indirect
 	github.com/Microsoft/go-winio v0.6.2 // indirect
-	github.com/ProtonMail/go-crypto v1.1.6 // indirect
 	github.com/adrg/xdg v0.5.3 // indirect
 	github.com/bep/debounce v1.2.1 // indirect
 	github.com/cloudflare/circl v1.6.0 // indirect
