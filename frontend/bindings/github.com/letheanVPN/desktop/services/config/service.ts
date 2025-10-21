@@ -15,12 +15,33 @@ import { Call as $Call, CancellablePromise as $CancellablePromise, Create as $Cr
 import * as $models from "./models.js";
 
 /**
+ * EnableFeature adds a feature to the list of enabled features and saves the config.
+ */
+export function EnableFeature(feature: string): $CancellablePromise<void> {
+    return $Call.ByID(2061607914, feature);
+}
+
+/**
  * Get returns the loaded configuration.
  */
 export function Get(): $CancellablePromise<$models.Config | null> {
     return $Call.ByID(2457248349).then(($result: any) => {
         return $$createType1($result);
     });
+}
+
+/**
+ * IsFeatureEnabled checks if a given feature is enabled in the configuration.
+ */
+export function IsFeatureEnabled(feature: string): $CancellablePromise<boolean> {
+    return $Call.ByID(2753596224, feature);
+}
+
+/**
+ * Load reads the configuration from config.json.
+ */
+export function Load(): $CancellablePromise<void> {
+    return $Call.ByID(1795365427);
 }
 
 /**

@@ -26,10 +26,22 @@
                 "glob": "**/*",
                 "input": "public"
               },
+              {
+                "glob": "**/*",
+                "input": "src/assets/webfonts",
+                "output": "webfonts"
+              },
               { "glob": "**/*", "input": "node_modules/monaco-editor", "output": "/assets/monaco/" }
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/css/fontawesome.min.css",
+              "src/assets/css/brands.min.css",
+              "src/assets/css/regular.min.css",
+              "src/assets/css/light.min.css",
+              "src/assets/css/solid.min.css",
+              "src/assets/css/jelly-regular.min.css",
+              "src/assets/css/jelly-fill-regular.min.css"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [

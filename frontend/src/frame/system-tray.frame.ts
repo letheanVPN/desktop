@@ -7,8 +7,10 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   template: `
     <div class="flex flex-col h-screen overflow-hidden rounded-md bg-white shadow-sm dark:bg-gray-800/50 dark:shadow-none dark:outline dark:-outline-offset-0 dark:outline-white/10">
-      <div class="flex items-center justify-between px-6 py-4 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-white/10">
-        <p class="font-bold">Lethean VPN</p>
+      <div class="flex items-center justify-between px-4 py-4 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-white/10">
+        <div class="flex h-8 shrink-0 items-center">
+          <img class="h-58 w-80 pt-1" src="./logo/lthn/logo-full-gradient.png" alt="Lethean Community">
+        </div>
         <div class="relative">
           <button (click)="settingsMenuOpen = !settingsMenuOpen" class="relative flex items-center">
             <span class="absolute -inset-1.5"></span>
@@ -23,7 +25,7 @@ import { CommonModule } from '@angular/common';
           </div>
         </div>
       </div>
-      <div class="flex-grow overflow-y-auto">
+      <div class="flex-grow bg-gray-50 overflow-y-auto">
         <ul role="list" class="divide-y divide-gray-200 dark:divide-white/10">
           <li class="px-6 py-4">
             <p>Status: Connected</p>

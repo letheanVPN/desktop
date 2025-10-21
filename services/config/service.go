@@ -51,7 +51,6 @@ func NewService() (*Service, error) {
 		return nil, fmt.Errorf("could not resolve cache directory: %w", err)
 	}
 
-	// Now define all other paths relative to our application root.
 	cfg := &Config{
 		UserHomeDir:   userHomeDir,
 		RootDir:       rootDir,
@@ -59,7 +58,8 @@ func NewService() (*Service, error) {
 		ConfigDir:     filepath.Join(userHomeDir, "config"),
 		DataDir:       filepath.Join(userHomeDir, "data"),
 		WorkspacesDir: filepath.Join(userHomeDir, "workspaces"),
-		DefaultRoute:  "/", // Set default route here
+		DefaultRoute:  "/",        // Set default route here
+		Features:      []string{}, // Initialize empty features
 	}
 
 	// Ensure all base directories exist using the standard os library.
@@ -71,12 +71,47 @@ func NewService() (*Service, error) {
 		}
 	}
 
-	return &Service{config: cfg}, nil
+	service := &Service{config: cfg}
+
+	// Attempt to load existing config.json
+	if err := service.Load(); err != nil {
+		if errors.Is(err, os.ErrNotExist) {
+			// If config.json doesn't exist, save the default config
+			if err := service.Save(); err != nil {
+				return nil, fmt.Errorf("failed to save initial config: %w", err)
+			}
+		} else {
+			return nil, fmt.Errorf("failed to load config: %w", err)
+		}
+	}
+
+	return service, nil
 }
 
 // Get returns the loaded configuration.
 func (s *Service) Get() *Config {
 	return s.config
+}
+
+// Load reads the configuration from config.json.
+func (s *Service) Load() error {
+	configPath := filepath.Join(s.config.ConfigDir, configFileName)
+	data, err := os.ReadFile(configPath)
+	if err != nil {
+		return fmt.Errorf("failed to read config file: %w", err)
+	}
+
+	// Create a temporary config to unmarshal into, preserving existing paths
+	tempConfig := &Config{}
+	if err := json.Unmarshal(data, tempConfig); err != nil {
+		return fmt.Errorf("failed to unmarshal config: %w", err)
+	}
+
+	// Update only the fields that can be loaded from the file
+	s.config.DefaultRoute = tempConfig.DefaultRoute
+	s.config.Features = tempConfig.Features
+
+	return nil
 }
 
 // Save writes the current configuration to config.json.
@@ -90,5 +125,33 @@ func (s *Service) Save() error {
 	if err := os.WriteFile(configPath, data, 0644); err != nil {
 		return fmt.Errorf("failed to write config file: %w", err)
 	}
+	return nil
+}
+
+// IsFeatureEnabled checks if a given feature is enabled in the configuration.
+func (s *Service) IsFeatureEnabled(feature string) bool {
+	for _, f := range s.config.Features {
+		if f == feature {
+			return true
+		}
+	}
+	return false
+}
+
+// EnableFeature adds a feature to the list of enabled features and saves the config.
+func (s *Service) EnableFeature(feature string) error {
+	// Check if the feature is already enabled
+	if s.IsFeatureEnabled(feature) {
+		return nil // Feature already enabled, nothing to do
+	}
+
+	// Add the feature
+	s.config.Features = append(s.config.Features, feature)
+
+	// Save the updated config
+	if err := s.Save(); err != nil {
+		return fmt.Errorf("failed to save config after enabling feature %s: %w", feature, err)
+	}
+
 	return nil
 }

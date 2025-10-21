@@ -20,8 +20,8 @@ import * as application$0 from "../../../../wailsapp/wails/v3/pkg/application/mo
  * OpenWindow creates and shows a new webview window.
  * This function is callable from the frontend.
  */
-export function OpenWindow(app: application$0.App | null, name: string, options: application$0.WebviewWindowOptions): $CancellablePromise<void> {
-    return $Call.ByID(3731760391, app, name, options);
+export function OpenWindow(name: string, options: application$0.WebviewWindowOptions): $CancellablePromise<void> {
+    return $Call.ByID(3731760391, name, options);
 }
 
 /**
@@ -32,9 +32,12 @@ export function SelectDirectory(): $CancellablePromise<string> {
 }
 
 /**
- * Startup is called by Wails when the application starts.
- * It orchestrates the setup of all UI elements.
+ * Setup initializes the display service with the application instance.
  */
 export function Setup(app: application$0.App | null): $CancellablePromise<void> {
     return $Call.ByID(4134194364, app);
+}
+
+export function ShowEnvironmentDialog(): $CancellablePromise<void> {
+    return $Call.ByID(2753729287);
 }

@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
 import {FormsModule} from '@angular/forms';
-
+import {Get} from "@lthn/config/service"
 @Component({
   selector: 'dev-edit',
   standalone: true,
@@ -12,7 +12,17 @@ import {FormsModule} from '@angular/forms';
     </div>
   `,
 })
-export class DeveloperEditorComponent {
+export class DeveloperEditorComponent implements OnInit {
   editorOptions = { theme: 'vs-dark', language: 'typescript' };
-  code = '// Start coding...';
+  code: string = "// Start Coding"; // Initialize with a default value
+
+  async ngOnInit(): Promise<void> {
+    try {
+      const cfg = await Get();
+      this.code = cfg ? JSON.stringify(cfg, null, 2) : "// Start Coding";
+    } catch (error) {
+      console.error("Error fetching configuration:", error);
+      this.code = "// Error loading configuration.";
+    }
+  }
 }

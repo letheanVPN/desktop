@@ -26,4 +26,5 @@ type Service struct {
 	brand         Brand
 	assets        embed.FS
 	windowHandles map[string]*application.WebviewWindow
+	app           *application.App // Add this line
 }

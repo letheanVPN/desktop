@@ -8,6 +8,7 @@ import { FullComponent } from './system/setup/full.component';
 import { BlockchainSetupComponent } from './system/setup/blockchain.component';
 import { GatewayClientSetupComponent } from './system/setup/gateway-client.component';
 import { SeedNodeSetupComponent } from './system/setup/seed-node.component';
+import { MiningComponent } from './mining/mining.component';
 
 export const routes: Routes = [
   { path: 'system-tray', component: SystemTrayFrame },
@@ -28,6 +29,7 @@ export const routes: Routes = [
     children: [
       { path: 'blockchain', component: BlockchainComponent },
       { path: 'dev/edit', component: DeveloperEditorComponent },
+      { path: 'mining', component: MiningComponent },
       // Redirect empty path to a default view within the frame
       { path: '', redirectTo: 'blockchain', pathMatch: 'full' }
     ]

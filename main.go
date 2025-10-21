@@ -8,6 +8,7 @@ import (
 
 	"github.com/letheanVPN/desktop/services/blockchain"
 	"github.com/wailsapp/wails/v3/pkg/application"
+	"github.com/wailsapp/wails/v3/pkg/events"
 
 	"github.com/letheanVPN/desktop/services/config"
 	"github.com/letheanVPN/desktop/services/display"
@@ -52,17 +53,33 @@ func main() {
 			ApplicationShouldTerminateAfterLastWindowClosed: false,
 		},
 	})
+
+	// OS specific application events
+
+	// Platform agnostic events
+	app.Event.OnApplicationEvent(events.Common.ApplicationStarted, func(event *application.ApplicationEvent) {
+		app.Logger.Info("Application started!")
+	})
+
+	app.Event.OnApplicationEvent(events.Windows.SystemThemeChanged, func(event *application.ApplicationEvent) {
+		app.Logger.Info("System theme changed!")
+		if event.Context().IsDarkMode() {
+			app.Logger.Info("System is now using dark mode!")
+		} else {
+			app.Logger.Info("System is now using light mode!")
+		}
+	})
 	displayService.Setup(app)
 	// --- Run Application ---
 	configFilePath := filepath.Join(cfg.ConfigDir, "config.json")
 	_, err = os.Stat(configFilePath)
 	if os.IsNotExist(err) {
-		displayService.OpenWindow(app, "main", application.WebviewWindowOptions{
+		displayService.OpenWindow("main", application.WebviewWindowOptions{
 			Title: "Desktop Setup",
 			URL:   "#/setup",
 		})
 	} else {
-		displayService.OpenWindow(app, "main", application.WebviewWindowOptions{
+		displayService.OpenWindow("main", application.WebviewWindowOptions{
 			Title:  "Desktop",
 			Height: 900,
 			Width:  1200,

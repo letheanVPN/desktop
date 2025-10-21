@@ -44,6 +44,11 @@ export class Config {
      */
     "DefaultRoute": string;
 
+    /**
+     * List of enabled features
+     */
+    "Features": string[];
+
     /** Creates a new Config instance. */
     constructor($$source: Partial<Config> = {}) {
         if (!("DataDir" in $$source)) {
@@ -67,6 +72,9 @@ export class Config {
         if (!("DefaultRoute" in $$source)) {
             this["DefaultRoute"] = "";
         }
+        if (!("Features" in $$source)) {
+            this["Features"] = [];
+        }
 
         Object.assign(this, $$source);
     }
@@ -75,7 +83,14 @@ export class Config {
      * Creates a new Config instance from a string or object.
      */
     static createFrom($$source: any = {}): Config {
+        const $$createField7_0 = $$createType0;
         let $$parsedSource = typeof $$source === 'string' ? JSON.parse($$source) : $$source;
+        if ("Features" in $$parsedSource) {
+            $$parsedSource["Features"] = $$createField7_0($$parsedSource["Features"]);
+        }
         return new Config($$parsedSource as Partial<Config>);
     }
 }
+
+// Private type creation functions
+const $$createType0 = $Create.Array($Create.Any);
