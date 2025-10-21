@@ -12,9 +12,9 @@ import (
 var appTrayIcon []byte
 
 // setupTray configures and creates the system tray icon and menu.
-func (s *Service) setupTray(app *application.App) {
+func (s *Service) setupTray() {
 
-	systray := app.SystemTray.New()
+	systray := s.app.SystemTray.New()
 	systray.SetTooltip("Lethean Desktop")
 
 	if runtime.GOOS == "darwin" {
@@ -25,7 +25,7 @@ func (s *Service) setupTray(app *application.App) {
 		systray.SetIcon(appTrayIcon)
 	}
 	// Create a hidden window for the system tray menu to interact with
-	trayWindow := app.Window.NewWithOptions(application.WebviewWindowOptions{
+	trayWindow := s.app.Window.NewWithOptions(application.WebviewWindowOptions{
 		Title:     "System Tray Status",
 		URL:       "/#/system-tray",
 		Width:     400,
@@ -35,14 +35,14 @@ func (s *Service) setupTray(app *application.App) {
 	systray.AttachWindow(trayWindow).WindowOffset(5)
 
 	// --- Build Tray Menu ---
-	trayMenu := app.Menu.New()
+	trayMenu := s.app.Menu.New()
 	trayMenu.Add("Open Desktop").OnClick(func(ctx *application.Context) {
-		for _, window := range app.Window.GetAll() {
+		for _, window := range s.app.Window.GetAll() {
 			window.Show()
 		}
 	})
 	trayMenu.Add("Close Desktop").OnClick(func(ctx *application.Context) {
-		for _, window := range app.Window.GetAll() {
+		for _, window := range s.app.Window.GetAll() {
 			window.Hide()
 		}
 	})
@@ -67,7 +67,7 @@ func (s *Service) setupTray(app *application.App) {
 
 	trayMenu.AddSeparator()
 	trayMenu.Add("Quit").OnClick(func(ctx *application.Context) {
-		app.Quit()
+		s.app.Quit()
 	})
 
 	systray.SetMenu(trayMenu)

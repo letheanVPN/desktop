@@ -7,8 +7,8 @@ import (
 )
 
 // buildMenu creates and sets the main application menu.
-func (s *Service) buildMenu(app *application.App) {
-	appMenu := app.Menu.New()
+func (s *Service) buildMenu() {
+	appMenu := s.app.Menu.New()
 	if runtime.GOOS == "darwin" {
 		appMenu.AddRole(application.AppMenu)
 	}
@@ -28,5 +28,5 @@ func (s *Service) buildMenu(app *application.App) {
 	appMenu.AddRole(application.WindowMenu)
 	appMenu.AddRole(application.HelpMenu)
 
-	app.Menu.Set(appMenu)
+	s.app.Menu.Set(appMenu)
 }

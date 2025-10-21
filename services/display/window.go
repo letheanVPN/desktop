@@ -6,9 +6,8 @@ import "github.com/wailsapp/wails/v3/pkg/application"
 // This function is callable from the frontend.
 func (s *Service) OpenWindow(name string, options application.WebviewWindowOptions) {
 	// Check if a window with that name already exists
-	if _, exists := s.windowHandles[name]; exists {
-		// You might want to focus the existing window instead of creating a new one
-		s.windowHandles[name].Focus()
+	if window, exists := s.app.Window.GetByName(name); exists {
+		window.Focus()
 		return
 	}
 
