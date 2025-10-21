@@ -1,0 +1,3 @@
+[submodule "services/config/src"]
+	path = services/config/src
+	url = git@github.com:letheanVPN/documentation.git
