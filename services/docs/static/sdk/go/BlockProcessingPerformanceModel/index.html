@@ -1,0 +1,3240 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../BlockDetailsModel/">
+      
+      
+        <link rel="next" href="../BlockTemplateModel/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
+    
+    
+      
+        <title>BlockProcessingPerformanceModel - Lethean Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.84d31ad4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#blockprocessingperformancemodel" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Lethean Documentation" class="md-header__button md-logo" aria-label="Lethean Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Lethean Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              BlockProcessingPerformanceModel
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../getting-started/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Getting started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Sdk
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../updates/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Updates
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Lethean Documentation" class="md-nav__button md-logo" aria-label="Lethean Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Lethean Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../getting-started/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Getting started
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/chain/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Blockchain
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/wallet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Wallet
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../getting-started/developer/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Developer
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Developer
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/developer/build/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Building The Blockchain
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/developer/docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker for Lethean
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/developer/sdks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Building SDK Packages
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Sdk
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Sdk
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Go
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_1" id="__nav_3_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Go
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../BlockDetailsModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    BlockDetailsModel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    BlockProcessingPerformanceModel
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    BlockProcessingPerformanceModel
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      Properties
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#newblockprocessingperformancemodel" class="md-nav__link">
+    <span class="md-ellipsis">
+      NewBlockProcessingPerformanceModel
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#newblockprocessingperformancemodelwithdefaults" class="md-nav__link">
+    <span class="md-ellipsis">
+      NewBlockProcessingPerformanceModelWithDefaults
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getblockprocessingtime0" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetBlockProcessingTime0
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getblockprocessingtime0ok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetBlockProcessingTime0Ok
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setblockprocessingtime0" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetBlockProcessingTime0
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hasblockprocessingtime0" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasBlockProcessingTime0
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getblockprocessingtime1" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetBlockProcessingTime1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getblockprocessingtime1ok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetBlockProcessingTime1Ok
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setblockprocessingtime1" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetBlockProcessingTime1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hasblockprocessingtime1" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasBlockProcessingTime1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettargetcalculatingtime2" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTargetCalculatingTime2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettargetcalculatingtime2ok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTargetCalculatingTime2Ok
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settargetcalculatingtime2" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTargetCalculatingTime2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastargetcalculatingtime2" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTargetCalculatingTime2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getlonghashcalculatingtime3" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetLonghashCalculatingTime3
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getlonghashcalculatingtime3ok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetLonghashCalculatingTime3Ok
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setlonghashcalculatingtime3" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetLonghashCalculatingTime3
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#haslonghashcalculatingtime3" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasLonghashCalculatingTime3
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getalltxsinserttime5" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetAllTxsInsertTime5
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getalltxsinserttime5ok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetAllTxsInsertTime5Ok
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setalltxsinserttime5" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetAllTxsInsertTime5
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hasalltxsinserttime5" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasAllTxsInsertTime5
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getetcstuff6" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetEtcStuff6
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getetcstuff6ok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetEtcStuff6Ok
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setetcstuff6" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetEtcStuff6
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hasetcstuff6" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasEtcStuff6
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getinserttime4" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetInsertTime4
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getinserttime4ok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetInsertTime4Ok
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setinserttime4" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetInsertTime4
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hasinserttime4" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasInsertTime4
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getraiseblockcoreevent" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetRaiseBlockCoreEvent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getraiseblockcoreeventok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetRaiseBlockCoreEventOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setraiseblockcoreevent" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetRaiseBlockCoreEvent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hasraiseblockcoreevent" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasRaiseBlockCoreEvent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getvalidateminertransactiontime" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetValidateMinerTransactionTime
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getvalidateminertransactiontimeok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetValidateMinerTransactionTimeOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setvalidateminertransactiontime" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetValidateMinerTransactionTime
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hasvalidateminertransactiontime" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasValidateMinerTransactionTime
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getcollectrangeproofsdatafromtxtime" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetCollectRangeproofsDataFromTxTime
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getcollectrangeproofsdatafromtxtimeok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetCollectRangeproofsDataFromTxTimeOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setcollectrangeproofsdatafromtxtime" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetCollectRangeproofsDataFromTxTime
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hascollectrangeproofsdatafromtxtime" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasCollectRangeproofsDataFromTxTime
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getverifymultiplezcoutsrangeproofstime" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetVerifyMultipleZcOutsRangeProofsTime
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getverifymultiplezcoutsrangeproofstimeok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetVerifyMultipleZcOutsRangeProofsTimeOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setverifymultiplezcoutsrangeproofstime" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetVerifyMultipleZcOutsRangeProofsTime
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hasverifymultiplezcoutsrangeproofstime" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasVerifyMultipleZcOutsRangeProofsTime
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettargetcalculatingenumblocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTargetCalculatingEnumBlocks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettargetcalculatingenumblocksok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTargetCalculatingEnumBlocksOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settargetcalculatingenumblocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTargetCalculatingEnumBlocks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastargetcalculatingenumblocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTargetCalculatingEnumBlocks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettargetcalculatingcalc" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTargetCalculatingCalc
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettargetcalculatingcalcok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTargetCalculatingCalcOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settargetcalculatingcalc" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTargetCalculatingCalc
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastargetcalculatingcalc" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTargetCalculatingCalc
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getposvalidatekisearch" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetPosValidateKiSearch
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getposvalidatekisearchok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetPosValidateKiSearchOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setposvalidatekisearch" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetPosValidateKiSearch
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hasposvalidatekisearch" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasPosValidateKiSearch
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getposvalidategetoutkeysforinputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetPosValidateGetOutKeysForInputs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getposvalidategetoutkeysforinputsok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetPosValidateGetOutKeysForInputsOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setposvalidategetoutkeysforinputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetPosValidateGetOutKeysForInputs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hasposvalidategetoutkeysforinputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasPosValidateGetOutKeysForInputs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getposvalidatezvp" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetPosValidateZvp
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getposvalidatezvpok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetPosValidateZvpOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setposvalidatezvp" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetPosValidateZvp
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hasposvalidatezvp" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasPosValidateZvp
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../BlockTemplateModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    BlockTemplateModel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../BlockTemplateRequestModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    BlockTemplateRequestModel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../BlockUtilsSdkClientGo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    \BlockUtilsSdkClientGo
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DbStatInfoModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    DbStatInfoModel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../HeightModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    HeightModel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../InfoModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    InfoModel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../InfoUtilsSdkClientGo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    \InfoUtilsSdkClientGo
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../MaintainersInfoModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MaintainersInfoModel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PerformanceModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    PerformanceModel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PosEntryModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    PosEntryModel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SubmitBlockRequestModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SubmitBlockRequestModel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SubmitBlockResponseModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SubmitBlockResponseModel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TransactionAttachmentModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    TransactionAttachmentModel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TransactionDetailsModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    TransactionDetailsModel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TransactionExtraModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    TransactionExtraModel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TransactionInputModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    TransactionInputModel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TransactionOutputModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    TransactionOutputModel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TxGenerationContextModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    TxGenerationContextModel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TxPoolPerformanceModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    TxPoolPerformanceModel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TxProcessingPerformanceModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    TxProcessingPerformanceModel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../VersionModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    VersionModel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../updates/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Updates
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Updates
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Posts
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Posts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2_1" id="__nav_4_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    2025
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            2025
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../updates/posts/2025/october-development-update/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Development Update
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../updates/posts/2025/why-ethics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Why Ethics?
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      Properties
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#newblockprocessingperformancemodel" class="md-nav__link">
+    <span class="md-ellipsis">
+      NewBlockProcessingPerformanceModel
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#newblockprocessingperformancemodelwithdefaults" class="md-nav__link">
+    <span class="md-ellipsis">
+      NewBlockProcessingPerformanceModelWithDefaults
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getblockprocessingtime0" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetBlockProcessingTime0
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getblockprocessingtime0ok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetBlockProcessingTime0Ok
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setblockprocessingtime0" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetBlockProcessingTime0
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hasblockprocessingtime0" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasBlockProcessingTime0
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getblockprocessingtime1" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetBlockProcessingTime1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getblockprocessingtime1ok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetBlockProcessingTime1Ok
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setblockprocessingtime1" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetBlockProcessingTime1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hasblockprocessingtime1" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasBlockProcessingTime1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettargetcalculatingtime2" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTargetCalculatingTime2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettargetcalculatingtime2ok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTargetCalculatingTime2Ok
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settargetcalculatingtime2" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTargetCalculatingTime2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastargetcalculatingtime2" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTargetCalculatingTime2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getlonghashcalculatingtime3" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetLonghashCalculatingTime3
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getlonghashcalculatingtime3ok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetLonghashCalculatingTime3Ok
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setlonghashcalculatingtime3" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetLonghashCalculatingTime3
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#haslonghashcalculatingtime3" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasLonghashCalculatingTime3
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getalltxsinserttime5" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetAllTxsInsertTime5
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getalltxsinserttime5ok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetAllTxsInsertTime5Ok
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setalltxsinserttime5" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetAllTxsInsertTime5
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hasalltxsinserttime5" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasAllTxsInsertTime5
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getetcstuff6" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetEtcStuff6
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getetcstuff6ok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetEtcStuff6Ok
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setetcstuff6" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetEtcStuff6
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hasetcstuff6" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasEtcStuff6
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getinserttime4" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetInsertTime4
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getinserttime4ok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetInsertTime4Ok
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setinserttime4" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetInsertTime4
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hasinserttime4" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasInsertTime4
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getraiseblockcoreevent" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetRaiseBlockCoreEvent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getraiseblockcoreeventok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetRaiseBlockCoreEventOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setraiseblockcoreevent" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetRaiseBlockCoreEvent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hasraiseblockcoreevent" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasRaiseBlockCoreEvent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getvalidateminertransactiontime" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetValidateMinerTransactionTime
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getvalidateminertransactiontimeok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetValidateMinerTransactionTimeOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setvalidateminertransactiontime" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetValidateMinerTransactionTime
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hasvalidateminertransactiontime" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasValidateMinerTransactionTime
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getcollectrangeproofsdatafromtxtime" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetCollectRangeproofsDataFromTxTime
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getcollectrangeproofsdatafromtxtimeok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetCollectRangeproofsDataFromTxTimeOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setcollectrangeproofsdatafromtxtime" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetCollectRangeproofsDataFromTxTime
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hascollectrangeproofsdatafromtxtime" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasCollectRangeproofsDataFromTxTime
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getverifymultiplezcoutsrangeproofstime" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetVerifyMultipleZcOutsRangeProofsTime
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getverifymultiplezcoutsrangeproofstimeok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetVerifyMultipleZcOutsRangeProofsTimeOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setverifymultiplezcoutsrangeproofstime" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetVerifyMultipleZcOutsRangeProofsTime
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hasverifymultiplezcoutsrangeproofstime" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasVerifyMultipleZcOutsRangeProofsTime
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettargetcalculatingenumblocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTargetCalculatingEnumBlocks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettargetcalculatingenumblocksok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTargetCalculatingEnumBlocksOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settargetcalculatingenumblocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTargetCalculatingEnumBlocks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastargetcalculatingenumblocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTargetCalculatingEnumBlocks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettargetcalculatingcalc" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTargetCalculatingCalc
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettargetcalculatingcalcok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTargetCalculatingCalcOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settargetcalculatingcalc" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTargetCalculatingCalc
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastargetcalculatingcalc" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTargetCalculatingCalc
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getposvalidatekisearch" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetPosValidateKiSearch
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getposvalidatekisearchok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetPosValidateKiSearchOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setposvalidatekisearch" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetPosValidateKiSearch
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hasposvalidatekisearch" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasPosValidateKiSearch
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getposvalidategetoutkeysforinputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetPosValidateGetOutKeysForInputs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getposvalidategetoutkeysforinputsok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetPosValidateGetOutKeysForInputsOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setposvalidategetoutkeysforinputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetPosValidateGetOutKeysForInputs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hasposvalidategetoutkeysforinputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasPosValidateGetOutKeysForInputs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getposvalidatezvp" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetPosValidateZvp
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getposvalidatezvpok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetPosValidateZvpOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setposvalidatezvp" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetPosValidateZvp
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hasposvalidatezvp" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasPosValidateZvp
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="blockprocessingperformancemodel">BlockProcessingPerformanceModel<a class="headerlink" href="#blockprocessingperformancemodel" title="Permanent link">&para;</a></h1>
+<h2 id="properties">Properties<a class="headerlink" href="#properties" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>BlockProcessingTime0</strong></td>
+<td>Pointer to <strong>int32</strong></td>
+<td></td>
+<td>[optional]</td>
+</tr>
+<tr>
+<td><strong>BlockProcessingTime1</strong></td>
+<td>Pointer to <strong>int32</strong></td>
+<td></td>
+<td>[optional]</td>
+</tr>
+<tr>
+<td><strong>TargetCalculatingTime2</strong></td>
+<td>Pointer to <strong>int32</strong></td>
+<td></td>
+<td>[optional]</td>
+</tr>
+<tr>
+<td><strong>LonghashCalculatingTime3</strong></td>
+<td>Pointer to <strong>int32</strong></td>
+<td></td>
+<td>[optional]</td>
+</tr>
+<tr>
+<td><strong>AllTxsInsertTime5</strong></td>
+<td>Pointer to <strong>int32</strong></td>
+<td></td>
+<td>[optional]</td>
+</tr>
+<tr>
+<td><strong>EtcStuff6</strong></td>
+<td>Pointer to <strong>int32</strong></td>
+<td></td>
+<td>[optional]</td>
+</tr>
+<tr>
+<td><strong>InsertTime4</strong></td>
+<td>Pointer to <strong>int32</strong></td>
+<td></td>
+<td>[optional]</td>
+</tr>
+<tr>
+<td><strong>RaiseBlockCoreEvent</strong></td>
+<td>Pointer to <strong>int32</strong></td>
+<td></td>
+<td>[optional]</td>
+</tr>
+<tr>
+<td><strong>ValidateMinerTransactionTime</strong></td>
+<td>Pointer to <strong>int32</strong></td>
+<td></td>
+<td>[optional]</td>
+</tr>
+<tr>
+<td><strong>CollectRangeproofsDataFromTxTime</strong></td>
+<td>Pointer to <strong>int32</strong></td>
+<td></td>
+<td>[optional]</td>
+</tr>
+<tr>
+<td><strong>VerifyMultipleZcOutsRangeProofsTime</strong></td>
+<td>Pointer to <strong>int32</strong></td>
+<td></td>
+<td>[optional]</td>
+</tr>
+<tr>
+<td><strong>TargetCalculatingEnumBlocks</strong></td>
+<td>Pointer to <strong>int32</strong></td>
+<td></td>
+<td>[optional]</td>
+</tr>
+<tr>
+<td><strong>TargetCalculatingCalc</strong></td>
+<td>Pointer to <strong>int32</strong></td>
+<td></td>
+<td>[optional]</td>
+</tr>
+<tr>
+<td><strong>PosValidateKiSearch</strong></td>
+<td>Pointer to <strong>int32</strong></td>
+<td></td>
+<td>[optional]</td>
+</tr>
+<tr>
+<td><strong>PosValidateGetOutKeysForInputs</strong></td>
+<td>Pointer to <strong>int32</strong></td>
+<td></td>
+<td>[optional]</td>
+</tr>
+<tr>
+<td><strong>PosValidateZvp</strong></td>
+<td>Pointer to <strong>int32</strong></td>
+<td></td>
+<td>[optional]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h2>
+<h3 id="newblockprocessingperformancemodel">NewBlockProcessingPerformanceModel<a class="headerlink" href="#newblockprocessingperformancemodel" title="Permanent link">&para;</a></h3>
+<p><code>func NewBlockProcessingPerformanceModel() *BlockProcessingPerformanceModel</code></p>
+<p>NewBlockProcessingPerformanceModel instantiates a new BlockProcessingPerformanceModel object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed</p>
+<h3 id="newblockprocessingperformancemodelwithdefaults">NewBlockProcessingPerformanceModelWithDefaults<a class="headerlink" href="#newblockprocessingperformancemodelwithdefaults" title="Permanent link">&para;</a></h3>
+<p><code>func NewBlockProcessingPerformanceModelWithDefaults() *BlockProcessingPerformanceModel</code></p>
+<p>NewBlockProcessingPerformanceModelWithDefaults instantiates a new BlockProcessingPerformanceModel object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set</p>
+<h3 id="getblockprocessingtime0">GetBlockProcessingTime0<a class="headerlink" href="#getblockprocessingtime0" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) GetBlockProcessingTime0() int32</code></p>
+<p>GetBlockProcessingTime0 returns the BlockProcessingTime0 field if non-nil, zero value otherwise.</p>
+<h3 id="getblockprocessingtime0ok">GetBlockProcessingTime0Ok<a class="headerlink" href="#getblockprocessingtime0ok" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) GetBlockProcessingTime0Ok() (*int32, bool)</code></p>
+<p>GetBlockProcessingTime0Ok returns a tuple with the BlockProcessingTime0 field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.</p>
+<h3 id="setblockprocessingtime0">SetBlockProcessingTime0<a class="headerlink" href="#setblockprocessingtime0" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) SetBlockProcessingTime0(v int32)</code></p>
+<p>SetBlockProcessingTime0 sets BlockProcessingTime0 field to given value.</p>
+<h3 id="hasblockprocessingtime0">HasBlockProcessingTime0<a class="headerlink" href="#hasblockprocessingtime0" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) HasBlockProcessingTime0() bool</code></p>
+<p>HasBlockProcessingTime0 returns a boolean if a field has been set.</p>
+<h3 id="getblockprocessingtime1">GetBlockProcessingTime1<a class="headerlink" href="#getblockprocessingtime1" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) GetBlockProcessingTime1() int32</code></p>
+<p>GetBlockProcessingTime1 returns the BlockProcessingTime1 field if non-nil, zero value otherwise.</p>
+<h3 id="getblockprocessingtime1ok">GetBlockProcessingTime1Ok<a class="headerlink" href="#getblockprocessingtime1ok" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) GetBlockProcessingTime1Ok() (*int32, bool)</code></p>
+<p>GetBlockProcessingTime1Ok returns a tuple with the BlockProcessingTime1 field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.</p>
+<h3 id="setblockprocessingtime1">SetBlockProcessingTime1<a class="headerlink" href="#setblockprocessingtime1" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) SetBlockProcessingTime1(v int32)</code></p>
+<p>SetBlockProcessingTime1 sets BlockProcessingTime1 field to given value.</p>
+<h3 id="hasblockprocessingtime1">HasBlockProcessingTime1<a class="headerlink" href="#hasblockprocessingtime1" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) HasBlockProcessingTime1() bool</code></p>
+<p>HasBlockProcessingTime1 returns a boolean if a field has been set.</p>
+<h3 id="gettargetcalculatingtime2">GetTargetCalculatingTime2<a class="headerlink" href="#gettargetcalculatingtime2" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) GetTargetCalculatingTime2() int32</code></p>
+<p>GetTargetCalculatingTime2 returns the TargetCalculatingTime2 field if non-nil, zero value otherwise.</p>
+<h3 id="gettargetcalculatingtime2ok">GetTargetCalculatingTime2Ok<a class="headerlink" href="#gettargetcalculatingtime2ok" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) GetTargetCalculatingTime2Ok() (*int32, bool)</code></p>
+<p>GetTargetCalculatingTime2Ok returns a tuple with the TargetCalculatingTime2 field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.</p>
+<h3 id="settargetcalculatingtime2">SetTargetCalculatingTime2<a class="headerlink" href="#settargetcalculatingtime2" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) SetTargetCalculatingTime2(v int32)</code></p>
+<p>SetTargetCalculatingTime2 sets TargetCalculatingTime2 field to given value.</p>
+<h3 id="hastargetcalculatingtime2">HasTargetCalculatingTime2<a class="headerlink" href="#hastargetcalculatingtime2" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) HasTargetCalculatingTime2() bool</code></p>
+<p>HasTargetCalculatingTime2 returns a boolean if a field has been set.</p>
+<h3 id="getlonghashcalculatingtime3">GetLonghashCalculatingTime3<a class="headerlink" href="#getlonghashcalculatingtime3" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) GetLonghashCalculatingTime3() int32</code></p>
+<p>GetLonghashCalculatingTime3 returns the LonghashCalculatingTime3 field if non-nil, zero value otherwise.</p>
+<h3 id="getlonghashcalculatingtime3ok">GetLonghashCalculatingTime3Ok<a class="headerlink" href="#getlonghashcalculatingtime3ok" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) GetLonghashCalculatingTime3Ok() (*int32, bool)</code></p>
+<p>GetLonghashCalculatingTime3Ok returns a tuple with the LonghashCalculatingTime3 field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.</p>
+<h3 id="setlonghashcalculatingtime3">SetLonghashCalculatingTime3<a class="headerlink" href="#setlonghashcalculatingtime3" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) SetLonghashCalculatingTime3(v int32)</code></p>
+<p>SetLonghashCalculatingTime3 sets LonghashCalculatingTime3 field to given value.</p>
+<h3 id="haslonghashcalculatingtime3">HasLonghashCalculatingTime3<a class="headerlink" href="#haslonghashcalculatingtime3" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) HasLonghashCalculatingTime3() bool</code></p>
+<p>HasLonghashCalculatingTime3 returns a boolean if a field has been set.</p>
+<h3 id="getalltxsinserttime5">GetAllTxsInsertTime5<a class="headerlink" href="#getalltxsinserttime5" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) GetAllTxsInsertTime5() int32</code></p>
+<p>GetAllTxsInsertTime5 returns the AllTxsInsertTime5 field if non-nil, zero value otherwise.</p>
+<h3 id="getalltxsinserttime5ok">GetAllTxsInsertTime5Ok<a class="headerlink" href="#getalltxsinserttime5ok" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) GetAllTxsInsertTime5Ok() (*int32, bool)</code></p>
+<p>GetAllTxsInsertTime5Ok returns a tuple with the AllTxsInsertTime5 field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.</p>
+<h3 id="setalltxsinserttime5">SetAllTxsInsertTime5<a class="headerlink" href="#setalltxsinserttime5" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) SetAllTxsInsertTime5(v int32)</code></p>
+<p>SetAllTxsInsertTime5 sets AllTxsInsertTime5 field to given value.</p>
+<h3 id="hasalltxsinserttime5">HasAllTxsInsertTime5<a class="headerlink" href="#hasalltxsinserttime5" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) HasAllTxsInsertTime5() bool</code></p>
+<p>HasAllTxsInsertTime5 returns a boolean if a field has been set.</p>
+<h3 id="getetcstuff6">GetEtcStuff6<a class="headerlink" href="#getetcstuff6" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) GetEtcStuff6() int32</code></p>
+<p>GetEtcStuff6 returns the EtcStuff6 field if non-nil, zero value otherwise.</p>
+<h3 id="getetcstuff6ok">GetEtcStuff6Ok<a class="headerlink" href="#getetcstuff6ok" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) GetEtcStuff6Ok() (*int32, bool)</code></p>
+<p>GetEtcStuff6Ok returns a tuple with the EtcStuff6 field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.</p>
+<h3 id="setetcstuff6">SetEtcStuff6<a class="headerlink" href="#setetcstuff6" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) SetEtcStuff6(v int32)</code></p>
+<p>SetEtcStuff6 sets EtcStuff6 field to given value.</p>
+<h3 id="hasetcstuff6">HasEtcStuff6<a class="headerlink" href="#hasetcstuff6" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) HasEtcStuff6() bool</code></p>
+<p>HasEtcStuff6 returns a boolean if a field has been set.</p>
+<h3 id="getinserttime4">GetInsertTime4<a class="headerlink" href="#getinserttime4" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) GetInsertTime4() int32</code></p>
+<p>GetInsertTime4 returns the InsertTime4 field if non-nil, zero value otherwise.</p>
+<h3 id="getinserttime4ok">GetInsertTime4Ok<a class="headerlink" href="#getinserttime4ok" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) GetInsertTime4Ok() (*int32, bool)</code></p>
+<p>GetInsertTime4Ok returns a tuple with the InsertTime4 field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.</p>
+<h3 id="setinserttime4">SetInsertTime4<a class="headerlink" href="#setinserttime4" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) SetInsertTime4(v int32)</code></p>
+<p>SetInsertTime4 sets InsertTime4 field to given value.</p>
+<h3 id="hasinserttime4">HasInsertTime4<a class="headerlink" href="#hasinserttime4" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) HasInsertTime4() bool</code></p>
+<p>HasInsertTime4 returns a boolean if a field has been set.</p>
+<h3 id="getraiseblockcoreevent">GetRaiseBlockCoreEvent<a class="headerlink" href="#getraiseblockcoreevent" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) GetRaiseBlockCoreEvent() int32</code></p>
+<p>GetRaiseBlockCoreEvent returns the RaiseBlockCoreEvent field if non-nil, zero value otherwise.</p>
+<h3 id="getraiseblockcoreeventok">GetRaiseBlockCoreEventOk<a class="headerlink" href="#getraiseblockcoreeventok" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) GetRaiseBlockCoreEventOk() (*int32, bool)</code></p>
+<p>GetRaiseBlockCoreEventOk returns a tuple with the RaiseBlockCoreEvent field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.</p>
+<h3 id="setraiseblockcoreevent">SetRaiseBlockCoreEvent<a class="headerlink" href="#setraiseblockcoreevent" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) SetRaiseBlockCoreEvent(v int32)</code></p>
+<p>SetRaiseBlockCoreEvent sets RaiseBlockCoreEvent field to given value.</p>
+<h3 id="hasraiseblockcoreevent">HasRaiseBlockCoreEvent<a class="headerlink" href="#hasraiseblockcoreevent" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) HasRaiseBlockCoreEvent() bool</code></p>
+<p>HasRaiseBlockCoreEvent returns a boolean if a field has been set.</p>
+<h3 id="getvalidateminertransactiontime">GetValidateMinerTransactionTime<a class="headerlink" href="#getvalidateminertransactiontime" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) GetValidateMinerTransactionTime() int32</code></p>
+<p>GetValidateMinerTransactionTime returns the ValidateMinerTransactionTime field if non-nil, zero value otherwise.</p>
+<h3 id="getvalidateminertransactiontimeok">GetValidateMinerTransactionTimeOk<a class="headerlink" href="#getvalidateminertransactiontimeok" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) GetValidateMinerTransactionTimeOk() (*int32, bool)</code></p>
+<p>GetValidateMinerTransactionTimeOk returns a tuple with the ValidateMinerTransactionTime field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.</p>
+<h3 id="setvalidateminertransactiontime">SetValidateMinerTransactionTime<a class="headerlink" href="#setvalidateminertransactiontime" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) SetValidateMinerTransactionTime(v int32)</code></p>
+<p>SetValidateMinerTransactionTime sets ValidateMinerTransactionTime field to given value.</p>
+<h3 id="hasvalidateminertransactiontime">HasValidateMinerTransactionTime<a class="headerlink" href="#hasvalidateminertransactiontime" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) HasValidateMinerTransactionTime() bool</code></p>
+<p>HasValidateMinerTransactionTime returns a boolean if a field has been set.</p>
+<h3 id="getcollectrangeproofsdatafromtxtime">GetCollectRangeproofsDataFromTxTime<a class="headerlink" href="#getcollectrangeproofsdatafromtxtime" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) GetCollectRangeproofsDataFromTxTime() int32</code></p>
+<p>GetCollectRangeproofsDataFromTxTime returns the CollectRangeproofsDataFromTxTime field if non-nil, zero value otherwise.</p>
+<h3 id="getcollectrangeproofsdatafromtxtimeok">GetCollectRangeproofsDataFromTxTimeOk<a class="headerlink" href="#getcollectrangeproofsdatafromtxtimeok" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) GetCollectRangeproofsDataFromTxTimeOk() (*int32, bool)</code></p>
+<p>GetCollectRangeproofsDataFromTxTimeOk returns a tuple with the CollectRangeproofsDataFromTxTime field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.</p>
+<h3 id="setcollectrangeproofsdatafromtxtime">SetCollectRangeproofsDataFromTxTime<a class="headerlink" href="#setcollectrangeproofsdatafromtxtime" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) SetCollectRangeproofsDataFromTxTime(v int32)</code></p>
+<p>SetCollectRangeproofsDataFromTxTime sets CollectRangeproofsDataFromTxTime field to given value.</p>
+<h3 id="hascollectrangeproofsdatafromtxtime">HasCollectRangeproofsDataFromTxTime<a class="headerlink" href="#hascollectrangeproofsdatafromtxtime" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) HasCollectRangeproofsDataFromTxTime() bool</code></p>
+<p>HasCollectRangeproofsDataFromTxTime returns a boolean if a field has been set.</p>
+<h3 id="getverifymultiplezcoutsrangeproofstime">GetVerifyMultipleZcOutsRangeProofsTime<a class="headerlink" href="#getverifymultiplezcoutsrangeproofstime" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) GetVerifyMultipleZcOutsRangeProofsTime() int32</code></p>
+<p>GetVerifyMultipleZcOutsRangeProofsTime returns the VerifyMultipleZcOutsRangeProofsTime field if non-nil, zero value otherwise.</p>
+<h3 id="getverifymultiplezcoutsrangeproofstimeok">GetVerifyMultipleZcOutsRangeProofsTimeOk<a class="headerlink" href="#getverifymultiplezcoutsrangeproofstimeok" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) GetVerifyMultipleZcOutsRangeProofsTimeOk() (*int32, bool)</code></p>
+<p>GetVerifyMultipleZcOutsRangeProofsTimeOk returns a tuple with the VerifyMultipleZcOutsRangeProofsTime field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.</p>
+<h3 id="setverifymultiplezcoutsrangeproofstime">SetVerifyMultipleZcOutsRangeProofsTime<a class="headerlink" href="#setverifymultiplezcoutsrangeproofstime" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) SetVerifyMultipleZcOutsRangeProofsTime(v int32)</code></p>
+<p>SetVerifyMultipleZcOutsRangeProofsTime sets VerifyMultipleZcOutsRangeProofsTime field to given value.</p>
+<h3 id="hasverifymultiplezcoutsrangeproofstime">HasVerifyMultipleZcOutsRangeProofsTime<a class="headerlink" href="#hasverifymultiplezcoutsrangeproofstime" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) HasVerifyMultipleZcOutsRangeProofsTime() bool</code></p>
+<p>HasVerifyMultipleZcOutsRangeProofsTime returns a boolean if a field has been set.</p>
+<h3 id="gettargetcalculatingenumblocks">GetTargetCalculatingEnumBlocks<a class="headerlink" href="#gettargetcalculatingenumblocks" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) GetTargetCalculatingEnumBlocks() int32</code></p>
+<p>GetTargetCalculatingEnumBlocks returns the TargetCalculatingEnumBlocks field if non-nil, zero value otherwise.</p>
+<h3 id="gettargetcalculatingenumblocksok">GetTargetCalculatingEnumBlocksOk<a class="headerlink" href="#gettargetcalculatingenumblocksok" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) GetTargetCalculatingEnumBlocksOk() (*int32, bool)</code></p>
+<p>GetTargetCalculatingEnumBlocksOk returns a tuple with the TargetCalculatingEnumBlocks field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.</p>
+<h3 id="settargetcalculatingenumblocks">SetTargetCalculatingEnumBlocks<a class="headerlink" href="#settargetcalculatingenumblocks" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) SetTargetCalculatingEnumBlocks(v int32)</code></p>
+<p>SetTargetCalculatingEnumBlocks sets TargetCalculatingEnumBlocks field to given value.</p>
+<h3 id="hastargetcalculatingenumblocks">HasTargetCalculatingEnumBlocks<a class="headerlink" href="#hastargetcalculatingenumblocks" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) HasTargetCalculatingEnumBlocks() bool</code></p>
+<p>HasTargetCalculatingEnumBlocks returns a boolean if a field has been set.</p>
+<h3 id="gettargetcalculatingcalc">GetTargetCalculatingCalc<a class="headerlink" href="#gettargetcalculatingcalc" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) GetTargetCalculatingCalc() int32</code></p>
+<p>GetTargetCalculatingCalc returns the TargetCalculatingCalc field if non-nil, zero value otherwise.</p>
+<h3 id="gettargetcalculatingcalcok">GetTargetCalculatingCalcOk<a class="headerlink" href="#gettargetcalculatingcalcok" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) GetTargetCalculatingCalcOk() (*int32, bool)</code></p>
+<p>GetTargetCalculatingCalcOk returns a tuple with the TargetCalculatingCalc field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.</p>
+<h3 id="settargetcalculatingcalc">SetTargetCalculatingCalc<a class="headerlink" href="#settargetcalculatingcalc" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) SetTargetCalculatingCalc(v int32)</code></p>
+<p>SetTargetCalculatingCalc sets TargetCalculatingCalc field to given value.</p>
+<h3 id="hastargetcalculatingcalc">HasTargetCalculatingCalc<a class="headerlink" href="#hastargetcalculatingcalc" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) HasTargetCalculatingCalc() bool</code></p>
+<p>HasTargetCalculatingCalc returns a boolean if a field has been set.</p>
+<h3 id="getposvalidatekisearch">GetPosValidateKiSearch<a class="headerlink" href="#getposvalidatekisearch" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) GetPosValidateKiSearch() int32</code></p>
+<p>GetPosValidateKiSearch returns the PosValidateKiSearch field if non-nil, zero value otherwise.</p>
+<h3 id="getposvalidatekisearchok">GetPosValidateKiSearchOk<a class="headerlink" href="#getposvalidatekisearchok" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) GetPosValidateKiSearchOk() (*int32, bool)</code></p>
+<p>GetPosValidateKiSearchOk returns a tuple with the PosValidateKiSearch field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.</p>
+<h3 id="setposvalidatekisearch">SetPosValidateKiSearch<a class="headerlink" href="#setposvalidatekisearch" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) SetPosValidateKiSearch(v int32)</code></p>
+<p>SetPosValidateKiSearch sets PosValidateKiSearch field to given value.</p>
+<h3 id="hasposvalidatekisearch">HasPosValidateKiSearch<a class="headerlink" href="#hasposvalidatekisearch" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) HasPosValidateKiSearch() bool</code></p>
+<p>HasPosValidateKiSearch returns a boolean if a field has been set.</p>
+<h3 id="getposvalidategetoutkeysforinputs">GetPosValidateGetOutKeysForInputs<a class="headerlink" href="#getposvalidategetoutkeysforinputs" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) GetPosValidateGetOutKeysForInputs() int32</code></p>
+<p>GetPosValidateGetOutKeysForInputs returns the PosValidateGetOutKeysForInputs field if non-nil, zero value otherwise.</p>
+<h3 id="getposvalidategetoutkeysforinputsok">GetPosValidateGetOutKeysForInputsOk<a class="headerlink" href="#getposvalidategetoutkeysforinputsok" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) GetPosValidateGetOutKeysForInputsOk() (*int32, bool)</code></p>
+<p>GetPosValidateGetOutKeysForInputsOk returns a tuple with the PosValidateGetOutKeysForInputs field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.</p>
+<h3 id="setposvalidategetoutkeysforinputs">SetPosValidateGetOutKeysForInputs<a class="headerlink" href="#setposvalidategetoutkeysforinputs" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) SetPosValidateGetOutKeysForInputs(v int32)</code></p>
+<p>SetPosValidateGetOutKeysForInputs sets PosValidateGetOutKeysForInputs field to given value.</p>
+<h3 id="hasposvalidategetoutkeysforinputs">HasPosValidateGetOutKeysForInputs<a class="headerlink" href="#hasposvalidategetoutkeysforinputs" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) HasPosValidateGetOutKeysForInputs() bool</code></p>
+<p>HasPosValidateGetOutKeysForInputs returns a boolean if a field has been set.</p>
+<h3 id="getposvalidatezvp">GetPosValidateZvp<a class="headerlink" href="#getposvalidatezvp" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) GetPosValidateZvp() int32</code></p>
+<p>GetPosValidateZvp returns the PosValidateZvp field if non-nil, zero value otherwise.</p>
+<h3 id="getposvalidatezvpok">GetPosValidateZvpOk<a class="headerlink" href="#getposvalidatezvpok" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) GetPosValidateZvpOk() (*int32, bool)</code></p>
+<p>GetPosValidateZvpOk returns a tuple with the PosValidateZvp field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.</p>
+<h3 id="setposvalidatezvp">SetPosValidateZvp<a class="headerlink" href="#setposvalidatezvp" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) SetPosValidateZvp(v int32)</code></p>
+<p>SetPosValidateZvp sets PosValidateZvp field to given value.</p>
+<h3 id="hasposvalidatezvp">HasPosValidateZvp<a class="headerlink" href="#hasposvalidatezvp" title="Permanent link">&para;</a></h3>
+<p><code>func (o *BlockProcessingPerformanceModel) HasPosValidateZvp() bool</code></p>
+<p>HasPosValidateZvp returns a boolean if a field has been set.</p>
+<p><a href="../#documentation-for-models">[Back to Model list]</a> <a href="../#documentation-for-api-endpoints">[Back to API list]</a> <a href="../">[Back to README]</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      LetheanVPN &copy; EUPL-1.2 &mdash; 2017 to &infin; and beyond
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.indexes", "navigation.expand", "navigation.sections", "navigation.path", "navigation.top", "search.suggest", "search.highlight", "search.share", "content.tabs.link", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>
