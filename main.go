@@ -7,11 +7,11 @@ import (
 	"path/filepath"
 
 	"github.com/letheanVPN/desktop/services/blockchain"
-	"github.com/wailsapp/wails/v3/pkg/application"
-	"github.com/wailsapp/wails/v3/pkg/events"
-
 	"github.com/letheanVPN/desktop/services/config"
 	"github.com/letheanVPN/desktop/services/display"
+	"github.com/letheanVPN/desktop/services/docs"
+	"github.com/wailsapp/wails/v3/pkg/application"
+	"github.com/wailsapp/wails/v3/pkg/events"
 )
 
 //go:embed all:frontend/dist
@@ -35,6 +35,11 @@ func main() {
 
 	letheanService := blockchain.NewService(cfg)
 
+	docsService, err := docs.NewService(displayService)
+	if err != nil {
+		log.Fatalf("Fatal: Failed to initialize docs service: %v", err)
+	}
+
 	// --- Initialize Wails Application ---
 	app := application.New(application.Options{
 		Name:        "Lethean Desktop",
@@ -43,6 +48,9 @@ func main() {
 			application.NewService(displayService),
 			application.NewService(letheanService),
 			application.NewService(configService),
+			application.NewServiceWithOptions(docsService, application.ServiceOptions{
+				Route: "docs",
+			}),
 			//application.NewService(cryptService),
 			//application.NewService(workspaceService),
 		},
@@ -79,10 +87,16 @@ func main() {
 			URL:   "#/setup",
 		})
 	} else {
+		//displayService.OpenWindow("main", application.WebviewWindowOptions{
+		//	Title:  "Desktopfdfd",
+		//	Height: 900,
+		//	Width:  1280,
+		//	URL:    "/docs/",
+		//})
 		displayService.OpenWindow("main", application.WebviewWindowOptions{
 			Title:  "Desktop",
 			Height: 900,
-			Width:  1200,
+			Width:  1280,
 			URL:    "#" + cfg.DefaultRoute,
 		})
 	}
