@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule, TitleCasePipe } from '@angular/common';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { ShowEnvironmentDialog } from "@lthn/display/service"
+import { OpenDocsWindow } from "@lthn/docs/service"
 
 import { EnableFeature, IsFeatureEnabled } from "@lthn/config/service";
 
@@ -103,12 +104,17 @@ import { EnableFeature, IsFeatureEnabled } from "@lthn/config/service";
                 <img src="avatar.png" alt="Current User Avatar Image" class="size-8 rounded-full bg-gray-50 outline -outline-offset-1 outline-black/5 dark:bg-gray-800 dark:outline-white/10"/>
                 <span class="hidden lg:flex lg:items-center">
                   <span aria-hidden="true" class="ml-4 w-32 text-sm/6 font-semibold text-gray-900 dark:text-white">{{ currentRole }} Hub</span>
-                  <i class="ml-2 fa-solid fa-chevron-down text-sm/6 text-gray-400"></i>
+                  <i class="ml-2 fa-regular fa-chevron-down text-sm/6 text-gray-400"></i>
                 </span>
               </button>
               @if (userMenuOpen) {
                 <div
                   class="absolute right-0 z-10 mt-2.5 w-48 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-gray-800 dark:ring-white/10">
+                  <a (click)="openDocs()"
+                     class="flex items-center gap-x-3 px-3 py-1 text-sm/6 text-gray-900 focus:bg-gray-50 focus:outline-hidden dark:text-white dark:focus:bg-white/5">
+                    <i class="fa-regular fa-code"></i>
+                    Documentation
+                  </a>
                   @for (item of userNavigation; track item.name) {
                     <a [routerLink]="item.href" (click)="userMenuOpen = false" class="flex items-center gap-x-3 px-3 py-1 text-sm/6 text-gray-900 focus:bg-gray-50 focus:outline-hidden dark:text-white dark:focus:bg-white/5 h-8 ">
                       <i [class]="item.icon"></i>
@@ -133,7 +139,7 @@ import { EnableFeature, IsFeatureEnabled } from "@lthn/config/service";
         </div>
       </div>
 
-      <main class="xl:pl-96">
+      <main >
         <div class="px-0 py-0">
           @if (featureKey && !isFeatureEnabled) {
             <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4" role="alert">
@@ -154,9 +160,9 @@ import { EnableFeature, IsFeatureEnabled } from "@lthn/config/service";
 
     <footer
       class="fixed inset-x-0 bottom-0 z-40 h-10 border-t border-gray-200 bg-white dark:border-white/10 dark:bg-gray-900 lg:left-20">
-      <div class="flex h-full items-center justify-between px-4 sm:px-6 lg:px-8 xl:ml-96">
+      <div class="flex h-full items-center justify-between px-4 sm:px-6 lg:px-8">
         <button class="text-sm text-gray-500 dark:text-gray-400 cursor-pointer" (click)="ShowEnvironmentDialog()">
-          v0.0.1
+          v0.0.1 <i class="fa-brands fa-pied-piper-alt fa-xl"></i>
         </button>
         @if (currentRole === 'Developer') {
           <button class="ml-4 text-sm text-gray-500 dark:text-gray-400 cursor-pointer" (click)="showTestDialog()">Test
@@ -251,6 +257,7 @@ export class ApplicationFrame implements OnInit, OnDestroy {
     { name: 'Dashboard', href: 'blockchain', icon: "fa-chart-network fa-regular fa-2xl shrink-0" },
     { name: 'Developer', href: 'dev/edit', icon: "fa-code fa-regular fa-2xl shrink-0" },
     { name: 'Networking', href: 'net', icon: "fa-network-wired fa-regular fa-2xl shrink-0" },
+    { name: 'Settings', href: '/docs', icon: "fa-gear-code fa-regular fa-2xl shrink-0" },
     { name: 'Settings', href: 'system/settings', icon: "fa-gear-code fa-regular fa-2xl shrink-0" },
   ];
 
@@ -267,6 +274,9 @@ export class ApplicationFrame implements OnInit, OnDestroy {
     { name: 'Admin Hub', href: '/config/admin-hub' },
   ];
 
+  openDocs() {
+    return OpenDocsWindow("getting-started/chain#using-the-cli")
+  }
   switchRole(roleName: string) {
     if (roleName.endsWith(' Hub')) {
       this.currentRole = roleName.replace(' Hub', '');
