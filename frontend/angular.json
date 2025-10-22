@@ -33,6 +33,9 @@
               },
               { "glob": "**/*", "input": "node_modules/monaco-editor", "output": "/assets/monaco/" }
             ],
+            "scripts": [
+              "node_modules/@tailwindplus/elements/dist/index.js"
+            ],
             "styles": [
               "src/styles.css",
               "src/assets/css/fontawesome.min.css",
