@@ -1,7 +1,7 @@
 package workspace
 
 import (
-	"github.com/letheanVPN/desktop/services/config"
+	"github.com/letheanVPN/desktop/services/core/config"
 )
 
 const (

@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule, TitleCasePipe } from '@angular/common';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { ShowEnvironmentDialog } from "@lthn/display/service"
+import { ShowEnvironmentDialog } from "@lthn/core/display/service"
 import { OpenDocsWindow } from "@lthn/docs/service"
-import { EnableFeature, IsFeatureEnabled } from "@lthn/config/service";
+import { EnableFeature, IsFeatureEnabled } from "@lthn/core/config/service";
 import { TranslationService } from '../app/services/translation.service';
 import { I18nService } from '../app/services/i18n.service';
 import { Subscription } from 'rxjs';

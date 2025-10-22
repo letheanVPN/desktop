@@ -6,7 +6,7 @@ import (
 	"log"
 	"path/filepath"
 
-	"github.com/letheanVPN/desktop/services/config"
+	"github.com/letheanVPN/desktop/services/core/config"
 	"github.com/letheanVPN/desktop/services/crypt/lib/openpgp"
 	"github.com/letheanVPN/desktop/services/filesystem"
 	"github.com/wailsapp/wails/v3/pkg/application"

@@ -1,25 +1,25 @@
 package docs
 
 import (
+	"embed"
 	"net/http"
 	"strings"
 
-	"github.com/letheanVPN/desktop/services/display"
+	"github.com/letheanVPN/desktop/services/core/display"
 	"github.com/wailsapp/wails/v3/pkg/application"
 )
 
-func (s *Service) Get() *Config {
-	return s.config
+// NewService creates a new, un-wired documentation service.
+func NewService(assets embed.FS) *Service {
+	return &Service{
+		assets: assets,
+	}
 }
 
-// NewService creates and initializes a new documentation service.
-func NewService(displaySvc *display.Service) (*Service, error) {
-	return &Service{
-		config: &Config{
-			"",
-		},
-		display: displaySvc,
-	}, nil
+// Setup injects the required dependencies into the service.
+func (s *Service) Setup(app *application.App, displayService *display.Service) {
+	s.app = app
+	s.displayService = displayService
 }
 
 // OpenDocsWindow opens a new window with the documentation.
@@ -36,7 +36,9 @@ func (s *Service) OpenDocsWindow(path ...string) {
 			url += fullPath
 		}
 	}
-	s.display.OpenWindow("docs", application.WebviewWindowOptions{
+
+	// Use the injected displayService, which satisfies the local displayer interface.
+	s.displayService.OpenWindow("docs", application.WebviewWindowOptions{
 		Title:       "Lethean Documentation",
 		Height:      600,
 		Width:       1000,
@@ -46,7 +48,7 @@ func (s *Service) OpenDocsWindow(path ...string) {
 	})
 }
 
+// ServeHTTP serves the embedded documentation assets.
 func (s *Service) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	http.FileServerFS(docsStatic).ServeHTTP(w, r)
-	//application.AssetFileServerFS(docsStatic).ServeHTTP(w, r)
 }

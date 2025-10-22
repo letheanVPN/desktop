@@ -3,25 +3,23 @@ package blockchain
 import (
 	"fmt"
 
-	"github.com/letheanVPN/desktop/services/config"
+	"github.com/letheanVPN/desktop/services/core"
 )
 
 // Service manages different blockchain network implementations.
 type Service struct {
-	config        *config.Config
 	networks      map[string]Network
 	activeNetwork Network
 }
 
 // NewService creates a new, uninitialized blockchain service.
-func NewService(cfg *config.Config) *Service {
+func NewService() *Service {
 	s := &Service{
-		config:   cfg,
 		networks: make(map[string]Network),
 	}
 
 	// Register all available network implementations here.
-	s.networks["lthn"] = newLthnNetwork(cfg)
+	s.networks["lthn"] = newLthnNetwork(core.Config().Get())
 
 	return s
 }

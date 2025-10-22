@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/letheanVPN/desktop/services/config"
+	"github.com/letheanVPN/desktop/services/core/config"
 	"github.com/stretchr/testify/assert"
 )
 

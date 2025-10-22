@@ -1,8 +1,8 @@
 import {Component, signal} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {Router} from '@angular/router';
-import {SelectDirectory} from '@lthn/display/service';
-import {Save} from '@lthn/config/service';
+import {SelectDirectory} from '@lthn/core/display/service';
+import {Save} from '@lthn/core/config/service';
 
 @Component({
   selector: 'app-full-setup',

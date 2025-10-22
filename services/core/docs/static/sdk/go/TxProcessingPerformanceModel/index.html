@@ -1,0 +1,4059 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../TxPoolPerformanceModel/">
+      
+      
+        <link rel="next" href="../VersionModel/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
+    
+    
+      
+        <title>TxProcessingPerformanceModel - Lethean Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.84d31ad4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#txprocessingperformancemodel" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Lethean Documentation" class="md-header__button md-logo" aria-label="Lethean Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Lethean Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              TxProcessingPerformanceModel
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../getting-started/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Getting started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Sdk
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../updates/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Updates
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Lethean Documentation" class="md-nav__button md-logo" aria-label="Lethean Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Lethean Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../getting-started/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Getting started
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/chain/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Blockchain
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/wallet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Wallet
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../getting-started/developer/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Developer
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Developer
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/developer/build/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Building The Blockchain
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/developer/docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker for Lethean
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/developer/sdks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Building SDK Packages
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Sdk
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Sdk
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Go
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_1" id="__nav_3_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Go
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../BlockDetailsModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    BlockDetailsModel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../BlockProcessingPerformanceModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    BlockProcessingPerformanceModel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../BlockTemplateModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    BlockTemplateModel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../BlockTemplateRequestModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    BlockTemplateRequestModel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../BlockUtilsSdkClientGo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    \BlockUtilsSdkClientGo
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DbStatInfoModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    DbStatInfoModel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../HeightModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    HeightModel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../InfoModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    InfoModel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../InfoUtilsSdkClientGo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    \InfoUtilsSdkClientGo
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../MaintainersInfoModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MaintainersInfoModel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PerformanceModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    PerformanceModel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PosEntryModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    PosEntryModel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SubmitBlockRequestModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SubmitBlockRequestModel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SubmitBlockResponseModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SubmitBlockResponseModel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TransactionAttachmentModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    TransactionAttachmentModel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TransactionDetailsModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    TransactionDetailsModel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TransactionExtraModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    TransactionExtraModel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TransactionInputModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    TransactionInputModel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TransactionOutputModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    TransactionOutputModel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TxGenerationContextModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    TxGenerationContextModel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TxPoolPerformanceModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    TxPoolPerformanceModel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    TxProcessingPerformanceModel
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    TxProcessingPerformanceModel
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      Properties
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#newtxprocessingperformancemodel" class="md-nav__link">
+    <span class="md-ellipsis">
+      NewTxProcessingPerformanceModel
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#newtxprocessingperformancemodelwithdefaults" class="md-nav__link">
+    <span class="md-ellipsis">
+      NewTxProcessingPerformanceModelWithDefaults
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxcheckinputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxCheckInputs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxcheckinputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxCheckInputs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxaddonetx" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxAddOneTx
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxaddonetxok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxAddOneTxOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxaddonetx" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxAddOneTx
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxaddonetx" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxAddOneTx
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxprocessextra" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxProcessExtra
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxprocessextraok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxProcessExtraOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxprocessextra" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxProcessExtra
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxprocessextra" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxProcessExtra
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxprocessattachment" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxProcessAttachment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxprocessattachmentok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxProcessAttachmentOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxprocessattachment" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxProcessAttachment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxprocessattachment" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxProcessAttachment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxprocessinputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxProcessInputs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxprocessinputsok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxProcessInputsOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxprocessinputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxProcessInputs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxprocessinputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxProcessInputs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxpushglobalindex" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxPushGlobalIndex
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxpushglobalindexok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxPushGlobalIndexOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxpushglobalindex" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxPushGlobalIndex
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxpushglobalindex" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxPushGlobalIndex
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckexist" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckExist
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckexistok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckExistOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxcheckexist" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxCheckExist
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxcheckexist" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxCheckExist
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxprintlog" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxPrintLog
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxprintlogok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxPrintLogOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxprintlog" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxPrintLog
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxprintlog" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxPrintLog
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxprapareappend" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxPrapareAppend
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxprapareappendok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxPrapareAppendOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxprapareappend" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxPrapareAppend
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxprapareappend" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxPrapareAppend
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxappend" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxAppend
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxappendok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxAppendOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxappend" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxAppend
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxappend" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxAppend
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxappendrlwait" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxAppendRlWait
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxappendrlwaitok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxAppendRlWaitOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxappendrlwait" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxAppendRlWait
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxappendrlwait" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxAppendRlWait
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxappendisexpired" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxAppendIsExpired
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxappendisexpiredok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxAppendIsExpiredOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxappendisexpired" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxAppendIsExpired
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxappendisexpired" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxAppendIsExpired
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxstoredb" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxStoreDb
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxstoredbok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxStoreDbOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxstoredb" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxStoreDb
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxstoredb" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxStoreDb
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsprefixhash" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsPrefixHash
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsprefixhashok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsPrefixHashOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxcheckinputsprefixhash" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxCheckInputsPrefixHash
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxcheckinputsprefixhash" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxCheckInputsPrefixHash
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsattachmentcheck" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsAttachmentCheck
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsattachmentcheckok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsAttachmentCheckOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxcheckinputsattachmentcheck" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxCheckInputsAttachmentCheck
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxcheckinputsattachmentcheck" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxCheckInputsAttachmentCheck
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsloop" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsLoop
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsloopok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsLoopOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxcheckinputsloop" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxCheckInputsLoop
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxcheckinputsloop" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxCheckInputsLoop
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsloopkimagecheck" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsLoopKimageCheck
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsloopkimagecheckok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsLoopKimageCheckOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxcheckinputsloopkimagecheck" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxCheckInputsLoopKimageCheck
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxcheckinputsloopkimagecheck" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxCheckInputsLoopKimageCheck
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsloopchinvalsig" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsLoopChInValSig
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsloopchinvalsigok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsLoopChInValSigOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxcheckinputsloopchinvalsig" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxCheckInputsLoopChInValSig
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxcheckinputsloopchinvalsig" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxCheckInputsLoopChInValSig
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsloopscanoutputkeysgetitemsize" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsLoopScanOutputkeysGetItemSize
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsloopscanoutputkeysgetitemsizeok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsLoopScanOutputkeysGetItemSizeOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxcheckinputsloopscanoutputkeysgetitemsize" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxCheckInputsLoopScanOutputkeysGetItemSize
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxcheckinputsloopscanoutputkeysgetitemsize" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxCheckInputsLoopScanOutputkeysGetItemSize
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsloopscanoutputkeysrelativetoabsolute" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsLoopScanOutputkeysRelativeToAbsolute
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsloopscanoutputkeysrelativetoabsoluteok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsLoopScanOutputkeysRelativeToAbsoluteOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxcheckinputsloopscanoutputkeysrelativetoabsolute" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxCheckInputsLoopScanOutputkeysRelativeToAbsolute
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxcheckinputsloopscanoutputkeysrelativetoabsolute" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxCheckInputsLoopScanOutputkeysRelativeToAbsolute
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsloopscanoutputkeysloop" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsLoopScanOutputkeysLoop
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsloopscanoutputkeysloopok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsLoopScanOutputkeysLoopOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxcheckinputsloopscanoutputkeysloop" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxCheckInputsLoopScanOutputkeysLoop
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxcheckinputsloopscanoutputkeysloop" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxCheckInputsLoopScanOutputkeysLoop
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsloopscanoutputkeysloopgetsubitem" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsLoopScanOutputkeysLoopGetSubitem
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsloopscanoutputkeysloopgetsubitemok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsLoopScanOutputkeysLoopGetSubitemOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxcheckinputsloopscanoutputkeysloopgetsubitem" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxCheckInputsLoopScanOutputkeysLoopGetSubitem
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxcheckinputsloopscanoutputkeysloopgetsubitem" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxCheckInputsLoopScanOutputkeysLoopGetSubitem
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsloopscanoutputkeysloopfindtx" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsLoopScanOutputkeysLoopFindTx
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsloopscanoutputkeysloopfindtxok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsLoopScanOutputkeysLoopFindTxOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxcheckinputsloopscanoutputkeysloopfindtx" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxCheckInputsLoopScanOutputkeysLoopFindTx
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxcheckinputsloopscanoutputkeysloopfindtx" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxCheckInputsLoopScanOutputkeysLoopFindTx
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsloopscanoutputkeysloophandleoutput" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsLoopScanOutputkeysLoopHandleOutput
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsloopscanoutputkeysloophandleoutputok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsLoopScanOutputkeysLoopHandleOutputOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxcheckinputsloopscanoutputkeysloophandleoutput" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxCheckInputsLoopScanOutputkeysLoopHandleOutput
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxcheckinputsloopscanoutputkeysloophandleoutput" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxCheckInputsLoopScanOutputkeysLoopHandleOutput
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxmixincount" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxMixinCount
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxmixincountok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxMixinCountOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxmixincount" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxMixinCount
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxmixincount" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxMixinCount
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../VersionModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    VersionModel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../updates/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Updates
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Updates
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Posts
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Posts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2_1" id="__nav_4_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    2025
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            2025
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../updates/posts/2025/october-development-update/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Development Update
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../updates/posts/2025/why-ethics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Why Ethics?
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      Properties
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#newtxprocessingperformancemodel" class="md-nav__link">
+    <span class="md-ellipsis">
+      NewTxProcessingPerformanceModel
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#newtxprocessingperformancemodelwithdefaults" class="md-nav__link">
+    <span class="md-ellipsis">
+      NewTxProcessingPerformanceModelWithDefaults
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxcheckinputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxCheckInputs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxcheckinputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxCheckInputs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxaddonetx" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxAddOneTx
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxaddonetxok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxAddOneTxOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxaddonetx" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxAddOneTx
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxaddonetx" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxAddOneTx
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxprocessextra" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxProcessExtra
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxprocessextraok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxProcessExtraOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxprocessextra" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxProcessExtra
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxprocessextra" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxProcessExtra
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxprocessattachment" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxProcessAttachment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxprocessattachmentok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxProcessAttachmentOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxprocessattachment" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxProcessAttachment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxprocessattachment" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxProcessAttachment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxprocessinputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxProcessInputs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxprocessinputsok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxProcessInputsOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxprocessinputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxProcessInputs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxprocessinputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxProcessInputs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxpushglobalindex" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxPushGlobalIndex
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxpushglobalindexok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxPushGlobalIndexOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxpushglobalindex" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxPushGlobalIndex
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxpushglobalindex" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxPushGlobalIndex
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckexist" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckExist
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckexistok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckExistOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxcheckexist" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxCheckExist
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxcheckexist" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxCheckExist
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxprintlog" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxPrintLog
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxprintlogok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxPrintLogOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxprintlog" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxPrintLog
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxprintlog" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxPrintLog
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxprapareappend" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxPrapareAppend
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxprapareappendok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxPrapareAppendOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxprapareappend" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxPrapareAppend
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxprapareappend" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxPrapareAppend
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxappend" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxAppend
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxappendok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxAppendOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxappend" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxAppend
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxappend" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxAppend
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxappendrlwait" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxAppendRlWait
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxappendrlwaitok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxAppendRlWaitOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxappendrlwait" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxAppendRlWait
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxappendrlwait" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxAppendRlWait
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxappendisexpired" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxAppendIsExpired
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxappendisexpiredok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxAppendIsExpiredOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxappendisexpired" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxAppendIsExpired
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxappendisexpired" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxAppendIsExpired
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxstoredb" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxStoreDb
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxstoredbok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxStoreDbOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxstoredb" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxStoreDb
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxstoredb" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxStoreDb
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsprefixhash" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsPrefixHash
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsprefixhashok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsPrefixHashOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxcheckinputsprefixhash" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxCheckInputsPrefixHash
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxcheckinputsprefixhash" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxCheckInputsPrefixHash
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsattachmentcheck" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsAttachmentCheck
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsattachmentcheckok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsAttachmentCheckOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxcheckinputsattachmentcheck" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxCheckInputsAttachmentCheck
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxcheckinputsattachmentcheck" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxCheckInputsAttachmentCheck
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsloop" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsLoop
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsloopok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsLoopOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxcheckinputsloop" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxCheckInputsLoop
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxcheckinputsloop" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxCheckInputsLoop
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsloopkimagecheck" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsLoopKimageCheck
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsloopkimagecheckok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsLoopKimageCheckOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxcheckinputsloopkimagecheck" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxCheckInputsLoopKimageCheck
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxcheckinputsloopkimagecheck" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxCheckInputsLoopKimageCheck
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsloopchinvalsig" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsLoopChInValSig
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsloopchinvalsigok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsLoopChInValSigOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxcheckinputsloopchinvalsig" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxCheckInputsLoopChInValSig
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxcheckinputsloopchinvalsig" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxCheckInputsLoopChInValSig
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsloopscanoutputkeysgetitemsize" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsLoopScanOutputkeysGetItemSize
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsloopscanoutputkeysgetitemsizeok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsLoopScanOutputkeysGetItemSizeOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxcheckinputsloopscanoutputkeysgetitemsize" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxCheckInputsLoopScanOutputkeysGetItemSize
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxcheckinputsloopscanoutputkeysgetitemsize" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxCheckInputsLoopScanOutputkeysGetItemSize
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsloopscanoutputkeysrelativetoabsolute" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsLoopScanOutputkeysRelativeToAbsolute
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsloopscanoutputkeysrelativetoabsoluteok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsLoopScanOutputkeysRelativeToAbsoluteOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxcheckinputsloopscanoutputkeysrelativetoabsolute" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxCheckInputsLoopScanOutputkeysRelativeToAbsolute
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxcheckinputsloopscanoutputkeysrelativetoabsolute" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxCheckInputsLoopScanOutputkeysRelativeToAbsolute
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsloopscanoutputkeysloop" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsLoopScanOutputkeysLoop
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsloopscanoutputkeysloopok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsLoopScanOutputkeysLoopOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxcheckinputsloopscanoutputkeysloop" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxCheckInputsLoopScanOutputkeysLoop
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxcheckinputsloopscanoutputkeysloop" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxCheckInputsLoopScanOutputkeysLoop
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsloopscanoutputkeysloopgetsubitem" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsLoopScanOutputkeysLoopGetSubitem
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsloopscanoutputkeysloopgetsubitemok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsLoopScanOutputkeysLoopGetSubitemOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxcheckinputsloopscanoutputkeysloopgetsubitem" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxCheckInputsLoopScanOutputkeysLoopGetSubitem
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxcheckinputsloopscanoutputkeysloopgetsubitem" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxCheckInputsLoopScanOutputkeysLoopGetSubitem
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsloopscanoutputkeysloopfindtx" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsLoopScanOutputkeysLoopFindTx
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsloopscanoutputkeysloopfindtxok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsLoopScanOutputkeysLoopFindTxOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxcheckinputsloopscanoutputkeysloopfindtx" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxCheckInputsLoopScanOutputkeysLoopFindTx
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxcheckinputsloopscanoutputkeysloopfindtx" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxCheckInputsLoopScanOutputkeysLoopFindTx
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsloopscanoutputkeysloophandleoutput" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsLoopScanOutputkeysLoopHandleOutput
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxcheckinputsloopscanoutputkeysloophandleoutputok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxCheckInputsLoopScanOutputkeysLoopHandleOutputOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxcheckinputsloopscanoutputkeysloophandleoutput" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxCheckInputsLoopScanOutputkeysLoopHandleOutput
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxcheckinputsloopscanoutputkeysloophandleoutput" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxCheckInputsLoopScanOutputkeysLoopHandleOutput
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxmixincount" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxMixinCount
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettxmixincountok" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetTxMixinCountOk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settxmixincount" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetTxMixinCount
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hastxmixincount" class="md-nav__link">
+    <span class="md-ellipsis">
+      HasTxMixinCount
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="txprocessingperformancemodel">TxProcessingPerformanceModel<a class="headerlink" href="#txprocessingperformancemodel" title="Permanent link">&para;</a></h1>
+<h2 id="properties">Properties<a class="headerlink" href="#properties" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>TxCheckInputs</strong></td>
+<td>Pointer to <strong>int32</strong></td>
+<td></td>
+<td>[optional]</td>
+</tr>
+<tr>
+<td><strong>TxAddOneTx</strong></td>
+<td>Pointer to <strong>int32</strong></td>
+<td></td>
+<td>[optional]</td>
+</tr>
+<tr>
+<td><strong>TxProcessExtra</strong></td>
+<td>Pointer to <strong>int32</strong></td>
+<td></td>
+<td>[optional]</td>
+</tr>
+<tr>
+<td><strong>TxProcessAttachment</strong></td>
+<td>Pointer to <strong>int32</strong></td>
+<td></td>
+<td>[optional]</td>
+</tr>
+<tr>
+<td><strong>TxProcessInputs</strong></td>
+<td>Pointer to <strong>int32</strong></td>
+<td></td>
+<td>[optional]</td>
+</tr>
+<tr>
+<td><strong>TxPushGlobalIndex</strong></td>
+<td>Pointer to <strong>int32</strong></td>
+<td></td>
+<td>[optional]</td>
+</tr>
+<tr>
+<td><strong>TxCheckExist</strong></td>
+<td>Pointer to <strong>int32</strong></td>
+<td></td>
+<td>[optional]</td>
+</tr>
+<tr>
+<td><strong>TxPrintLog</strong></td>
+<td>Pointer to <strong>int32</strong></td>
+<td></td>
+<td>[optional]</td>
+</tr>
+<tr>
+<td><strong>TxPrapareAppend</strong></td>
+<td>Pointer to <strong>int32</strong></td>
+<td></td>
+<td>[optional]</td>
+</tr>
+<tr>
+<td><strong>TxAppend</strong></td>
+<td>Pointer to <strong>int32</strong></td>
+<td></td>
+<td>[optional]</td>
+</tr>
+<tr>
+<td><strong>TxAppendRlWait</strong></td>
+<td>Pointer to <strong>int32</strong></td>
+<td></td>
+<td>[optional]</td>
+</tr>
+<tr>
+<td><strong>TxAppendIsExpired</strong></td>
+<td>Pointer to <strong>int32</strong></td>
+<td></td>
+<td>[optional]</td>
+</tr>
+<tr>
+<td><strong>TxStoreDb</strong></td>
+<td>Pointer to <strong>int32</strong></td>
+<td></td>
+<td>[optional]</td>
+</tr>
+<tr>
+<td><strong>TxCheckInputsPrefixHash</strong></td>
+<td>Pointer to <strong>int32</strong></td>
+<td></td>
+<td>[optional]</td>
+</tr>
+<tr>
+<td><strong>TxCheckInputsAttachmentCheck</strong></td>
+<td>Pointer to <strong>int32</strong></td>
+<td></td>
+<td>[optional]</td>
+</tr>
+<tr>
+<td><strong>TxCheckInputsLoop</strong></td>
+<td>Pointer to <strong>int32</strong></td>
+<td></td>
+<td>[optional]</td>
+</tr>
+<tr>
+<td><strong>TxCheckInputsLoopKimageCheck</strong></td>
+<td>Pointer to <strong>int32</strong></td>
+<td></td>
+<td>[optional]</td>
+</tr>
+<tr>
+<td><strong>TxCheckInputsLoopChInValSig</strong></td>
+<td>Pointer to <strong>int32</strong></td>
+<td></td>
+<td>[optional]</td>
+</tr>
+<tr>
+<td><strong>TxCheckInputsLoopScanOutputkeysGetItemSize</strong></td>
+<td>Pointer to <strong>int32</strong></td>
+<td></td>
+<td>[optional]</td>
+</tr>
+<tr>
+<td><strong>TxCheckInputsLoopScanOutputkeysRelativeToAbsolute</strong></td>
+<td>Pointer to <strong>int32</strong></td>
+<td></td>
+<td>[optional]</td>
+</tr>
+<tr>
+<td><strong>TxCheckInputsLoopScanOutputkeysLoop</strong></td>
+<td>Pointer to <strong>int32</strong></td>
+<td></td>
+<td>[optional]</td>
+</tr>
+<tr>
+<td><strong>TxCheckInputsLoopScanOutputkeysLoopGetSubitem</strong></td>
+<td>Pointer to <strong>int32</strong></td>
+<td></td>
+<td>[optional]</td>
+</tr>
+<tr>
+<td><strong>TxCheckInputsLoopScanOutputkeysLoopFindTx</strong></td>
+<td>Pointer to <strong>int32</strong></td>
+<td></td>
+<td>[optional]</td>
+</tr>
+<tr>
+<td><strong>TxCheckInputsLoopScanOutputkeysLoopHandleOutput</strong></td>
+<td>Pointer to <strong>int32</strong></td>
+<td></td>
+<td>[optional]</td>
+</tr>
+<tr>
+<td><strong>TxMixinCount</strong></td>
+<td>Pointer to <strong>int32</strong></td>
+<td></td>
+<td>[optional]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h2>
+<h3 id="newtxprocessingperformancemodel">NewTxProcessingPerformanceModel<a class="headerlink" href="#newtxprocessingperformancemodel" title="Permanent link">&para;</a></h3>
+<p><code>func NewTxProcessingPerformanceModel() *TxProcessingPerformanceModel</code></p>
+<p>NewTxProcessingPerformanceModel instantiates a new TxProcessingPerformanceModel object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed</p>
+<h3 id="newtxprocessingperformancemodelwithdefaults">NewTxProcessingPerformanceModelWithDefaults<a class="headerlink" href="#newtxprocessingperformancemodelwithdefaults" title="Permanent link">&para;</a></h3>
+<p><code>func NewTxProcessingPerformanceModelWithDefaults() *TxProcessingPerformanceModel</code></p>
+<p>NewTxProcessingPerformanceModelWithDefaults instantiates a new TxProcessingPerformanceModel object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set</p>
+<h3 id="gettxcheckinputs">GetTxCheckInputs<a class="headerlink" href="#gettxcheckinputs" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxCheckInputs() int32</code></p>
+<p>GetTxCheckInputs returns the TxCheckInputs field if non-nil, zero value otherwise.</p>
+<h3 id="gettxcheckinputsok">GetTxCheckInputsOk<a class="headerlink" href="#gettxcheckinputsok" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxCheckInputsOk() (*int32, bool)</code></p>
+<p>GetTxCheckInputsOk returns a tuple with the TxCheckInputs field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.</p>
+<h3 id="settxcheckinputs">SetTxCheckInputs<a class="headerlink" href="#settxcheckinputs" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) SetTxCheckInputs(v int32)</code></p>
+<p>SetTxCheckInputs sets TxCheckInputs field to given value.</p>
+<h3 id="hastxcheckinputs">HasTxCheckInputs<a class="headerlink" href="#hastxcheckinputs" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) HasTxCheckInputs() bool</code></p>
+<p>HasTxCheckInputs returns a boolean if a field has been set.</p>
+<h3 id="gettxaddonetx">GetTxAddOneTx<a class="headerlink" href="#gettxaddonetx" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxAddOneTx() int32</code></p>
+<p>GetTxAddOneTx returns the TxAddOneTx field if non-nil, zero value otherwise.</p>
+<h3 id="gettxaddonetxok">GetTxAddOneTxOk<a class="headerlink" href="#gettxaddonetxok" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxAddOneTxOk() (*int32, bool)</code></p>
+<p>GetTxAddOneTxOk returns a tuple with the TxAddOneTx field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.</p>
+<h3 id="settxaddonetx">SetTxAddOneTx<a class="headerlink" href="#settxaddonetx" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) SetTxAddOneTx(v int32)</code></p>
+<p>SetTxAddOneTx sets TxAddOneTx field to given value.</p>
+<h3 id="hastxaddonetx">HasTxAddOneTx<a class="headerlink" href="#hastxaddonetx" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) HasTxAddOneTx() bool</code></p>
+<p>HasTxAddOneTx returns a boolean if a field has been set.</p>
+<h3 id="gettxprocessextra">GetTxProcessExtra<a class="headerlink" href="#gettxprocessextra" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxProcessExtra() int32</code></p>
+<p>GetTxProcessExtra returns the TxProcessExtra field if non-nil, zero value otherwise.</p>
+<h3 id="gettxprocessextraok">GetTxProcessExtraOk<a class="headerlink" href="#gettxprocessextraok" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxProcessExtraOk() (*int32, bool)</code></p>
+<p>GetTxProcessExtraOk returns a tuple with the TxProcessExtra field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.</p>
+<h3 id="settxprocessextra">SetTxProcessExtra<a class="headerlink" href="#settxprocessextra" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) SetTxProcessExtra(v int32)</code></p>
+<p>SetTxProcessExtra sets TxProcessExtra field to given value.</p>
+<h3 id="hastxprocessextra">HasTxProcessExtra<a class="headerlink" href="#hastxprocessextra" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) HasTxProcessExtra() bool</code></p>
+<p>HasTxProcessExtra returns a boolean if a field has been set.</p>
+<h3 id="gettxprocessattachment">GetTxProcessAttachment<a class="headerlink" href="#gettxprocessattachment" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxProcessAttachment() int32</code></p>
+<p>GetTxProcessAttachment returns the TxProcessAttachment field if non-nil, zero value otherwise.</p>
+<h3 id="gettxprocessattachmentok">GetTxProcessAttachmentOk<a class="headerlink" href="#gettxprocessattachmentok" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxProcessAttachmentOk() (*int32, bool)</code></p>
+<p>GetTxProcessAttachmentOk returns a tuple with the TxProcessAttachment field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.</p>
+<h3 id="settxprocessattachment">SetTxProcessAttachment<a class="headerlink" href="#settxprocessattachment" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) SetTxProcessAttachment(v int32)</code></p>
+<p>SetTxProcessAttachment sets TxProcessAttachment field to given value.</p>
+<h3 id="hastxprocessattachment">HasTxProcessAttachment<a class="headerlink" href="#hastxprocessattachment" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) HasTxProcessAttachment() bool</code></p>
+<p>HasTxProcessAttachment returns a boolean if a field has been set.</p>
+<h3 id="gettxprocessinputs">GetTxProcessInputs<a class="headerlink" href="#gettxprocessinputs" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxProcessInputs() int32</code></p>
+<p>GetTxProcessInputs returns the TxProcessInputs field if non-nil, zero value otherwise.</p>
+<h3 id="gettxprocessinputsok">GetTxProcessInputsOk<a class="headerlink" href="#gettxprocessinputsok" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxProcessInputsOk() (*int32, bool)</code></p>
+<p>GetTxProcessInputsOk returns a tuple with the TxProcessInputs field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.</p>
+<h3 id="settxprocessinputs">SetTxProcessInputs<a class="headerlink" href="#settxprocessinputs" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) SetTxProcessInputs(v int32)</code></p>
+<p>SetTxProcessInputs sets TxProcessInputs field to given value.</p>
+<h3 id="hastxprocessinputs">HasTxProcessInputs<a class="headerlink" href="#hastxprocessinputs" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) HasTxProcessInputs() bool</code></p>
+<p>HasTxProcessInputs returns a boolean if a field has been set.</p>
+<h3 id="gettxpushglobalindex">GetTxPushGlobalIndex<a class="headerlink" href="#gettxpushglobalindex" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxPushGlobalIndex() int32</code></p>
+<p>GetTxPushGlobalIndex returns the TxPushGlobalIndex field if non-nil, zero value otherwise.</p>
+<h3 id="gettxpushglobalindexok">GetTxPushGlobalIndexOk<a class="headerlink" href="#gettxpushglobalindexok" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxPushGlobalIndexOk() (*int32, bool)</code></p>
+<p>GetTxPushGlobalIndexOk returns a tuple with the TxPushGlobalIndex field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.</p>
+<h3 id="settxpushglobalindex">SetTxPushGlobalIndex<a class="headerlink" href="#settxpushglobalindex" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) SetTxPushGlobalIndex(v int32)</code></p>
+<p>SetTxPushGlobalIndex sets TxPushGlobalIndex field to given value.</p>
+<h3 id="hastxpushglobalindex">HasTxPushGlobalIndex<a class="headerlink" href="#hastxpushglobalindex" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) HasTxPushGlobalIndex() bool</code></p>
+<p>HasTxPushGlobalIndex returns a boolean if a field has been set.</p>
+<h3 id="gettxcheckexist">GetTxCheckExist<a class="headerlink" href="#gettxcheckexist" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxCheckExist() int32</code></p>
+<p>GetTxCheckExist returns the TxCheckExist field if non-nil, zero value otherwise.</p>
+<h3 id="gettxcheckexistok">GetTxCheckExistOk<a class="headerlink" href="#gettxcheckexistok" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxCheckExistOk() (*int32, bool)</code></p>
+<p>GetTxCheckExistOk returns a tuple with the TxCheckExist field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.</p>
+<h3 id="settxcheckexist">SetTxCheckExist<a class="headerlink" href="#settxcheckexist" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) SetTxCheckExist(v int32)</code></p>
+<p>SetTxCheckExist sets TxCheckExist field to given value.</p>
+<h3 id="hastxcheckexist">HasTxCheckExist<a class="headerlink" href="#hastxcheckexist" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) HasTxCheckExist() bool</code></p>
+<p>HasTxCheckExist returns a boolean if a field has been set.</p>
+<h3 id="gettxprintlog">GetTxPrintLog<a class="headerlink" href="#gettxprintlog" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxPrintLog() int32</code></p>
+<p>GetTxPrintLog returns the TxPrintLog field if non-nil, zero value otherwise.</p>
+<h3 id="gettxprintlogok">GetTxPrintLogOk<a class="headerlink" href="#gettxprintlogok" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxPrintLogOk() (*int32, bool)</code></p>
+<p>GetTxPrintLogOk returns a tuple with the TxPrintLog field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.</p>
+<h3 id="settxprintlog">SetTxPrintLog<a class="headerlink" href="#settxprintlog" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) SetTxPrintLog(v int32)</code></p>
+<p>SetTxPrintLog sets TxPrintLog field to given value.</p>
+<h3 id="hastxprintlog">HasTxPrintLog<a class="headerlink" href="#hastxprintlog" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) HasTxPrintLog() bool</code></p>
+<p>HasTxPrintLog returns a boolean if a field has been set.</p>
+<h3 id="gettxprapareappend">GetTxPrapareAppend<a class="headerlink" href="#gettxprapareappend" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxPrapareAppend() int32</code></p>
+<p>GetTxPrapareAppend returns the TxPrapareAppend field if non-nil, zero value otherwise.</p>
+<h3 id="gettxprapareappendok">GetTxPrapareAppendOk<a class="headerlink" href="#gettxprapareappendok" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxPrapareAppendOk() (*int32, bool)</code></p>
+<p>GetTxPrapareAppendOk returns a tuple with the TxPrapareAppend field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.</p>
+<h3 id="settxprapareappend">SetTxPrapareAppend<a class="headerlink" href="#settxprapareappend" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) SetTxPrapareAppend(v int32)</code></p>
+<p>SetTxPrapareAppend sets TxPrapareAppend field to given value.</p>
+<h3 id="hastxprapareappend">HasTxPrapareAppend<a class="headerlink" href="#hastxprapareappend" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) HasTxPrapareAppend() bool</code></p>
+<p>HasTxPrapareAppend returns a boolean if a field has been set.</p>
+<h3 id="gettxappend">GetTxAppend<a class="headerlink" href="#gettxappend" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxAppend() int32</code></p>
+<p>GetTxAppend returns the TxAppend field if non-nil, zero value otherwise.</p>
+<h3 id="gettxappendok">GetTxAppendOk<a class="headerlink" href="#gettxappendok" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxAppendOk() (*int32, bool)</code></p>
+<p>GetTxAppendOk returns a tuple with the TxAppend field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.</p>
+<h3 id="settxappend">SetTxAppend<a class="headerlink" href="#settxappend" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) SetTxAppend(v int32)</code></p>
+<p>SetTxAppend sets TxAppend field to given value.</p>
+<h3 id="hastxappend">HasTxAppend<a class="headerlink" href="#hastxappend" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) HasTxAppend() bool</code></p>
+<p>HasTxAppend returns a boolean if a field has been set.</p>
+<h3 id="gettxappendrlwait">GetTxAppendRlWait<a class="headerlink" href="#gettxappendrlwait" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxAppendRlWait() int32</code></p>
+<p>GetTxAppendRlWait returns the TxAppendRlWait field if non-nil, zero value otherwise.</p>
+<h3 id="gettxappendrlwaitok">GetTxAppendRlWaitOk<a class="headerlink" href="#gettxappendrlwaitok" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxAppendRlWaitOk() (*int32, bool)</code></p>
+<p>GetTxAppendRlWaitOk returns a tuple with the TxAppendRlWait field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.</p>
+<h3 id="settxappendrlwait">SetTxAppendRlWait<a class="headerlink" href="#settxappendrlwait" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) SetTxAppendRlWait(v int32)</code></p>
+<p>SetTxAppendRlWait sets TxAppendRlWait field to given value.</p>
+<h3 id="hastxappendrlwait">HasTxAppendRlWait<a class="headerlink" href="#hastxappendrlwait" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) HasTxAppendRlWait() bool</code></p>
+<p>HasTxAppendRlWait returns a boolean if a field has been set.</p>
+<h3 id="gettxappendisexpired">GetTxAppendIsExpired<a class="headerlink" href="#gettxappendisexpired" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxAppendIsExpired() int32</code></p>
+<p>GetTxAppendIsExpired returns the TxAppendIsExpired field if non-nil, zero value otherwise.</p>
+<h3 id="gettxappendisexpiredok">GetTxAppendIsExpiredOk<a class="headerlink" href="#gettxappendisexpiredok" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxAppendIsExpiredOk() (*int32, bool)</code></p>
+<p>GetTxAppendIsExpiredOk returns a tuple with the TxAppendIsExpired field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.</p>
+<h3 id="settxappendisexpired">SetTxAppendIsExpired<a class="headerlink" href="#settxappendisexpired" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) SetTxAppendIsExpired(v int32)</code></p>
+<p>SetTxAppendIsExpired sets TxAppendIsExpired field to given value.</p>
+<h3 id="hastxappendisexpired">HasTxAppendIsExpired<a class="headerlink" href="#hastxappendisexpired" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) HasTxAppendIsExpired() bool</code></p>
+<p>HasTxAppendIsExpired returns a boolean if a field has been set.</p>
+<h3 id="gettxstoredb">GetTxStoreDb<a class="headerlink" href="#gettxstoredb" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxStoreDb() int32</code></p>
+<p>GetTxStoreDb returns the TxStoreDb field if non-nil, zero value otherwise.</p>
+<h3 id="gettxstoredbok">GetTxStoreDbOk<a class="headerlink" href="#gettxstoredbok" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxStoreDbOk() (*int32, bool)</code></p>
+<p>GetTxStoreDbOk returns a tuple with the TxStoreDb field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.</p>
+<h3 id="settxstoredb">SetTxStoreDb<a class="headerlink" href="#settxstoredb" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) SetTxStoreDb(v int32)</code></p>
+<p>SetTxStoreDb sets TxStoreDb field to given value.</p>
+<h3 id="hastxstoredb">HasTxStoreDb<a class="headerlink" href="#hastxstoredb" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) HasTxStoreDb() bool</code></p>
+<p>HasTxStoreDb returns a boolean if a field has been set.</p>
+<h3 id="gettxcheckinputsprefixhash">GetTxCheckInputsPrefixHash<a class="headerlink" href="#gettxcheckinputsprefixhash" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxCheckInputsPrefixHash() int32</code></p>
+<p>GetTxCheckInputsPrefixHash returns the TxCheckInputsPrefixHash field if non-nil, zero value otherwise.</p>
+<h3 id="gettxcheckinputsprefixhashok">GetTxCheckInputsPrefixHashOk<a class="headerlink" href="#gettxcheckinputsprefixhashok" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxCheckInputsPrefixHashOk() (*int32, bool)</code></p>
+<p>GetTxCheckInputsPrefixHashOk returns a tuple with the TxCheckInputsPrefixHash field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.</p>
+<h3 id="settxcheckinputsprefixhash">SetTxCheckInputsPrefixHash<a class="headerlink" href="#settxcheckinputsprefixhash" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) SetTxCheckInputsPrefixHash(v int32)</code></p>
+<p>SetTxCheckInputsPrefixHash sets TxCheckInputsPrefixHash field to given value.</p>
+<h3 id="hastxcheckinputsprefixhash">HasTxCheckInputsPrefixHash<a class="headerlink" href="#hastxcheckinputsprefixhash" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) HasTxCheckInputsPrefixHash() bool</code></p>
+<p>HasTxCheckInputsPrefixHash returns a boolean if a field has been set.</p>
+<h3 id="gettxcheckinputsattachmentcheck">GetTxCheckInputsAttachmentCheck<a class="headerlink" href="#gettxcheckinputsattachmentcheck" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxCheckInputsAttachmentCheck() int32</code></p>
+<p>GetTxCheckInputsAttachmentCheck returns the TxCheckInputsAttachmentCheck field if non-nil, zero value otherwise.</p>
+<h3 id="gettxcheckinputsattachmentcheckok">GetTxCheckInputsAttachmentCheckOk<a class="headerlink" href="#gettxcheckinputsattachmentcheckok" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxCheckInputsAttachmentCheckOk() (*int32, bool)</code></p>
+<p>GetTxCheckInputsAttachmentCheckOk returns a tuple with the TxCheckInputsAttachmentCheck field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.</p>
+<h3 id="settxcheckinputsattachmentcheck">SetTxCheckInputsAttachmentCheck<a class="headerlink" href="#settxcheckinputsattachmentcheck" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) SetTxCheckInputsAttachmentCheck(v int32)</code></p>
+<p>SetTxCheckInputsAttachmentCheck sets TxCheckInputsAttachmentCheck field to given value.</p>
+<h3 id="hastxcheckinputsattachmentcheck">HasTxCheckInputsAttachmentCheck<a class="headerlink" href="#hastxcheckinputsattachmentcheck" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) HasTxCheckInputsAttachmentCheck() bool</code></p>
+<p>HasTxCheckInputsAttachmentCheck returns a boolean if a field has been set.</p>
+<h3 id="gettxcheckinputsloop">GetTxCheckInputsLoop<a class="headerlink" href="#gettxcheckinputsloop" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxCheckInputsLoop() int32</code></p>
+<p>GetTxCheckInputsLoop returns the TxCheckInputsLoop field if non-nil, zero value otherwise.</p>
+<h3 id="gettxcheckinputsloopok">GetTxCheckInputsLoopOk<a class="headerlink" href="#gettxcheckinputsloopok" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxCheckInputsLoopOk() (*int32, bool)</code></p>
+<p>GetTxCheckInputsLoopOk returns a tuple with the TxCheckInputsLoop field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.</p>
+<h3 id="settxcheckinputsloop">SetTxCheckInputsLoop<a class="headerlink" href="#settxcheckinputsloop" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) SetTxCheckInputsLoop(v int32)</code></p>
+<p>SetTxCheckInputsLoop sets TxCheckInputsLoop field to given value.</p>
+<h3 id="hastxcheckinputsloop">HasTxCheckInputsLoop<a class="headerlink" href="#hastxcheckinputsloop" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) HasTxCheckInputsLoop() bool</code></p>
+<p>HasTxCheckInputsLoop returns a boolean if a field has been set.</p>
+<h3 id="gettxcheckinputsloopkimagecheck">GetTxCheckInputsLoopKimageCheck<a class="headerlink" href="#gettxcheckinputsloopkimagecheck" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxCheckInputsLoopKimageCheck() int32</code></p>
+<p>GetTxCheckInputsLoopKimageCheck returns the TxCheckInputsLoopKimageCheck field if non-nil, zero value otherwise.</p>
+<h3 id="gettxcheckinputsloopkimagecheckok">GetTxCheckInputsLoopKimageCheckOk<a class="headerlink" href="#gettxcheckinputsloopkimagecheckok" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxCheckInputsLoopKimageCheckOk() (*int32, bool)</code></p>
+<p>GetTxCheckInputsLoopKimageCheckOk returns a tuple with the TxCheckInputsLoopKimageCheck field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.</p>
+<h3 id="settxcheckinputsloopkimagecheck">SetTxCheckInputsLoopKimageCheck<a class="headerlink" href="#settxcheckinputsloopkimagecheck" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) SetTxCheckInputsLoopKimageCheck(v int32)</code></p>
+<p>SetTxCheckInputsLoopKimageCheck sets TxCheckInputsLoopKimageCheck field to given value.</p>
+<h3 id="hastxcheckinputsloopkimagecheck">HasTxCheckInputsLoopKimageCheck<a class="headerlink" href="#hastxcheckinputsloopkimagecheck" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) HasTxCheckInputsLoopKimageCheck() bool</code></p>
+<p>HasTxCheckInputsLoopKimageCheck returns a boolean if a field has been set.</p>
+<h3 id="gettxcheckinputsloopchinvalsig">GetTxCheckInputsLoopChInValSig<a class="headerlink" href="#gettxcheckinputsloopchinvalsig" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxCheckInputsLoopChInValSig() int32</code></p>
+<p>GetTxCheckInputsLoopChInValSig returns the TxCheckInputsLoopChInValSig field if non-nil, zero value otherwise.</p>
+<h3 id="gettxcheckinputsloopchinvalsigok">GetTxCheckInputsLoopChInValSigOk<a class="headerlink" href="#gettxcheckinputsloopchinvalsigok" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxCheckInputsLoopChInValSigOk() (*int32, bool)</code></p>
+<p>GetTxCheckInputsLoopChInValSigOk returns a tuple with the TxCheckInputsLoopChInValSig field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.</p>
+<h3 id="settxcheckinputsloopchinvalsig">SetTxCheckInputsLoopChInValSig<a class="headerlink" href="#settxcheckinputsloopchinvalsig" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) SetTxCheckInputsLoopChInValSig(v int32)</code></p>
+<p>SetTxCheckInputsLoopChInValSig sets TxCheckInputsLoopChInValSig field to given value.</p>
+<h3 id="hastxcheckinputsloopchinvalsig">HasTxCheckInputsLoopChInValSig<a class="headerlink" href="#hastxcheckinputsloopchinvalsig" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) HasTxCheckInputsLoopChInValSig() bool</code></p>
+<p>HasTxCheckInputsLoopChInValSig returns a boolean if a field has been set.</p>
+<h3 id="gettxcheckinputsloopscanoutputkeysgetitemsize">GetTxCheckInputsLoopScanOutputkeysGetItemSize<a class="headerlink" href="#gettxcheckinputsloopscanoutputkeysgetitemsize" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxCheckInputsLoopScanOutputkeysGetItemSize() int32</code></p>
+<p>GetTxCheckInputsLoopScanOutputkeysGetItemSize returns the TxCheckInputsLoopScanOutputkeysGetItemSize field if non-nil, zero value otherwise.</p>
+<h3 id="gettxcheckinputsloopscanoutputkeysgetitemsizeok">GetTxCheckInputsLoopScanOutputkeysGetItemSizeOk<a class="headerlink" href="#gettxcheckinputsloopscanoutputkeysgetitemsizeok" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxCheckInputsLoopScanOutputkeysGetItemSizeOk() (*int32, bool)</code></p>
+<p>GetTxCheckInputsLoopScanOutputkeysGetItemSizeOk returns a tuple with the TxCheckInputsLoopScanOutputkeysGetItemSize field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.</p>
+<h3 id="settxcheckinputsloopscanoutputkeysgetitemsize">SetTxCheckInputsLoopScanOutputkeysGetItemSize<a class="headerlink" href="#settxcheckinputsloopscanoutputkeysgetitemsize" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) SetTxCheckInputsLoopScanOutputkeysGetItemSize(v int32)</code></p>
+<p>SetTxCheckInputsLoopScanOutputkeysGetItemSize sets TxCheckInputsLoopScanOutputkeysGetItemSize field to given value.</p>
+<h3 id="hastxcheckinputsloopscanoutputkeysgetitemsize">HasTxCheckInputsLoopScanOutputkeysGetItemSize<a class="headerlink" href="#hastxcheckinputsloopscanoutputkeysgetitemsize" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) HasTxCheckInputsLoopScanOutputkeysGetItemSize() bool</code></p>
+<p>HasTxCheckInputsLoopScanOutputkeysGetItemSize returns a boolean if a field has been set.</p>
+<h3 id="gettxcheckinputsloopscanoutputkeysrelativetoabsolute">GetTxCheckInputsLoopScanOutputkeysRelativeToAbsolute<a class="headerlink" href="#gettxcheckinputsloopscanoutputkeysrelativetoabsolute" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxCheckInputsLoopScanOutputkeysRelativeToAbsolute() int32</code></p>
+<p>GetTxCheckInputsLoopScanOutputkeysRelativeToAbsolute returns the TxCheckInputsLoopScanOutputkeysRelativeToAbsolute field if non-nil, zero value otherwise.</p>
+<h3 id="gettxcheckinputsloopscanoutputkeysrelativetoabsoluteok">GetTxCheckInputsLoopScanOutputkeysRelativeToAbsoluteOk<a class="headerlink" href="#gettxcheckinputsloopscanoutputkeysrelativetoabsoluteok" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxCheckInputsLoopScanOutputkeysRelativeToAbsoluteOk() (*int32, bool)</code></p>
+<p>GetTxCheckInputsLoopScanOutputkeysRelativeToAbsoluteOk returns a tuple with the TxCheckInputsLoopScanOutputkeysRelativeToAbsolute field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.</p>
+<h3 id="settxcheckinputsloopscanoutputkeysrelativetoabsolute">SetTxCheckInputsLoopScanOutputkeysRelativeToAbsolute<a class="headerlink" href="#settxcheckinputsloopscanoutputkeysrelativetoabsolute" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) SetTxCheckInputsLoopScanOutputkeysRelativeToAbsolute(v int32)</code></p>
+<p>SetTxCheckInputsLoopScanOutputkeysRelativeToAbsolute sets TxCheckInputsLoopScanOutputkeysRelativeToAbsolute field to given value.</p>
+<h3 id="hastxcheckinputsloopscanoutputkeysrelativetoabsolute">HasTxCheckInputsLoopScanOutputkeysRelativeToAbsolute<a class="headerlink" href="#hastxcheckinputsloopscanoutputkeysrelativetoabsolute" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) HasTxCheckInputsLoopScanOutputkeysRelativeToAbsolute() bool</code></p>
+<p>HasTxCheckInputsLoopScanOutputkeysRelativeToAbsolute returns a boolean if a field has been set.</p>
+<h3 id="gettxcheckinputsloopscanoutputkeysloop">GetTxCheckInputsLoopScanOutputkeysLoop<a class="headerlink" href="#gettxcheckinputsloopscanoutputkeysloop" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxCheckInputsLoopScanOutputkeysLoop() int32</code></p>
+<p>GetTxCheckInputsLoopScanOutputkeysLoop returns the TxCheckInputsLoopScanOutputkeysLoop field if non-nil, zero value otherwise.</p>
+<h3 id="gettxcheckinputsloopscanoutputkeysloopok">GetTxCheckInputsLoopScanOutputkeysLoopOk<a class="headerlink" href="#gettxcheckinputsloopscanoutputkeysloopok" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxCheckInputsLoopScanOutputkeysLoopOk() (*int32, bool)</code></p>
+<p>GetTxCheckInputsLoopScanOutputkeysLoopOk returns a tuple with the TxCheckInputsLoopScanOutputkeysLoop field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.</p>
+<h3 id="settxcheckinputsloopscanoutputkeysloop">SetTxCheckInputsLoopScanOutputkeysLoop<a class="headerlink" href="#settxcheckinputsloopscanoutputkeysloop" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) SetTxCheckInputsLoopScanOutputkeysLoop(v int32)</code></p>
+<p>SetTxCheckInputsLoopScanOutputkeysLoop sets TxCheckInputsLoopScanOutputkeysLoop field to given value.</p>
+<h3 id="hastxcheckinputsloopscanoutputkeysloop">HasTxCheckInputsLoopScanOutputkeysLoop<a class="headerlink" href="#hastxcheckinputsloopscanoutputkeysloop" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) HasTxCheckInputsLoopScanOutputkeysLoop() bool</code></p>
+<p>HasTxCheckInputsLoopScanOutputkeysLoop returns a boolean if a field has been set.</p>
+<h3 id="gettxcheckinputsloopscanoutputkeysloopgetsubitem">GetTxCheckInputsLoopScanOutputkeysLoopGetSubitem<a class="headerlink" href="#gettxcheckinputsloopscanoutputkeysloopgetsubitem" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxCheckInputsLoopScanOutputkeysLoopGetSubitem() int32</code></p>
+<p>GetTxCheckInputsLoopScanOutputkeysLoopGetSubitem returns the TxCheckInputsLoopScanOutputkeysLoopGetSubitem field if non-nil, zero value otherwise.</p>
+<h3 id="gettxcheckinputsloopscanoutputkeysloopgetsubitemok">GetTxCheckInputsLoopScanOutputkeysLoopGetSubitemOk<a class="headerlink" href="#gettxcheckinputsloopscanoutputkeysloopgetsubitemok" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxCheckInputsLoopScanOutputkeysLoopGetSubitemOk() (*int32, bool)</code></p>
+<p>GetTxCheckInputsLoopScanOutputkeysLoopGetSubitemOk returns a tuple with the TxCheckInputsLoopScanOutputkeysLoopGetSubitem field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.</p>
+<h3 id="settxcheckinputsloopscanoutputkeysloopgetsubitem">SetTxCheckInputsLoopScanOutputkeysLoopGetSubitem<a class="headerlink" href="#settxcheckinputsloopscanoutputkeysloopgetsubitem" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) SetTxCheckInputsLoopScanOutputkeysLoopGetSubitem(v int32)</code></p>
+<p>SetTxCheckInputsLoopScanOutputkeysLoopGetSubitem sets TxCheckInputsLoopScanOutputkeysLoopGetSubitem field to given value.</p>
+<h3 id="hastxcheckinputsloopscanoutputkeysloopgetsubitem">HasTxCheckInputsLoopScanOutputkeysLoopGetSubitem<a class="headerlink" href="#hastxcheckinputsloopscanoutputkeysloopgetsubitem" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) HasTxCheckInputsLoopScanOutputkeysLoopGetSubitem() bool</code></p>
+<p>HasTxCheckInputsLoopScanOutputkeysLoopGetSubitem returns a boolean if a field has been set.</p>
+<h3 id="gettxcheckinputsloopscanoutputkeysloopfindtx">GetTxCheckInputsLoopScanOutputkeysLoopFindTx<a class="headerlink" href="#gettxcheckinputsloopscanoutputkeysloopfindtx" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxCheckInputsLoopScanOutputkeysLoopFindTx() int32</code></p>
+<p>GetTxCheckInputsLoopScanOutputkeysLoopFindTx returns the TxCheckInputsLoopScanOutputkeysLoopFindTx field if non-nil, zero value otherwise.</p>
+<h3 id="gettxcheckinputsloopscanoutputkeysloopfindtxok">GetTxCheckInputsLoopScanOutputkeysLoopFindTxOk<a class="headerlink" href="#gettxcheckinputsloopscanoutputkeysloopfindtxok" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxCheckInputsLoopScanOutputkeysLoopFindTxOk() (*int32, bool)</code></p>
+<p>GetTxCheckInputsLoopScanOutputkeysLoopFindTxOk returns a tuple with the TxCheckInputsLoopScanOutputkeysLoopFindTx field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.</p>
+<h3 id="settxcheckinputsloopscanoutputkeysloopfindtx">SetTxCheckInputsLoopScanOutputkeysLoopFindTx<a class="headerlink" href="#settxcheckinputsloopscanoutputkeysloopfindtx" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) SetTxCheckInputsLoopScanOutputkeysLoopFindTx(v int32)</code></p>
+<p>SetTxCheckInputsLoopScanOutputkeysLoopFindTx sets TxCheckInputsLoopScanOutputkeysLoopFindTx field to given value.</p>
+<h3 id="hastxcheckinputsloopscanoutputkeysloopfindtx">HasTxCheckInputsLoopScanOutputkeysLoopFindTx<a class="headerlink" href="#hastxcheckinputsloopscanoutputkeysloopfindtx" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) HasTxCheckInputsLoopScanOutputkeysLoopFindTx() bool</code></p>
+<p>HasTxCheckInputsLoopScanOutputkeysLoopFindTx returns a boolean if a field has been set.</p>
+<h3 id="gettxcheckinputsloopscanoutputkeysloophandleoutput">GetTxCheckInputsLoopScanOutputkeysLoopHandleOutput<a class="headerlink" href="#gettxcheckinputsloopscanoutputkeysloophandleoutput" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxCheckInputsLoopScanOutputkeysLoopHandleOutput() int32</code></p>
+<p>GetTxCheckInputsLoopScanOutputkeysLoopHandleOutput returns the TxCheckInputsLoopScanOutputkeysLoopHandleOutput field if non-nil, zero value otherwise.</p>
+<h3 id="gettxcheckinputsloopscanoutputkeysloophandleoutputok">GetTxCheckInputsLoopScanOutputkeysLoopHandleOutputOk<a class="headerlink" href="#gettxcheckinputsloopscanoutputkeysloophandleoutputok" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxCheckInputsLoopScanOutputkeysLoopHandleOutputOk() (*int32, bool)</code></p>
+<p>GetTxCheckInputsLoopScanOutputkeysLoopHandleOutputOk returns a tuple with the TxCheckInputsLoopScanOutputkeysLoopHandleOutput field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.</p>
+<h3 id="settxcheckinputsloopscanoutputkeysloophandleoutput">SetTxCheckInputsLoopScanOutputkeysLoopHandleOutput<a class="headerlink" href="#settxcheckinputsloopscanoutputkeysloophandleoutput" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) SetTxCheckInputsLoopScanOutputkeysLoopHandleOutput(v int32)</code></p>
+<p>SetTxCheckInputsLoopScanOutputkeysLoopHandleOutput sets TxCheckInputsLoopScanOutputkeysLoopHandleOutput field to given value.</p>
+<h3 id="hastxcheckinputsloopscanoutputkeysloophandleoutput">HasTxCheckInputsLoopScanOutputkeysLoopHandleOutput<a class="headerlink" href="#hastxcheckinputsloopscanoutputkeysloophandleoutput" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) HasTxCheckInputsLoopScanOutputkeysLoopHandleOutput() bool</code></p>
+<p>HasTxCheckInputsLoopScanOutputkeysLoopHandleOutput returns a boolean if a field has been set.</p>
+<h3 id="gettxmixincount">GetTxMixinCount<a class="headerlink" href="#gettxmixincount" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxMixinCount() int32</code></p>
+<p>GetTxMixinCount returns the TxMixinCount field if non-nil, zero value otherwise.</p>
+<h3 id="gettxmixincountok">GetTxMixinCountOk<a class="headerlink" href="#gettxmixincountok" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) GetTxMixinCountOk() (*int32, bool)</code></p>
+<p>GetTxMixinCountOk returns a tuple with the TxMixinCount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.</p>
+<h3 id="settxmixincount">SetTxMixinCount<a class="headerlink" href="#settxmixincount" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) SetTxMixinCount(v int32)</code></p>
+<p>SetTxMixinCount sets TxMixinCount field to given value.</p>
+<h3 id="hastxmixincount">HasTxMixinCount<a class="headerlink" href="#hastxmixincount" title="Permanent link">&para;</a></h3>
+<p><code>func (o *TxProcessingPerformanceModel) HasTxMixinCount() bool</code></p>
+<p>HasTxMixinCount returns a boolean if a field has been set.</p>
+<p><a href="../#documentation-for-models">[Back to Model list]</a> <a href="../#documentation-for-api-endpoints">[Back to API list]</a> <a href="../">[Back to README]</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      LetheanVPN &copy; EUPL-1.2 &mdash; 2017 to &infin; and beyond
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.indexes", "navigation.expand", "navigation.sections", "navigation.path", "navigation.top", "search.suggest", "search.highlight", "search.share", "content.tabs.link", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

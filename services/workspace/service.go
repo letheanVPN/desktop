@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"path/filepath"
 
-	"github.com/letheanVPN/desktop/services/config"
+	"github.com/letheanVPN/desktop/services/core/config"
 	"github.com/letheanVPN/desktop/services/crypt/lib/lthn"
 	"github.com/letheanVPN/desktop/services/crypt/lib/openpgp"
 )

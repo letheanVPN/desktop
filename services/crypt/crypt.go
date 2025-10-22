@@ -1,6 +1,8 @@
 package crypt
 
-import "github.com/letheanVPN/desktop/services/config"
+import (
+	"github.com/letheanVPN/desktop/services/core/config"
+)
 
 // HashType defines the supported hashing algorithms.
 type HashType string

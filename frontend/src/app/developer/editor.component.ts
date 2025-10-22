@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
 import {FormsModule} from '@angular/forms';
-import {Get} from "@lthn/config/service"
+import {Get} from "@lthn/core/config/service"
 @Component({
   selector: 'dev-edit',
   standalone: true,

@@ -6,7 +6,7 @@ import (
 	"fmt"
 
 	lthn "github.com/letheanVPN/blockchain/utils/sdk/client/go"
-	"github.com/letheanVPN/desktop/services/config"
+	"github.com/letheanVPN/desktop/services/core/config"
 )
 
 // lthnNetwork implements the Network interface for the Lethean blockchain.
