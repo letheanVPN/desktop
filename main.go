@@ -10,6 +10,7 @@ import (
 	"github.com/letheanVPN/desktop/services/config"
 	"github.com/letheanVPN/desktop/services/display"
 	"github.com/letheanVPN/desktop/services/docs"
+	"github.com/letheanVPN/desktop/services/mining"
 	"github.com/wailsapp/wails/v3/pkg/application"
 	"github.com/wailsapp/wails/v3/pkg/events"
 )
@@ -51,6 +52,7 @@ func main() {
 			application.NewServiceWithOptions(docsService, application.ServiceOptions{
 				Route: "docs",
 			}),
+			application.NewService(mining.New()),
 			//application.NewService(cryptService),
 			//application.NewService(workspaceService),
 		},
