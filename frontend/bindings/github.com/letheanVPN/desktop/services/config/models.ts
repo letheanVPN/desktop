@@ -49,6 +49,11 @@ export class Config {
      */
     "Features": string[];
 
+    /**
+     * The language for the application UI.
+     */
+    "Language": string;
+
     /** Creates a new Config instance. */
     constructor($$source: Partial<Config> = {}) {
         if (!("DataDir" in $$source)) {
@@ -74,6 +79,9 @@ export class Config {
         }
         if (!("Features" in $$source)) {
             this["Features"] = [];
+        }
+        if (!("Language" in $$source)) {
+            this["Language"] = "";
         }
 
         Object.assign(this, $$source);

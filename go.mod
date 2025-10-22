@@ -6,10 +6,12 @@ require (
 	github.com/ProtonMail/go-crypto v1.3.0
 	github.com/adrg/xdg v0.5.3
 	github.com/letheanVPN/blockchain/utils/sdk/client/go v0.0.0-20251019181237-88d435762805
+	github.com/nicksnyder/go-i18n/v2 v2.6.0
 	github.com/pkg/sftp v1.13.9
 	github.com/stretchr/testify v1.11.1
 	github.com/wailsapp/wails/v3 v3.0.0-alpha.36
 	golang.org/x/crypto v0.43.0
+	golang.org/x/text v0.30.0
 )
 
 replace github.com/letheanVPN/blockchain/utils/sdk/client/go => ../blockchain/utils/sdk/client/go
@@ -52,7 +54,6 @@ require (
 	github.com/xanzy/ssh-agent v0.3.3 // indirect
 	golang.org/x/net v0.46.0 // indirect
 	golang.org/x/sys v0.37.0 // indirect
-	golang.org/x/text v0.30.0 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect

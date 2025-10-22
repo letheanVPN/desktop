@@ -4,15 +4,13 @@ import (
 	"embed"
 	"fmt"
 
-	"github.com/letheanVPN/desktop/services/config"
 	"github.com/wailsapp/wails/v3/pkg/application"
 	"github.com/wailsapp/wails/v3/pkg/events"
 )
 
 // NewService creates a new DisplayService.
-func NewService(cfg *config.Config, brand Brand, assets embed.FS) *Service {
+func NewService(brand Brand, assets embed.FS) *Service {
 	return &Service{
-		config:        cfg,
 		brand:         brand,
 		assets:        assets,
 		windowHandles: make(map[string]*application.WebviewWindow),

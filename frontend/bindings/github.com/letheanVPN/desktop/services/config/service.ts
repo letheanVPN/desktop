@@ -39,6 +39,7 @@ export function IsFeatureEnabled(feature: string): $CancellablePromise<boolean> 
 
 /**
  * Load reads the configuration from config.json.
+ * This method is now primarily used internally by NewService to apply loaded values.
  */
 export function Load(): $CancellablePromise<void> {
     return $Call.ByID(1795365427);

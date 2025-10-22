@@ -10,4 +10,5 @@ type Config struct {
 	UserHomeDir   string   // The user's home directory.
 	DefaultRoute  string   // The default route for the application.
 	Features      []string // List of enabled features
+	Language      string   // The language for the application UI.
 }

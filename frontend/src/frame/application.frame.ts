@@ -3,8 +3,10 @@ import { CommonModule, TitleCasePipe } from '@angular/common';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { ShowEnvironmentDialog } from "@lthn/display/service"
 import { OpenDocsWindow } from "@lthn/docs/service"
-
 import { EnableFeature, IsFeatureEnabled } from "@lthn/config/service";
+import { TranslationService } from '../app/services/translation.service';
+import { I18nService } from '../app/services/i18n.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'application-frame',
@@ -56,7 +58,7 @@ import { EnableFeature, IsFeatureEnabled } from "@lthn/config/service";
       </div>
       <nav class="relative mt-1">
         <ul role="list" class="flex flex-col items-center space-y-1">
-          @for (item of navigation; track item.name) {
+          @for (item of this.navigation; track item.name) {
             <li>
               <a [routerLink]="item.href" routerLinkActive="bg-white/5 text-white" [routerLinkActiveOptions]="{exact: true}"
                  class="text-gray-400 hover:bg-white/5 hover:text-white group flex justify-center items-center rounded-md p-4 text-sm/6 font-semibold h-16">
@@ -83,7 +85,7 @@ import { EnableFeature, IsFeatureEnabled } from "@lthn/config/service";
 
         <div class="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
           <form action="#" method="GET" class="grid flex-1 grid-cols-1">
-            <input name="search" placeholder="Search" aria-label="Search"
+            <input name="search" placeholder="{{ t._('app.core.ui.search') }}" aria-label="Search"
                    class="col-start-1 row-start-1 block size-full bg-white pl-8 text-base text-gray-900 outline-hidden placeholder:text-gray-400 sm:text-sm/6 dark:bg-gray-900 dark:text-white dark:placeholder:text-gray-500"/>
             <i class="fa-light fa-xl fa-magnifying-glass pointer-events-none col-start-1 row-start-1 self-center text-gray-400"></i>
           </form>
@@ -180,30 +182,75 @@ export class ApplicationFrame implements OnInit, OnDestroy {
   currentRole = 'Developer';
   time: string = '';
   private intervalId: number | undefined;
+  private langChangeSubscription: Subscription | undefined;
 
   featureKey: string | null = null;
   isFeatureEnabled: boolean = false;
+  userNavigation: any[] = [];
+  navigation: any[] = [];
+  roleNavigation: any[] = [];
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    public t: TranslationService,
+    private i18nService: I18nService
+    ) {
 
-  ngOnInit(): void {
+
+  }
+
+  async ngOnInit(): Promise<void> {
     this.updateTime();
     this.intervalId = window.setInterval(() => {
       this.updateTime();
     }, 1000);
+
+    await this.t.onReady();
+    this.initializeUserNavigation();
+
+    this.langChangeSubscription = this.i18nService.currentLanguage$.subscribe(async () => {
+        await this.t.onReady();
+        this.initializeUserNavigation();
+    });
 
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.extractFeatureKeyAndCheckStatus(event.urlAfterRedirects);
       }
     });
-    this.extractFeatureKeyAndCheckStatus(this.router.url); // Initial check
+    this.navigation = [
+      { name: this.t._('menu.dashboard'), href: '', icon: "fa-grid-round fa-regular fa-2xl shrink-0" },
+      { name: this.t._('menu.mining'), href: 'mining', icon: "fa-pickaxe fa-regular fa-2xl shrink-0" },
+      { name: this.t._('menu.blockchain'), href: 'blockchain', icon: "fa-chart-network fa-regular fa-2xl shrink-0" },
+      { name: this.t._('Developer'), href: 'dev/edit', icon: "fa-code fa-regular fa-2xl shrink-0" },
+      { name: this.t._('Networking'), href: 'net', icon: "fa-network-wired fa-regular fa-2xl shrink-0" },
+      { name: this.t._('Settings'), href: 'system/settings', icon: "fa-gear-code fa-regular fa-2xl shrink-0" },
+    ];
+
+    this.roleNavigation = [
+      { name: this.t._('menu.hub-client'), href: '/config/client-hub' },
+      { name: this.t._('menu.hub-server'), href: '/config/server-hub' },
+      { name: this.t._('menu.hub-developer'), href: '/config/developer-hub' },
+      { name: this.t._('menu.hub-gateway'), href: '/config/gateway-hub' },
+      { name: this.t._('menu.hub-admin'), href: '/config/admin-hub' },
+    ];
+    await this.extractFeatureKeyAndCheckStatus(this.router.url); // Initial check
   }
 
   ngOnDestroy(): void {
     if (this.intervalId) {
       clearInterval(this.intervalId);
     }
+    if (this.langChangeSubscription) {
+        this.langChangeSubscription.unsubscribe();
+    }
+  }
+
+  initializeUserNavigation(): void {
+    this.userNavigation = [
+      { name: this.t._('menu.your-profile'), href: '#', icon: "fa-id-card fa-regular" },
+      { name: this.t._('menu.logout'), href: '#', icon: "fa-right-from-bracket fa-regular" },
+    ];
   }
 
   updateTime(): void {
@@ -250,29 +297,6 @@ export class ApplicationFrame implements OnInit, OnDestroy {
   showTestDialog(): void {
     alert('Test Dialog Triggered!');
   }
-
-  navigation = [
-    { name: 'Dashboard', href: '', icon: "fa-grid-round fa-regular fa-2xl shrink-0" },
-    { name: 'Dashboard', href: 'mining', icon: "fa-pickaxe fa-regular fa-2xl shrink-0" },
-    { name: 'Dashboard', href: 'blockchain', icon: "fa-chart-network fa-regular fa-2xl shrink-0" },
-    { name: 'Developer', href: 'dev/edit', icon: "fa-code fa-regular fa-2xl shrink-0" },
-    { name: 'Networking', href: 'net', icon: "fa-network-wired fa-regular fa-2xl shrink-0" },
-    { name: 'Settings', href: '/docs', icon: "fa-gear-code fa-regular fa-2xl shrink-0" },
-    { name: 'Settings', href: 'system/settings', icon: "fa-gear-code fa-regular fa-2xl shrink-0" },
-  ];
-
-  userNavigation = [
-    { name: 'Your profile', href: '#', icon: "fa-id-card fa-regular" },
-    { name: 'Sign out', href: '#', icon: "fa-right-from-bracket fa-regular" },
-  ];
-
-  roleNavigation = [
-    { name: 'Client Hub', href: '/config/client-hub' },
-    { name: 'Server Hub', href: '/config/server-hub' },
-    { name: 'Developer Hub', href: '/config/developer-hub' },
-    { name: 'Gateway Hub', href: '/config/gateway-hub' },
-    { name: 'Admin Hub', href: '/config/admin-hub' },
-  ];
 
   openDocs() {
     return OpenDocsWindow("getting-started/chain#using-the-cli")

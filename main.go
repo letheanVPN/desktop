@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 
 	"github.com/letheanVPN/desktop/services/blockchain"
-	"github.com/letheanVPN/desktop/services/config"
+	"github.com/letheanVPN/desktop/services/core"
 	"github.com/letheanVPN/desktop/services/display"
 	"github.com/letheanVPN/desktop/services/docs"
 	"github.com/letheanVPN/desktop/services/mining"
@@ -21,21 +21,13 @@ var assets embed.FS
 func main() {
 	// --- Initialize Core Services ---
 
-	// 1. Create Config Service FIRST.
-	configService, err := config.NewService()
-	if err != nil {
-		log.Fatalf("Fatal: Failed to initialize config service: %v", err)
-	}
-	cfg := configService.Get()
+	// Initialize the CoreService singleton. This must be called once at startup.
+	core.New()
+	cfg := core.Config().Get()
 
-	// 2. Create other services, injecting dependencies into them.
-	//cryptService := crypt.NewService(cfg) // Using the new standardized constructor
-	//workspaceService := workspace.NewService(cfg)
-	// Pass the embedded assets directly to the DisplayService.
-	displayService := display.NewService(cfg, display.ClientHub, assets)
-
+	// Create other services, injecting dependencies into them.
+	displayService := display.NewService(display.ClientHub, assets)
 	letheanService := blockchain.NewService(cfg)
-
 	docsService, err := docs.NewService(displayService)
 	if err != nil {
 		log.Fatalf("Fatal: Failed to initialize docs service: %v", err)
@@ -46,15 +38,14 @@ func main() {
 		Name:        "Lethean Desktop",
 		Description: "A private, decentralized, and secure desktop application",
 		Services: []application.Service{
+			application.NewService(core.Config()),
+			application.NewService(core.I18n()),
 			application.NewService(displayService),
 			application.NewService(letheanService),
-			application.NewService(configService),
 			application.NewServiceWithOptions(docsService, application.ServiceOptions{
 				Route: "docs",
 			}),
 			application.NewService(mining.New()),
-			//application.NewService(cryptService),
-			//application.NewService(workspaceService),
 		},
 		Assets: application.AssetOptions{
 			Handler: application.AssetFileServerFS(assets),
@@ -64,39 +55,27 @@ func main() {
 		},
 	})
 
-	// OS specific application events
-
 	// Platform agnostic events
 	app.Event.OnApplicationEvent(events.Common.ApplicationStarted, func(event *application.ApplicationEvent) {
-		app.Logger.Info("Application started!")
+		app.Logger.Info(core.I18n().Translate("app.boot.loaded-runtime"))
 	})
 
-	app.Event.OnApplicationEvent(events.Windows.SystemThemeChanged, func(event *application.ApplicationEvent) {
-		app.Logger.Info("System theme changed!")
-		if event.Context().IsDarkMode() {
-			app.Logger.Info("System is now using dark mode!")
-		} else {
-			app.Logger.Info("System is now using light mode!")
-		}
-	})
 	displayService.Setup(app)
+
+	// --- Log startup message ---
+	app.Logger.Info(core.I18n().Translate("app.boot.start-runtime"))
+
 	// --- Run Application ---
 	configFilePath := filepath.Join(cfg.ConfigDir, "config.json")
 	_, err = os.Stat(configFilePath)
 	if os.IsNotExist(err) {
 		displayService.OpenWindow("main", application.WebviewWindowOptions{
-			Title: "Desktop Setup",
+			Title: core.I18n().Translate("app.setup.title"),
 			URL:   "#/setup",
 		})
 	} else {
-		//displayService.OpenWindow("main", application.WebviewWindowOptions{
-		//	Title:  "Desktopfdfd",
-		//	Height: 900,
-		//	Width:  1280,
-		//	URL:    "/docs/",
-		//})
 		displayService.OpenWindow("main", application.WebviewWindowOptions{
-			Title:  "Desktop",
+			Title:  core.I18n().Translate("app.title"),
 			Height: 900,
 			Width:  1280,
 			URL:    "#" + cfg.DefaultRoute,

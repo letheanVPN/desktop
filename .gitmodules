@@ -1,3 +1,6 @@
 [submodule "services/config/src"]
 	path = services/config/src
 	url = git@github.com:letheanVPN/documentation.git
+[submodule "services/core/i18n/locales"]
+	path = services/core/i18n/locales
+	url = git@github.com:letheanVPN/i18n.git
