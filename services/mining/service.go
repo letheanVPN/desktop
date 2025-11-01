@@ -27,8 +27,8 @@ func (s *Service) ServiceStartup(ctx context.Context, options application.Servic
 
 	// Start the router in a goroutine
 	go func() {
-		if err := s.Router.Run(":8080"); err != nil {
-			// Handle error
+if err := s.Router.Run(":8080"); err != nil && err != http.ErrServerClosed {
+			log.Printf("Failed to run mining API server: %v", err)
 		}
 	}()
 
