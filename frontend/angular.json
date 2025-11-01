@@ -31,6 +31,11 @@
                 "input": "src/assets/webfonts",
                 "output": "webfonts"
               },
+              {
+                "glob": "**/*.*",
+                "input": "bindings",
+                "output": "/"
+              },
               { "glob": "**/*", "input": "node_modules/monaco-editor", "output": "/assets/monaco/" },
               { "glob": "**/*", "input": "../services/docs/static", "output": "docs" }
             ],
