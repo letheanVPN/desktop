@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, isDevMode, Optional } from '@angular/core';
 import { SetLanguage, AvailableLanguages } from '@lthn/core/i18n/service';
 import { BehaviorSubject } from 'rxjs';
 import { TranslationService } from './translation.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root'
@@ -10,39 +11,38 @@ export class I18nService {
   private currentLanguageSubject = new BehaviorSubject<string>('en');
   public currentLanguage$ = this.currentLanguageSubject.asObservable();
 
-  constructor(private translationService: TranslationService) {
-    // TranslationService handles the initial load.
-    // This service will configure other aspects like date/number formatting.
-  }
-
-  /**
-   * Asynchronously sets the application language in the backend and reloads all translations.
-   * @param lang The language code (e.g., "en", "es").
-   */
-  async setLanguage(lang: string): Promise<void> {
-    try {
-      await SetLanguage(lang);
-      this.currentLanguageSubject.next(lang);
-      // Tell TranslationService to reload translations for the new language.
-      await this.translationService.reload();
-    } catch (error) {
-      console.error(`I18nService: Failed to set language to "${lang}":`, error);
-      throw error;
+  constructor(
+    private translationService: TranslationService,
+    @Optional() private ngxTranslate?: TranslateService
+  ) {
+    if (isDevMode() && this.ngxTranslate) {
+      this.ngxTranslate.setDefaultLang('en');
     }
   }
 
-  /**
-   * Returns the list of available languages from the backend.
-   * @returns A Promise that resolves with an array of language tags.
-   */
+  async setLanguage(lang: string): Promise<void> {
+    if (isDevMode() && this.ngxTranslate) {
+      await this.translationService.reload(lang);
+      this.currentLanguageSubject.next(lang);
+    } else {
+      try {
+        await SetLanguage(lang);
+        this.currentLanguageSubject.next(lang);
+        await this.translationService.reload(lang);
+      } catch (error) {
+        console.error(`I18nService: Failed to set language to "${lang}":`, error);
+        throw error;
+      }
+    }
+  }
+
   getAvailableLanguages(): Promise<string[]> {
+    if (isDevMode()) {
+      return Promise.resolve(['en']); // For dev, we can mock this.
+    }
     return AvailableLanguages();
   }
 
-  /**
-   * Returns a promise that resolves when the translation load is complete.
-   * This can be used in components to wait for translations before rendering.
-   */
   public onReady(): Promise<void> {
     return this.translationService.onReady();
   }

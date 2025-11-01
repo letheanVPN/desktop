@@ -32,12 +32,22 @@
                 "output": "webfonts"
               },
               {
+                "glob": "@awesome.me/webawesome/**/*.*",
+                "input": "node_modules/",
+                "output": "/"
+              },
+              {
                 "glob": "**/*.*",
                 "input": "bindings",
                 "output": "/"
               },
               { "glob": "**/*", "input": "node_modules/monaco-editor", "output": "/assets/monaco/" },
-              { "glob": "**/*", "input": "../services/docs/static", "output": "docs" }
+              { "glob": "**/*", "input": "../services/docs/static", "output": "docs" },
+              {
+                "glob": "**/*.json",
+                "input": "../services/core/i18n/locales",
+                "output": "assets/i18n"
+              }
             ],
             "scripts": [
               "node_modules/@tailwindplus/elements/dist/index.js"
@@ -49,10 +59,19 @@
               "includePaths": [
                 "node_modules"
               ]
+            },
+            "define": {
+              "import.meta.vitest": "undefined"
             }
           },
           "configurations": {
             "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
               "budgets": [
                 {
                   "type": "initial",
