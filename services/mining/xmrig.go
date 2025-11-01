@@ -37,7 +37,8 @@ func (m *XMRigMiner) GetName() string {
 
 // GetLatestVersion returns the latest version of XMRig
 func (m *XMRigMiner) GetLatestVersion() (string, error) {
-	resp, err := http.Get("https://api.github.com/repos/xmrig/xmrig/releases/latest")
+client := http.Client{Timeout: 30 * time.Second}
+	resp, err := client.Get("https://api.github.com/repos/xmrig/xmrig/releases/latest")
 	if err != nil {
 		return "", err
 	}
