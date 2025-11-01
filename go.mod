@@ -5,7 +5,6 @@ go 1.25
 require (
 	github.com/ProtonMail/go-crypto v1.3.0
 	github.com/adrg/xdg v0.5.3
-	github.com/letheanVPN/blockchain/utils/sdk/client/go v0.0.0-20251019181237-88d435762805
 	github.com/nicksnyder/go-i18n/v2 v2.6.0
 	github.com/pkg/sftp v1.13.10
 	github.com/stretchr/testify v1.11.1
@@ -13,8 +12,6 @@ require (
 	golang.org/x/crypto v0.43.0
 	golang.org/x/text v0.30.0
 )
-
-replace github.com/letheanVPN/blockchain/utils/sdk/client/go => ../blockchain/utils/sdk/client/go
 
 require (
 	dario.cat/mergo v1.0.1 // indirect

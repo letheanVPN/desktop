@@ -14,6 +14,7 @@ type Service struct {
 	//config        *config.Config
 	//networks      map[string]Network
 	//activeNetwork Network
+	XMRig *XMRigMiner
 }
 
 // Miner represents a miner
@@ -50,4 +51,30 @@ type History struct {
 	Miner   string  `json:"miner"`
 	Stats   []Stats `json:"stats"`
 	Updated int64   `json:"updated"`
+}
+
+// XMRigMiner represents an XMRig miner
+type XMRigMiner struct {
+	Miner
+	ConfigPath string `json:"configPath"`
+	API        *API   `json:"api"`
+}
+
+// API represents the XMRig API configuration
+type API struct {
+	Enabled    bool   `json:"enabled"`
+	ListenHost string `json:"listenHost"`
+	ListenPort int    `json:"listenPort"`
+}
+
+// XMRigSummary represents the summary from the XMRig API
+type XMRigSummary struct {
+	Hashrate struct {
+		Total []float64 `json:"total"`
+	} `json:"hashrate"`
+	Results struct {
+		SharesGood uint64 `json:"shares_good"`
+		SharesTotal uint64 `json:"shares_total"`
+	} `json:"results"`
+	Uptime uint64 `json:"uptime"`
 }
