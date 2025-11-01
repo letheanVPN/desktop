@@ -9,9 +9,9 @@ export class StyleManagerService {
   constructor() { }
 
   init() {
-    if (environment.pro) {
-      this.loadProStyles();
-    }
+    // if (environment.pro) {
+    //   this.loadProStyles();
+    // }
   }
 
   private loadProStyles() {
