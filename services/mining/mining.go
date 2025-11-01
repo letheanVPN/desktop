@@ -1,6 +1,11 @@
 package mining
 
-import "github.com/gin-gonic/gin"
+import (
+	"net/http"
+	"sync"
+
+	"github.com/gin-gonic/gin"
+)
 
 // Miner is the interface for a miner
 type Miner interface {
@@ -14,6 +19,7 @@ type Miner interface {
 type Service struct {
 	Miners map[string]Miner
 	Router *gin.Engine
+	Server *http.Server
 }
 
 // Config represents the config for a miner
@@ -53,6 +59,7 @@ type XMRigMiner struct {
 	LastHeartbeat int64  `json:"lastHeartbeat"`
 	ConfigPath    string `json:"configPath"`
 	API           *API   `json:"api"`
+	mu            sync.Mutex
 }
 
 // API represents the XMRig API configuration

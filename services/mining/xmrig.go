@@ -14,7 +14,6 @@ import (
 	"path/filepath"
 	"runtime"
 	"strings"
-	"time"
 )
 
 // NewXMRigMiner creates a new XMRig miner
@@ -38,8 +37,7 @@ func (m *XMRigMiner) GetName() string {
 
 // GetLatestVersion returns the latest version of XMRig
 func (m *XMRigMiner) GetLatestVersion() (string, error) {
-client := http.Client{Timeout: 30 * time.Second}
-	resp, err := client.Get("https://api.github.com/repos/xmrig/xmrig/releases/latest")
+	resp, err := http.Get("https://api.github.com/repos/xmrig/xmrig/releases/latest")
 	if err != nil {
 		return "", err
 	}
@@ -117,6 +115,9 @@ func (m *XMRigMiner) Install() error {
 
 // Start the miner
 func (m *XMRigMiner) Start(config *Config) error {
+	m.mu.Lock()
+	defer m.mu.Unlock()
+
 	if m.Running {
 		return errors.New("miner is already running")
 	}
@@ -143,7 +144,9 @@ func (m *XMRigMiner) Start(config *Config) error {
 
 	go func() {
 		cmd.Wait()
+		m.mu.Lock()
 		m.Running = false
+		m.mu.Unlock()
 	}()
 
 	return nil
@@ -151,6 +154,9 @@ func (m *XMRigMiner) Start(config *Config) error {
 
 // Stop the miner
 func (m *XMRigMiner) Stop() error {
+	m.mu.Lock()
+	defer m.mu.Unlock()
+
 	if !m.Running {
 		return errors.New("miner is not running")
 	}
@@ -183,6 +189,9 @@ func (m *XMRigMiner) Stop() error {
 
 // GetStats returns the stats for the miner
 func (m *XMRigMiner) GetStats() (*PerformanceMetrics, error) {
+	m.mu.Lock()
+	defer m.mu.Unlock()
+
 	if !m.Running {
 		return nil, errors.New("miner is not running")
 	}
@@ -347,20 +356,17 @@ func (m *XMRigMiner) untar(src, dest string) error {
 			continue
 		}
 
-		// Strip the top-level directory
-		parts := strings.Split(header.Name, "/")
-		var newName string
-		if len(parts) > 1 {
-			newName = strings.Join(parts[1:], "/")
-		} else {
-			newName = parts[0]
-		}
-		if newName == "" {
+		// Sanitize the header name to prevent path traversal
+		cleanedName := filepath.Clean(header.Name)
+		if strings.HasPrefix(cleanedName, "..") || strings.HasPrefix(cleanedName, "/") || cleanedName == "." {
 			continue
 		}
 
-		// the target location where the dir/file should be created
-		target := filepath.Join(dest, newName)
+		target := filepath.Join(dest, cleanedName)
+		rel, err := filepath.Rel(dest, target)
+		if err != nil || strings.HasPrefix(rel, "..") {
+			continue
+		}
 
 		// check the file type
 		switch header.Typeflag {
@@ -375,7 +381,10 @@ func (m *XMRigMiner) untar(src, dest string) error {
 
 		// if it's a file create it
 		case tar.TypeReg:
-			f, err := os.OpenFile(target, os.O_CREATE|os.O_RDWR, os.FileMode(header.Mode))
+			if err := os.MkdirAll(filepath.Dir(target), 0755); err != nil {
+				return err
+			}
+			f, err := os.OpenFile(target, os.O_CREATE|os.O_RDWR|os.O_TRUNC, os.FileMode(header.Mode))
 			if err != nil {
 				return err
 			}

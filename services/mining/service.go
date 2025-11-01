@@ -3,7 +3,9 @@ package mining
 import (
 	"context"
 	"fmt"
+	"log"
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/wailsapp/wails/v3/pkg/application"
@@ -25,10 +27,25 @@ func (s *Service) ServiceStartup(ctx context.Context, options application.Servic
 	s.Router = gin.Default()
 	s.setupRoutes()
 
-	// Start the router in a goroutine
+	// Create and start the HTTP server
+	s.Server = &http.Server{
+		Addr:    ":8080",
+		Handler: s.Router,
+	}
+
 	go func() {
-if err := s.Router.Run(":8080"); err != nil && err != http.ErrServerClosed {
-			log.Printf("Failed to run mining API server: %v", err)
+		if err := s.Server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+			log.Fatalf("could not listen on %s: %v\n", s.Server.Addr, err)
+		}
+	}()
+
+	// Listen for context cancellation to gracefully shut down the server
+	go func() {
+		<-ctx.Done()
+		ctxShutdown, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+		defer cancel()
+		if err := s.Server.Shutdown(ctxShutdown); err != nil {
+			log.Fatalf("server shutdown failed: %+v", err)
 		}
 	}()
 
