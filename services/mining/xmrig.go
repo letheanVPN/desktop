@@ -14,7 +14,14 @@ import (
 	"path/filepath"
 	"runtime"
 	"strings"
+	"time"
+
+	"github.com/adrg/xdg"
 )
+
+var httpClient = &http.Client{
+	Timeout: 30 * time.Second,
+}
 
 // NewXMRigMiner creates a new XMRig miner
 func NewXMRigMiner() *XMRigMiner {
@@ -37,11 +44,15 @@ func (m *XMRigMiner) GetName() string {
 
 // GetLatestVersion returns the latest version of XMRig
 func (m *XMRigMiner) GetLatestVersion() (string, error) {
-	resp, err := http.Get("https://api.github.com/repos/xmrig/xmrig/releases/latest")
+	resp, err := httpClient.Get("https://api.github.com/repos/xmrig/xmrig/releases/latest")
 	if err != nil {
 		return "", err
 	}
 	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return "", fmt.Errorf("failed to get latest release: unexpected status code %d", resp.StatusCode)
+	}
 
 	var release struct {
 		TagName string `json:"tag_name"`
@@ -79,30 +90,33 @@ func (m *XMRigMiner) Install() error {
 		return err
 	}
 	defer os.Remove(tmpfile.Name())
+	defer tmpfile.Close()
 
 	// Download the release
-	resp, err := http.Get(url)
+	resp, err := httpClient.Get(url)
 	if err != nil {
 		return err
 	}
 	defer resp.Body.Close()
 
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("failed to download release: unexpected status code %d", resp.StatusCode)
+	}
+
 	if _, err := io.Copy(tmpfile, resp.Body); err != nil {
 		return err
 	}
 
-	// Get the user's home directory
-	homeDir, err := os.UserHomeDir()
+	// Get the application-specific data path
+	dataPath, err := xdg.DataFile("lethean-desktop/miners/xmrig")
 	if err != nil {
 		return err
 	}
-	m.Path = filepath.Join(homeDir, "xmrig")
+	m.Path = dataPath
 
 	// Create the installation directory if it doesn't exist
-	if _, err := os.Stat(m.Path); os.IsNotExist(err) {
-		if err := os.MkdirAll(m.Path, 0755); err != nil {
-			return err
-		}
+	if err := os.MkdirAll(m.Path, 0755); err != nil {
+		return err
 	}
 
 	// Extract the release
@@ -134,18 +148,23 @@ func (m *XMRigMiner) Start(config *Config) error {
 		executableName = "xmrig"
 	}
 
-	cmd := exec.Command(filepath.Join(m.Path, executableName), "-c", m.ConfigPath)
-	if err := cmd.Start(); err != nil {
+	executablePath := filepath.Join(m.Path, fmt.Sprintf("xmrig-%s", strings.TrimPrefix(m.Version, "v")), executableName)
+	if _, err := os.Stat(executablePath); os.IsNotExist(err) {
+		return fmt.Errorf("xmrig executable not found at %s", executablePath)
+	}
+
+	m.cmd = exec.Command(executablePath, "-c", m.ConfigPath)
+	if err := m.cmd.Start(); err != nil {
 		return err
 	}
 
-	m.Pid = cmd.Process.Pid
 	m.Running = true
 
 	go func() {
-		cmd.Wait()
+		m.cmd.Wait()
 		m.mu.Lock()
 		m.Running = false
+		m.cmd = nil
 		m.mu.Unlock()
 	}()
 
@@ -157,50 +176,33 @@ func (m *XMRigMiner) Stop() error {
 	m.mu.Lock()
 	defer m.mu.Unlock()
 
-	if !m.Running {
+	if !m.Running || m.cmd == nil {
 		return errors.New("miner is not running")
 	}
 
-	p, err := os.FindProcess(m.Pid)
-	if err != nil {
-		return err
-	}
-
-	// Try to gracefully stop the process
-	if err := p.Signal(os.Interrupt); err != nil {
-		// Fallback to killing the process if sending Interrupt fails
-		if err := p.Kill(); err != nil {
-			return err
-		}
-	}
-
-	// Wait for the process to exit
-	_, err = p.Wait()
-	if err != nil {
-		// If waiting fails, try to kill the process
-		if err := p.Kill(); err != nil {
-			return err
-		}
-	}
-
-	m.Running = false
-	return nil
+	// Kill the process. The goroutine in Start() will handle Wait() and state change.
+	return m.cmd.Process.Kill()
 }
 
 // GetStats returns the stats for the miner
 func (m *XMRigMiner) GetStats() (*PerformanceMetrics, error) {
 	m.mu.Lock()
-	defer m.mu.Unlock()
+	running := m.Running
+	m.mu.Unlock()
 
-	if !m.Running {
+	if !running {
 		return nil, errors.New("miner is not running")
 	}
 
-	resp, err := http.Get(fmt.Sprintf("http://%s:%d/2/summary", m.API.ListenHost, m.API.ListenPort))
+	resp, err := httpClient.Get(fmt.Sprintf("http://%s:%d/2/summary", m.API.ListenHost, m.API.ListenPort))
 	if err != nil {
 		return nil, err
 	}
 	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("failed to get stats: unexpected status code %d", resp.StatusCode)
+	}
 
 	var summary XMRigSummary
 	if err := json.NewDecoder(resp.Body).Decode(&summary); err != nil {
@@ -223,11 +225,20 @@ func (m *XMRigMiner) GetStats() (*PerformanceMetrics, error) {
 
 
 func (m *XMRigMiner) createConfig(config *Config) error {
-	homeDir, err := os.UserHomeDir()
+	configPath, err := xdg.ConfigFile("lethean-desktop/xmrig.json")
 	if err != nil {
+		// Fallback to home directory if XDG is not available
+		homeDir, err := os.UserHomeDir()
+		if err != nil {
+			return err
+		}
+		configPath = filepath.Join(homeDir, ".config", "lethean-desktop", "xmrig.json")
+	}
+	m.ConfigPath = configPath
+
+	if err := os.MkdirAll(filepath.Dir(m.ConfigPath), 0755); err != nil {
 		return err
 	}
-	m.ConfigPath = filepath.Join(homeDir, ".xmrig.json")
 
 	// Create the config
 	c := map[string]interface{}{
@@ -243,13 +254,13 @@ func (m *XMRigMiner) createConfig(config *Config) error {
 				"user":  config.Wallet,
 				"pass":  "x",
 				"keepalive": true,
-				"tls":     true,
+				"tls":     config.TLS,
 			},
 		},
 		"cpu": map[string]interface{}{
 			"enabled":    true,
 			"threads":    config.Threads,
-			"huge-pages": true,
+			"huge-pages": config.HugePages,
 		},
 	}
 
@@ -270,20 +281,8 @@ func (m *XMRigMiner) unzip(src, dest string) error {
 	defer r.Close()
 
 	for _, f := range r.File {
-		// Strip the top-level directory
-		parts := strings.Split(f.Name, "/")
-		var newName string
-		if len(parts) > 1 {
-			newName = strings.Join(parts[1:], "/")
-		} else {
-			newName = parts[0]
-		}
-		if newName == "" {
-			continue
-		}
-
 		// Store filename/path for returning and using later on
-		fpath := filepath.Join(dest, newName)
+		fpath := filepath.Join(dest, f.Name)
 
 		// Check for ZipSlip. More Info: http://bit.ly/2MsjAWE
 		if !strings.HasPrefix(fpath, filepath.Clean(dest)+string(os.PathSeparator)) {

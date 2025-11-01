@@ -52,20 +52,33 @@ func (s *Service) ServiceStartup(ctx context.Context, options application.Servic
 	return nil
 }
 
+func (s *Service) minerMiddleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		minerName := c.Param("miner_name")
+		miner, ok := s.Miners[minerName]
+		if !ok {
+			c.JSON(http.StatusNotFound, gin.H{"error": "miner not found"})
+			c.Abort()
+			return
+		}
+		c.Set("miner", miner)
+		c.Next()
+	}
+}
+
 func (s *Service) setupRoutes() {
-	s.Router.POST("/miners/:miner_name/install", s.handleInstallMiner)
-	s.Router.POST("/miners/:miner_name/start", s.handleStartMiner)
-	s.Router.POST("/miners/:miner_name/stop", s.handleStopMiner)
-	s.Router.GET("/miners/:miner_name/stats", s.handleGetMinerStats)
+	minerGroup := s.Router.Group("/miners/:miner_name")
+	minerGroup.Use(s.minerMiddleware())
+	{
+		minerGroup.POST("/install", s.handleInstallMiner)
+		minerGroup.POST("/start", s.handleStartMiner)
+		minerGroup.POST("/stop", s.handleStopMiner)
+		minerGroup.GET("/stats", s.handleGetMinerStats)
+	}
 }
 
 func (s *Service) handleInstallMiner(c *gin.Context) {
-	minerName := c.Param("miner_name")
-	miner, ok := s.Miners[minerName]
-	if !ok {
-		c.JSON(http.StatusNotFound, gin.H{"error": "miner not found"})
-		return
-	}
+	miner := c.MustGet("miner").(Miner)
 	if err := miner.Install(); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -74,12 +87,7 @@ func (s *Service) handleInstallMiner(c *gin.Context) {
 }
 
 func (s *Service) handleStartMiner(c *gin.Context) {
-	minerName := c.Param("miner_name")
-	miner, ok := s.Miners[minerName]
-	if !ok {
-		c.JSON(http.StatusNotFound, gin.H{"error": "miner not found"})
-		return
-	}
+	miner := c.MustGet("miner").(Miner)
 	var config Config
 	if err := c.ShouldBindJSON(&config); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -93,12 +101,7 @@ func (s *Service) handleStartMiner(c *gin.Context) {
 }
 
 func (s *Service) handleStopMiner(c *gin.Context) {
-	minerName := c.Param("miner_name")
-	miner, ok := s.Miners[minerName]
-	if !ok {
-		c.JSON(http.StatusNotFound, gin.H{"error": "miner not found"})
-		return
-	}
+	miner := c.MustGet("miner").(Miner)
 	if err := miner.Stop(); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -107,12 +110,7 @@ func (s *Service) handleStopMiner(c *gin.Context) {
 }
 
 func (s *Service) handleGetMinerStats(c *gin.Context) {
-	minerName := c.Param("miner_name")
-	miner, ok := s.Miners[minerName]
-	if !ok {
-		c.JSON(http.StatusNotFound, gin.H{"error": "miner not found"})
-		return
-	}
+	miner := c.MustGet("miner").(Miner)
 	stats, err := miner.GetStats()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})

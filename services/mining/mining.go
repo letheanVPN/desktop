@@ -2,6 +2,7 @@ package mining
 
 import (
 	"net/http"
+	"os/exec"
 	"sync"
 
 	"github.com/gin-gonic/gin"
@@ -24,10 +25,12 @@ type Service struct {
 
 // Config represents the config for a miner
 type Config struct {
-	Miner   string `json:"miner"`
-	Pool    string `json:"pool"`
-	Wallet  string `json:"wallet"`
-	Threads int    `json:"threads"`
+	Miner     string `json:"miner"`
+	Pool      string `json:"pool"`
+	Wallet    string `json:"wallet"`
+	Threads   int    `json:"threads"`
+	TLS       bool   `json:"tls"`
+	HugePages bool   `json:"hugePages"`
 }
 
 // PerformanceMetrics represents the performance metrics for a miner
@@ -55,11 +58,11 @@ type XMRigMiner struct {
 	URL           string `json:"url"`
 	Path          string `json:"path"`
 	Running       bool   `json:"running"`
-	Pid           int    `json:"pid"`
 	LastHeartbeat int64  `json:"lastHeartbeat"`
 	ConfigPath    string `json:"configPath"`
 	API           *API   `json:"api"`
 	mu            sync.Mutex
+	cmd           *exec.Cmd `json:"-"`
 }
 
 // API represents the XMRig API configuration
