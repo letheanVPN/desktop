@@ -27,8 +27,8 @@
                 "input": "public"
               },
               {
-                "glob": "**/*",
-                "input": "src/assets/webfonts",
+                "glob": "fa-{brands,jelly,thin,light,regular,solid}*.woff2",
+                "input": "node_modules/@fortawesome/fontawesome/webfonts",
                 "output": "webfonts"
               },
               {
@@ -43,14 +43,7 @@
               "node_modules/@tailwindplus/elements/dist/index.js"
             ],
             "styles": [
-              "src/styles.css",
-              "src/assets/css/fontawesome.min.css",
-              "src/assets/css/brands.min.css",
-              "src/assets/css/regular.min.css",
-              "src/assets/css/light.min.css",
-              "src/assets/css/solid.min.css",
-              "src/assets/css/jelly-regular.min.css",
-              "src/assets/css/jelly-fill-regular.min.css"
+              "src/styles.scss"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [

@@ -31,6 +31,8 @@
     "@angular/router": "^20.3.0",
     "@tailwindplus/elements": "^1.0.18",
     "@wailsio/runtime": "^3.0.0-alpha.72",
+    "@awesome.me/webawesome": "file:~/Code/lib/webawesome",
+    "@fortawesome/fontawesome": "file:~/Code/lib/fontawesome/npm",
     "monaco-editor": "^0.52.2",
     "ngx-monaco-editor-v2": "^20.3.0",
     "rxjs": "~7.8.0",

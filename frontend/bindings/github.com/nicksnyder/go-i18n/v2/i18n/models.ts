@@ -7,10 +7,10 @@ import { Create as $Create } from "@wailsio/runtime";
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore: Unused imports
-import * as template$0 from "./template/models.js";
+import * as template$1 from "./template/models.js";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore: Unused imports
-import * as template$1 from "../../../../../text/template/models.js";
+import * as template$0 from "../../../../../text/template/models.js";
 
 /**
  * Bundle stores a set of messages and pluralization rules.
@@ -66,13 +66,13 @@ export class LocalizeConfig {
     /**
      * Funcs is used to configure a template.TextParser if TemplateParser is not set.
      */
-    "Funcs": template$1.FuncMap;
+    "Funcs": template$0.FuncMap;
 
     /**
      * The TemplateParser to use for parsing templates.
      * If one is not set, a template.TextParser is used (configured with Funcs if it is set).
      */
-    "TemplateParser": template$0.Parser;
+    "TemplateParser": template$1.Parser;
 
     /** Creates a new LocalizeConfig instance. */
     constructor($$source: Partial<LocalizeConfig> = {}) {
