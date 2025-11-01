@@ -1,13 +1,13 @@
 module github.com/letheanVPN/desktop
 
-go 1.24.0
+go 1.25
 
 require (
 	github.com/ProtonMail/go-crypto v1.3.0
 	github.com/adrg/xdg v0.5.3
 	github.com/letheanVPN/blockchain/utils/sdk/client/go v0.0.0-20251019181237-88d435762805
 	github.com/nicksnyder/go-i18n/v2 v2.6.0
-	github.com/pkg/sftp v1.13.9
+	github.com/pkg/sftp v1.13.10
 	github.com/stretchr/testify v1.11.1
 	github.com/wailsapp/wails/v3 v3.0.0-alpha.36
 	golang.org/x/crypto v0.43.0
@@ -48,7 +48,7 @@ require (
 	github.com/rivo/uniseg v0.4.7 // indirect
 	github.com/samber/lo v1.49.1 // indirect
 	github.com/sergi/go-diff v1.3.2-0.20230802210424-5b0b94c5c0d3 // indirect
-	github.com/skeema/knownhosts v1.3.1 // indirect
+	github.com/skeema/knownhosts v1.3.2 // indirect
 	github.com/wailsapp/go-webview2 v1.0.22 // indirect
 	github.com/wailsapp/mimetype v1.4.1 // indirect
 	github.com/xanzy/ssh-agent v0.3.3 // indirect

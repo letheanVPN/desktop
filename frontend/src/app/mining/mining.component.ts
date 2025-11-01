@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: `
       <!-- Sticky search header -->
-      <div class="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-6 border-b border-gray-200 bg-white  px-4 shadow-xs sm:px-6 lg:px-8 dark:border-white/5 dark:bg-gray-900 dark:shadow-none">
+      <div slot="subheader" class=" top-0 z-40 flex h-16 shrink-0 items-center gap-x-6 border-b border-gray-200 bg-white  px-4 shadow-xs sm:px-6 lg:px-8 dark:border-white/5 dark:bg-gray-900 dark:shadow-none">
         <nav class="flex overflow-x-auto border-b border-gray-200 py-4 dark:border-white/10">
           <div class="pt-2 pr-2">
             <div class="flex-none rounded-full bg-green-500/10 text-green-500 dark:bg-green-400/10 dark:text-green-400">

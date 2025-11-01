@@ -7,7 +7,12 @@
     "build": "ng build",
     "build:dev": "ng build --configuration development",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "pro": "npm run pro-npm-del && npm run pro-link",
+    "free": "npm run pro-unlink && npm run pro-npm-del && npm install @fortawesome/fontawesome-free @awesome.me/webawesome ",
+    "pro-link": "(cd ~/Code/lib/webawesome && npm link) && (cd ~/Code/lib/fontawesome/npm && npm link) && npm link @awesome.me/webawesome && npm link @fortawesome/fontawesome-free",
+    "pro-unlink": "npm unlink @awesome.me/webawesome && npm unlink @fortawesome/fontawesome-free",
+    "pro-npm-del": "rm -rf node_modules/@awesome.me/webawesome && rm -rf node_modules/@fortawesome/fontawesome-free"
   },
   "prettier": {
     "printWidth": 100,
@@ -29,10 +34,12 @@
     "@angular/forms": "^20.3.0",
     "@angular/platform-browser": "^20.3.0",
     "@angular/router": "^20.3.0",
+    "@awesome.me/webawesome": "^3.0.0",
+    "@fortawesome/fontawesome-free": "^7.1.0",
+    "@ngx-translate/core": "^17.0.0",
+    "@ngx-translate/http-loader": "^17.0.0",
     "@tailwindplus/elements": "^1.0.18",
     "@wailsio/runtime": "^3.0.0-alpha.72",
-    "@awesome.me/webawesome": "file:~/Code/lib/webawesome",
-    "@fortawesome/fontawesome": "file:~/Code/lib/fontawesome/npm",
     "monaco-editor": "^0.52.2",
     "ngx-monaco-editor-v2": "^20.3.0",
     "rxjs": "~7.8.0",
