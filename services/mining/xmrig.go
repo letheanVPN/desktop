@@ -14,23 +14,25 @@ import (
 	"path/filepath"
 	"runtime"
 	"strings"
-	"time"
 )
 
 // NewXMRigMiner creates a new XMRig miner
 func NewXMRigMiner() *XMRigMiner {
 	return &XMRigMiner{
-		Miner: Miner{
-			Name:    "XMRig",
-			Version: "latest",
-			URL:     "https://github.com/xmrig/xmrig/releases",
-		},
+		Name:    "XMRig",
+		Version: "latest",
+		URL:     "https://github.com/xmrig/xmrig/releases",
 		API: &API{
 			Enabled:    true,
 			ListenHost: "127.0.0.1",
 			ListenPort: 9000,
 		},
 	}
+}
+
+// GetName returns the name of the miner
+func (m *XMRigMiner) GetName() string {
+	return m.Name
 }
 
 // GetLatestVersion returns the latest version of XMRig
@@ -178,7 +180,7 @@ func (m *XMRigMiner) Stop() error {
 }
 
 // GetStats returns the stats for the miner
-func (m *XMRigMiner) GetStats() (*Stats, error) {
+func (m *XMRigMiner) GetStats() (*PerformanceMetrics, error) {
 	if !m.Running {
 		return nil, errors.New("miner is not running")
 	}
@@ -199,11 +201,12 @@ func (m *XMRigMiner) GetStats() (*Stats, error) {
 		hashrate = int(summary.Hashrate.Total[0])
 	}
 
-	return &Stats{
-		Hashrate: hashrate,
-		Shares:   int(summary.Results.SharesGood),
-		Rejected: int(summary.Results.SharesTotal - summary.Results.SharesGood),
-		Uptime:   int(summary.Uptime),
+	return &PerformanceMetrics{
+		Hashrate:  hashrate,
+		Shares:    int(summary.Results.SharesGood),
+		Rejected:  int(summary.Results.SharesTotal - summary.Results.SharesGood),
+		Uptime:    int(summary.Uptime),
+		Algorithm: summary.Algorithm,
 	}, nil
 }
 
@@ -337,7 +340,6 @@ func (m *XMRigMiner) untar(src, dest string) error {
 		// return any other error
 		case err != nil:
 			return err
-
 		// if the header is nil, just skip it (not sure how this happens)
 		case header == nil:
 			continue

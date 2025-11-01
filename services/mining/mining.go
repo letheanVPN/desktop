@@ -1,32 +1,19 @@
 package mining
 
-// Service is the mining service
-//type Service struct {
-//	runtime *wails.Runtime
-//	log     *wails.CustomLogger
-//	// miner         *Miner
-//	// config        *Config
-//	// stats         *Stats
-//	// history       *History
-//}
+import "github.com/gin-gonic/gin"
 
-type Service struct {
-	//config        *config.Config
-	//networks      map[string]Network
-	//activeNetwork Network
-	XMRig *XMRigMiner
+// Miner is the interface for a miner
+type Miner interface {
+	Install() error
+	Start(config *Config) error
+	Stop() error
+	GetStats() (*PerformanceMetrics, error)
+	GetName() string
 }
 
-// Miner represents a miner
-type Miner struct {
-	Name          string `json:"name"`
-	Version       string `json:"version"`
-	URL           string `json:"url"`
-	Path          string `json:"path"`
-	Config        string `json:"config"`
-	Running       bool   `json:"running"`
-	Pid           int    `json:"pid"`
-	LastHeartbeat int64  `json:"lastHeartbeat"`
+type Service struct {
+	Miners map[string]Miner
+	Router *gin.Engine
 }
 
 // Config represents the config for a miner
@@ -37,27 +24,35 @@ type Config struct {
 	Threads int    `json:"threads"`
 }
 
-// Stats represents the stats for a miner
-type Stats struct {
-	Hashrate  int   `json:"hashrate"`
-	Shares    int   `json:"shares"`
-	Rejected  int   `json:"rejected"`
-	Uptime    int   `json:"uptime"`
-	LastShare int64 `json:"lastShare"`
+// PerformanceMetrics represents the performance metrics for a miner
+type PerformanceMetrics struct {
+	Hashrate  int                    `json:"hashrate"`
+	Shares    int                    `json:"shares"`
+	Rejected  int                    `json:"rejected"`
+	Uptime    int                    `json:"uptime"`
+	LastShare int64                  `json:"lastShare"`
+	Algorithm string                 `json:"algorithm"`
+	ExtraData map[string]interface{} `json:"extraData,omitempty"`
 }
 
 // History represents the history of a miner
 type History struct {
-	Miner   string  `json:"miner"`
-	Stats   []Stats `json:"stats"`
-	Updated int64   `json:"updated"`
+	Miner   string               `json:"miner"`
+	Stats   []PerformanceMetrics `json:"stats"`
+	Updated int64                `json:"updated"`
 }
 
 // XMRigMiner represents an XMRig miner
 type XMRigMiner struct {
-	Miner
-	ConfigPath string `json:"configPath"`
-	API        *API   `json:"api"`
+	Name          string `json:"name"`
+	Version       string `json:"version"`
+	URL           string `json:"url"`
+	Path          string `json:"path"`
+	Running       bool   `json:"running"`
+	Pid           int    `json:"pid"`
+	LastHeartbeat int64  `json:"lastHeartbeat"`
+	ConfigPath    string `json:"configPath"`
+	API           *API   `json:"api"`
 }
 
 // API represents the XMRig API configuration
@@ -73,8 +68,9 @@ type XMRigSummary struct {
 		Total []float64 `json:"total"`
 	} `json:"hashrate"`
 	Results struct {
-		SharesGood uint64 `json:"shares_good"`
+		SharesGood  uint64 `json:"shares_good"`
 		SharesTotal uint64 `json:"shares_total"`
 	} `json:"results"`
-	Uptime uint64 `json:"uptime"`
+	Uptime    uint64 `json:"uptime"`
+	Algorithm string `json:"algo"`
 }
