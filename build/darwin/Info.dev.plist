@@ -1,32 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-    <dict>
-        <key>CFBundlePackageType</key>
-            <string>APPL</string>
-        <key>CFBundleName</key>
-            <string>Lethean Desktop</string>
-        <key>CFBundleExecutable</key>
-            <string>desktop</string>
-        <key>CFBundleIdentifier</key>
-            <string>com.lethean.desktop</string>
-        <key>CFBundleVersion</key>
-            <string>0.1.0</string>
-        <key>CFBundleGetInfoString</key>
-            <string>This is a comment</string>
-        <key>CFBundleShortVersionString</key>
-            <string>0.1.0</string>
-        <key>CFBundleIconFile</key>
-            <string>icons</string>
-        <key>LSMinimumSystemVersion</key>
-            <string>10.15.0</string>
-        <key>NSHighResolutionCapable</key>
-            <string>true</string>
-        <key>NSHumanReadableCopyright</key>
-            <string>© EUPL-1.2 Lethean Community</string>
-        <key>NSAppTransportSecurity</key>
-        <dict>
-            <key>NSAllowsLocalNetworking</key>
-            <true/>
-        </dict>
-    </dict>
+<dict>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleName</key>
+	<string>lethean</string>
+	<key>CFBundleDisplayName</key>
+	<string>Lethean Desktop</string>
+	<key>CFBundleExecutable</key>
+	<string>lethean</string>
+	<key>CFBundleIdentifier</key>
+	<string>io.lthn.desktop</string>
+	<key>CFBundleVersion</key>
+	<string>0.1.0</string>
+	<key>CFBundleGetInfoString</key>
+	<string>This is a comment</string>
+	<key>CFBundleShortVersionString</key>
+	<string>0.1.0</string>
+	<key>CFBundleIconFile</key>
+	<string>icons</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>26</string>
+	<key>NSHighResolutionCapable</key>
+	<string>true</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>© EUPL-1.2 Lethean Community</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
+		<key>NSAllowsArbitraryLoadsInWebContent</key>
+		<true/>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+		<key>NSAllowsArbitraryLoadsUsageDescription</key>
+		<dict>
+			<key>NSATSExceptionFirstPartyDeviceConnectionUsage</key>
+			<dict>
+				<key>NSATSExceptionUsageUserChosenContent</key>
+				<true/>
+			</dict>
+		</dict>
+	</dict>
+</dict>
 </plist>

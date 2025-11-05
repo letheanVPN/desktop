@@ -19,6 +19,7 @@ const translationProviders = [
   ),
   provideHighcharts({
     options: {
+      credits: {enabled: false},
       title: {
         style: {
           color: 'tomato',
