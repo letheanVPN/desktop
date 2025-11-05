@@ -1,0 +1,1382 @@
+[
+  {
+    "url": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777168",
+    "pull_request_review_id": 3412823328,
+    "id": 2487777168,
+    "node_id": "PRRC_kwDOQOcBaM6USHeQ",
+    "diff_hunk": "@@ -0,0 +1,73 @@\n+name: CI\n+\n+on:\n+  push:\n+    branches: [\"**\"]\n+  pull_request:\n+    branches: [\"**\"]\n+\n+permissions:\n+  contents: read",
+    "path": ".github/workflows/ci.yml",
+    "commit_id": "8e62b4e51da51a9ace3a1370bc6266c4af24e725",
+    "original_commit_id": "b876c318817eae35412ea8ba1ba04ee07aa0406c",
+    "user": {
+      "login": "coderabbitai[bot]",
+      "id": 136622811,
+      "node_id": "BOT_kgDOCCSy2w",
+      "avatar_url": "https://avatars.githubusercontent.com/in/347564?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/coderabbitai%5Bbot%5D",
+      "html_url": "https://github.com/apps/coderabbitai",
+      "followers_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/followers",
+      "following_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/following{/other_user}",
+      "gists_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/subscriptions",
+      "organizations_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/orgs",
+      "repos_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/repos",
+      "events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/received_events",
+      "type": "Bot",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "body": "_⚠️ Potential issue_ | _🔴 Critical_\n\n**Restore `actions: write` permissions for artifact uploads.**\n\nGranting only `contents: read` removes the default `actions: write`, so each `actions/upload-artifact` step will fail with a permission error. Please reinstate `actions: write` (alongside `contents: read`) so the workflow can publish artefacts successfully.\n\n```diff\n permissions:\n   contents: read\n+  actions: write\n```\n\n<!-- suggestion_start -->\n\n<details>\n<summary>📝 Committable suggestion</summary>\n\n> ‼️ **IMPORTANT**\n> Carefully review the code before committing. Ensure that it accurately replaces the highlighted code, contains no missing lines, and has no issues with indentation. Thoroughly test & benchmark the code to ensure it meets the requirements.\n\n```suggestion\npermissions:\n  contents: read\n  actions: write\n```\n\n</details>\n\n<!-- suggestion_end -->\n\n<details>\n<summary>🤖 Prompt for AI Agents</summary>\n\n```\nIn .github/workflows/ci.yml around lines 9 to 10, the workflow permissions\ncurrently set only \"contents: read\" remove the default \"actions: write\" required\nby actions/upload-artifact; update the permissions block to include both\n\"contents: read\" and \"actions: write\" so artifact upload steps have write\npermission (i.e., add the \"actions: write\" permission alongside the existing\n\"contents: read\").\n```\n\n</details>\n\n<!-- fingerprinting:phantom:medusa:sabertoothed -->\n\n<!-- This is an auto-generated comment by CodeRabbit -->",
+    "created_at": "2025-11-03T20:32:35Z",
+    "updated_at": "2025-11-03T20:32:41Z",
+    "html_url": "https://github.com/Snider/Poindexter/pull/2#discussion_r2487777168",
+    "pull_request_url": "https://api.github.com/repos/Snider/Poindexter/pulls/2",
+    "_links": {
+      "self": {
+        "href": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777168"
+      },
+      "html": {
+        "href": "https://github.com/Snider/Poindexter/pull/2#discussion_r2487777168"
+      },
+      "pull_request": {
+        "href": "https://api.github.com/repos/Snider/Poindexter/pulls/2"
+      }
+    },
+    "reactions": {
+      "url": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777168/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "start_line": 9,
+    "original_start_line": 9,
+    "start_side": "RIGHT",
+    "line": 10,
+    "original_line": 10,
+    "side": "RIGHT",
+    "author_association": "NONE",
+    "original_position": 10,
+    "position": 10,
+    "subject_type": "line"
+  },
+  {
+    "url": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777178",
+    "pull_request_review_id": 3412823328,
+    "id": 2487777178,
+    "node_id": "PRRC_kwDOQOcBaM6USHea",
+    "diff_hunk": "@@ -0,0 +1,21 @@\n+version: \"2\"\n+run:\n+  timeout: 5m\n+linters:\n+  enable:\n+    - govet\n+    - staticcheck\n+    - ineffassign\n+    - misspell\n+    - errcheck\n+issues:\n+  max-issues-per-linter: 0\n+  max-same-issues: 0\n+  exclude-rules:\n+    - path: _test\\.go\n+      linters:\n+        - errcheck\n+linters-settings:\n+  errcheck:\n+    # Be pragmatic: don't require checking of Close for defer patterns in tests/examples.\n+    # (Keep defaults; exclusions above handle test files.)",
+    "path": ".golangci.yml",
+    "commit_id": "8e62b4e51da51a9ace3a1370bc6266c4af24e725",
+    "original_commit_id": "b876c318817eae35412ea8ba1ba04ee07aa0406c",
+    "user": {
+      "login": "coderabbitai[bot]",
+      "id": 136622811,
+      "node_id": "BOT_kgDOCCSy2w",
+      "avatar_url": "https://avatars.githubusercontent.com/in/347564?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/coderabbitai%5Bbot%5D",
+      "html_url": "https://github.com/apps/coderabbitai",
+      "followers_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/followers",
+      "following_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/following{/other_user}",
+      "gists_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/subscriptions",
+      "organizations_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/orgs",
+      "repos_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/repos",
+      "events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/received_events",
+      "type": "Bot",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "body": "_🧹 Nitpick_ | _🔵 Trivial_\n\n**Clarify or remove redundant comment.**\n\nThe comment suggests this section handles test file exclusions, but that's actually accomplished by the `exclude-rules` section (lines 14-17). Consider removing this comment or clarifying that the exclusions are handled above.\n\nApply this diff to clarify the comment:\n\n```diff\n linters-settings:\n   errcheck:\n-    # Be pragmatic: don't require checking of Close for defer patterns in tests/examples.\n-    # (Keep defaults; exclusions above handle test files.)\n+    # Using default settings; test file exclusions are handled by exclude-rules above.\n```\n\n<!-- suggestion_start -->\n\n<details>\n<summary>📝 Committable suggestion</summary>\n\n> ‼️ **IMPORTANT**\n> Carefully review the code before committing. Ensure that it accurately replaces the highlighted code, contains no missing lines, and has no issues with indentation. Thoroughly test & benchmark the code to ensure it meets the requirements.\n\n```suggestion\nlinters-settings:\n  errcheck:\n    # Using default settings; test file exclusions are handled by exclude-rules above.\n```\n\n</details>\n\n<!-- suggestion_end -->\n\n<details>\n<summary>🤖 Prompt for AI Agents</summary>\n\n```\nIn .golangci.yml around lines 18 to 21, the comment on errcheck implying\ntest-file exclusions is misleading because those exclusions are handled by the\nexclude-rules above; update the comment to either remove the redundant sentence\nor rephrase to explicitly state that test/example exclusions are configured in\nthe earlier exclude-rules section so the intent is clear.\n```\n\n</details>\n\n<!-- This is an auto-generated comment by CodeRabbit -->",
+    "created_at": "2025-11-03T20:32:36Z",
+    "updated_at": "2025-11-03T20:32:41Z",
+    "html_url": "https://github.com/Snider/Poindexter/pull/2#discussion_r2487777178",
+    "pull_request_url": "https://api.github.com/repos/Snider/Poindexter/pulls/2",
+    "_links": {
+      "self": {
+        "href": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777178"
+      },
+      "html": {
+        "href": "https://github.com/Snider/Poindexter/pull/2#discussion_r2487777178"
+      },
+      "pull_request": {
+        "href": "https://api.github.com/repos/Snider/Poindexter/pulls/2"
+      }
+    },
+    "reactions": {
+      "url": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777178/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "start_line": 18,
+    "original_start_line": 18,
+    "start_side": "RIGHT",
+    "line": null,
+    "original_line": 21,
+    "side": "RIGHT",
+    "author_association": "NONE",
+    "original_position": 21,
+    "position": 1,
+    "subject_type": "line"
+  },
+  {
+    "url": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777185",
+    "pull_request_review_id": 3412823328,
+    "id": 2487777185,
+    "node_id": "PRRC_kwDOQOcBaM6USHeh",
+    "diff_hunk": "@@ -0,0 +1,9 @@\n+# Code of Conduct\n+\n+This project has adopted the Contributor Covenant Code of Conduct.\n+\n+- Version: https://www.contributor-covenant.org/version/2/1/code_of_conduct/\n+- FAQ: https://www.contributor-covenant.org/faq\n+- Translations: https://www.contributor-covenant.org/translations",
+    "path": "CODE_OF_CONDUCT.md",
+    "commit_id": "8e62b4e51da51a9ace3a1370bc6266c4af24e725",
+    "original_commit_id": "b876c318817eae35412ea8ba1ba04ee07aa0406c",
+    "user": {
+      "login": "coderabbitai[bot]",
+      "id": 136622811,
+      "node_id": "BOT_kgDOCCSy2w",
+      "avatar_url": "https://avatars.githubusercontent.com/in/347564?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/coderabbitai%5Bbot%5D",
+      "html_url": "https://github.com/apps/coderabbitai",
+      "followers_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/followers",
+      "following_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/following{/other_user}",
+      "gists_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/subscriptions",
+      "organizations_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/orgs",
+      "repos_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/repos",
+      "events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/received_events",
+      "type": "Bot",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "body": "_🧹 Nitpick_ | _🔵 Trivial_\n\n**Format URLs as markdown links.**\n\nThe bare URLs should be formatted as proper markdown links for better accessibility and to comply with markdown best practices.\n\nApply this diff to format the URLs properly:\n\n```diff\n-- Version: https://www.contributor-covenant.org/version/2/1/code_of_conduct/\n-- FAQ: https://www.contributor-covenant.org/faq\n-- Translations: https://www.contributor-covenant.org/translations\n+- Version: [Contributor Covenant v2.1](https://www.contributor-covenant.org/version/2/1/code_of_conduct/)\n+- FAQ: [Contributor Covenant FAQ](https://www.contributor-covenant.org/faq)\n+- Translations: [Available Translations](https://www.contributor-covenant.org/translations)\n```\n\n<!-- suggestion_start -->\n\n<details>\n<summary>📝 Committable suggestion</summary>\n\n> ‼️ **IMPORTANT**\n> Carefully review the code before committing. Ensure that it accurately replaces the highlighted code, contains no missing lines, and has no issues with indentation. Thoroughly test & benchmark the code to ensure it meets the requirements.\n\n```suggestion\n- Version: [Contributor Covenant v2.1](https://www.contributor-covenant.org/version/2/1/code_of_conduct/)\n- FAQ: [Contributor Covenant FAQ](https://www.contributor-covenant.org/faq)\n- Translations: [Available Translations](https://www.contributor-covenant.org/translations)\n```\n\n</details>\n\n<!-- suggestion_end -->\n\n<details>\n<summary>🧰 Tools</summary>\n\n<details>\n<summary>🪛 markdownlint-cli2 (0.18.1)</summary>\n\n5-5: Bare URL used\n\n(MD034, no-bare-urls)\n\n---\n\n6-6: Bare URL used\n\n(MD034, no-bare-urls)\n\n---\n\n7-7: Bare URL used\n\n(MD034, no-bare-urls)\n\n</details>\n\n</details>\n\n<details>\n<summary>🤖 Prompt for AI Agents</summary>\n\n```\nIn CODE_OF_CONDUCT.md around lines 5 to 7, the three bare URLs should be\nformatted as markdown links; replace each line so the reference text precedes\nthe URL in bracket/parenthesis form (e.g., \"Version: [Contributor Covenant\nv2.1](https://www.contributor-covenant.org/version/2/1/code_of_conduct/)\"), do\nthe same for FAQ and Translations using their respective URLs, and keep the\noriginal labels and line order intact.\n```\n\n</details>\n\n<!-- This is an auto-generated comment by CodeRabbit -->",
+    "created_at": "2025-11-03T20:32:36Z",
+    "updated_at": "2025-11-03T20:32:41Z",
+    "html_url": "https://github.com/Snider/Poindexter/pull/2#discussion_r2487777185",
+    "pull_request_url": "https://api.github.com/repos/Snider/Poindexter/pulls/2",
+    "_links": {
+      "self": {
+        "href": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777185"
+      },
+      "html": {
+        "href": "https://github.com/Snider/Poindexter/pull/2#discussion_r2487777185"
+      },
+      "pull_request": {
+        "href": "https://api.github.com/repos/Snider/Poindexter/pulls/2"
+      }
+    },
+    "reactions": {
+      "url": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777185/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "start_line": 5,
+    "original_start_line": 5,
+    "start_side": "RIGHT",
+    "line": null,
+    "original_line": 7,
+    "side": "RIGHT",
+    "author_association": "NONE",
+    "original_position": 7,
+    "position": 1,
+    "subject_type": "line"
+  },
+  {
+    "url": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777196",
+    "pull_request_review_id": 3412823328,
+    "id": 2487777196,
+    "node_id": "PRRC_kwDOQOcBaM6USHes",
+    "diff_hunk": "@@ -0,0 +1,79 @@\n+# Contributing to Poindexter\n+\n+Thanks for your interest in contributing! This document describes how to build, test, lint, and propose changes.\n+\n+## Getting started\n+\n+- Go 1.22+ (1.23 preferred)",
+    "path": "CONTRIBUTING.md",
+    "commit_id": "8e62b4e51da51a9ace3a1370bc6266c4af24e725",
+    "original_commit_id": "b876c318817eae35412ea8ba1ba04ee07aa0406c",
+    "user": {
+      "login": "coderabbitai[bot]",
+      "id": 136622811,
+      "node_id": "BOT_kgDOCCSy2w",
+      "avatar_url": "https://avatars.githubusercontent.com/in/347564?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/coderabbitai%5Bbot%5D",
+      "html_url": "https://github.com/apps/coderabbitai",
+      "followers_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/followers",
+      "following_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/following{/other_user}",
+      "gists_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/subscriptions",
+      "organizations_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/orgs",
+      "repos_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/repos",
+      "events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/received_events",
+      "type": "Bot",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "body": "_⚠️ Potential issue_ | _🔴 Critical_\n\n<details>\n<summary>🧩 Analysis chain</summary>\n\n**Verify Go version requirement consistency.**\n\nThe documentation states \"Go 1.22+ (1.23 preferred)\", but the enriched summary indicates that `go.mod` was updated to Go 1.23. Please ensure this requirement matches the actual minimum Go version specified in `go.mod`.\n\n---\n\n🏁 Script executed:\n\n```shell\n#!/bin/bash\n# Check the Go version requirement in go.mod\ngrep -E '^go [0-9.]+' go.mod\n```\n\nLength of output: 7\n\n---\n\n\n\n</details>\n\n**Update CONTRIBUTING.md to reflect the actual minimum Go version.**\n\nThe `go.mod` requires Go 1.23, but CONTRIBUTING.md states \"Go 1.22+ (1.23 preferred)\". Update line 7 to read \"Go 1.23+\" to match the enforced minimum version.\n\n<details>\n<summary>🤖 Prompt for AI Agents</summary>\n\n```\nIn CONTRIBUTING.md around line 7, update the Go version string to match go.mod\nby replacing \"Go 1.22+ (1.23 preferred)\" with \"Go 1.23+\" so the documented\nminimum Go version matches the enforced version; ensure no other lines reference\n1.22 and run a quick search to update any remaining mentions of the older\nversion.\n```\n\n</details>\n\n<!-- This is an auto-generated comment by CodeRabbit -->",
+    "created_at": "2025-11-03T20:32:36Z",
+    "updated_at": "2025-11-03T20:32:41Z",
+    "html_url": "https://github.com/Snider/Poindexter/pull/2#discussion_r2487777196",
+    "pull_request_url": "https://api.github.com/repos/Snider/Poindexter/pulls/2",
+    "_links": {
+      "self": {
+        "href": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777196"
+      },
+      "html": {
+        "href": "https://github.com/Snider/Poindexter/pull/2#discussion_r2487777196"
+      },
+      "pull_request": {
+        "href": "https://api.github.com/repos/Snider/Poindexter/pulls/2"
+      }
+    },
+    "reactions": {
+      "url": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777196/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "start_line": null,
+    "original_start_line": null,
+    "start_side": null,
+    "line": null,
+    "original_line": 7,
+    "side": "RIGHT",
+    "author_association": "NONE",
+    "original_position": 7,
+    "position": 1,
+    "subject_type": "line"
+  },
+  {
+    "url": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777202",
+    "pull_request_review_id": 3412823328,
+    "id": 2487777202,
+    "node_id": "PRRC_kwDOQOcBaM6USHey",
+    "diff_hunk": "@@ -316,3 +316,179 @@ Performs a binary search on a sorted slice of strings.\n \n **Returns:**\n - `int`: The index where target is found, or -1 if not found\n+\n+\n+## KDTree Helpers\n+\n+Poindexter provides helpers to build normalized, weighted KD points from your own records. These functions min–max normalize each axis over your dataset, optionally invert axes where higher is better (to turn them into “lower cost”), and apply per‑axis weights.\n+\n+```go\n+func Build2D[T any](\n+    items []T,\n+    id func(T) string,\n+    f1, f2 func(T) float64,\n+    weights [2]float64,\n+    invert [2]bool,\n+) ([]KDPoint[T], error)\n+\n+func Build3D[T any](\n+    items []T,\n+    id func(T) string,\n+    f1, f2, f3 func(T) float64,\n+    weights [3]float64,\n+    invert [3]bool,\n+) ([]KDPoint[T], error)\n+\n+func Build4D[T any](\n+    items []T,\n+    id func(T) string,\n+    f1, f2, f3, f4 func(T) float64,\n+    weights [4]float64,\n+    invert [4]bool,\n+) ([]KDPoint[T], error)\n+```\n+\n+Example (4D over ping, hops, geo, score):\n+\n+```go\n+// weights and inversion: flip score so higher is better → lower cost\n+weights := [4]float64{1.0, 0.7, 0.2, 1.2}\n+invert  := [4]bool{false, false, false, true}\n+\n+pts, err := poindexter.Build4D(\n+    peers,\n+    func(p Peer) string { return p.ID },\n+    func(p Peer) float64 { return p.PingMS },\n+    func(p Peer) float64 { return p.Hops },\n+    func(p Peer) float64 { return p.GeoKM },\n+    func(p Peer) float64 { return p.Score },\n+    weights, invert,\n+)\n+if err != nil { panic(err) }\n+\n+kdt, _ := poindexter.NewKDTree(pts, poindexter.WithMetric(poindexter.EuclideanDistance{}))\n+best, dist, _ := kdt.Nearest([]float64{0, 0, 0, 0})\n+```\n+\n+Notes:\n+- Keep and reuse your normalization parameters (min/max) if you need consistency across updates; otherwise rebuild points when the candidate set changes.\n+- Use `invert` to turn “higher is better” features (like scores) into lower costs for distance calculations.\n+\n+\n+---\n+\n+## KDTree Constructors and Errors\n+\n+### NewKDTree\n+\n+```go\n+func NewKDTree[T any](pts []KDPoint[T], opts ...KDOption) (*KDTree[T], error)\n+```\n+\n+Build a KDTree from the provided points. All points must have the same dimensionality (> 0) and IDs (if provided) must be unique.\n+\n+Possible errors:\n+- `ErrEmptyPoints`: no points provided\n+- `ErrZeroDim`: dimension must be at least 1\n+- `ErrDimMismatch`: inconsistent dimensionality among points\n+- `ErrDuplicateID`: duplicate point ID encountered\n+\n+### NewKDTreeFromDim\n+\n+```go\n+func NewKDTreeFromDim[T any](dim int, opts ...KDOption) (*KDTree[T], error)\n+```\n+\n+Construct an empty KDTree with the given dimension, then populate later via `Insert`.\n+\n+---\n+\n+## KDTree Notes: Complexity, Ties, Concurrency\n+\n+- Complexity: current implementation uses O(n) linear scans for queries (`Nearest`, `KNearest`, `Radius`). Inserts are O(1) amortized. Deletes by ID are O(1) using swap-delete (order not preserved).\n+- Tie ordering: when multiple neighbors have the same distance, ordering of ties is arbitrary and not stable between calls.\n+- Concurrency: KDTree is not safe for concurrent mutation. Wrap with a mutex or share immutable snapshots for read-mostly workloads.\n+\n+See runnable examples in the repository `examples/` and the docs pages for 1D DHT and multi-dimensional KDTree usage.\n+\n+\n+## KDTree Normalization Stats (reuse across updates)\n+\n+To keep normalization consistent across dynamic updates, compute per‑axis min/max once and reuse it to build points later. This avoids drift when the candidate set changes.\n+\n+### Types\n+\n+```go\n+// AxisStats holds the min/max observed for a single axis.\n+type AxisStats struct {\n+    Min float64\n+    Max float64\n+}\n+\n+// NormStats holds per‑axis normalisation stats; for D dims, Stats has length D.\n+type NormStats struct {\n+    Stats []AxisStats\n+}\n+```\n+\n+### Compute normalization stats\n+\n+```go\n+func ComputeNormStats2D[T any](items []T, f1, f2 func(T) float64) NormStats\n+func ComputeNormStats3D[T any](items []T, f1, f2, f3 func(T) float64) NormStats\n+func ComputeNormStats4D[T any](items []T, f1, f2, f3, f4 func(T) float64) NormStats\n+```\n+\n+### Build with precomputed stats\n+\n+```go\n+func Build2DWithStats[T any](\n+    items []T,\n+    id func(T) string,\n+    f1, f2 func(T) float64,\n+    weights [2]float64,\n+    invert [2]bool,\n+    stats NormStats,\n+) ([]KDPoint[T], error)\n+\n+func Build3DWithStats[T any](\n+    items []T,\n+    id func(T) string,\n+    f1, f2, f3 func(T) float64,\n+    weights [3]float64,\n+    invert [3]bool,\n+    stats NormStats,\n+) ([]KDPoint[T], error)\n+\n+func Build4DWithStats[T any](\n+    items []T,\n+    id func(T) string,\n+    f1, f2, f3, f4 func(T) float64,\n+    weights [4]float64,\n+    invert [4]bool,\n+    stats NormStats,\n+) ([]KDPoint[T], error)\n+```\n+\n+#### Example (2D)\n+```go",
+    "path": "docs/api.md",
+    "commit_id": "8e62b4e51da51a9ace3a1370bc6266c4af24e725",
+    "original_commit_id": "b876c318817eae35412ea8ba1ba04ee07aa0406c",
+    "user": {
+      "login": "coderabbitai[bot]",
+      "id": 136622811,
+      "node_id": "BOT_kgDOCCSy2w",
+      "avatar_url": "https://avatars.githubusercontent.com/in/347564?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/coderabbitai%5Bbot%5D",
+      "html_url": "https://github.com/apps/coderabbitai",
+      "followers_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/followers",
+      "following_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/following{/other_user}",
+      "gists_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/subscriptions",
+      "organizations_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/orgs",
+      "repos_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/repos",
+      "events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/received_events",
+      "type": "Bot",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "body": "_🧹 Nitpick_ | _🔵 Trivial_\n\n**Fix markdown formatting issues.**\n\nThe heading and code fence lack proper blank line separation as flagged by markdownlint.\n\n\n\nApply this diff to fix the formatting:\n\n```diff\n )\n ```\n-\n+\n #### Example (2D)\n+\n ```go\n // Compute stats once over your baseline set\n```\n\n<details>\n<summary>🧰 Tools</summary>\n\n<details>\n<summary>🪛 markdownlint-cli2 (0.18.1)</summary>\n\n473-473: Headings should be surrounded by blank lines\nExpected: 1; Actual: 0; Below\n\n(MD022, blanks-around-headings)\n\n---\n\n474-474: Fenced code blocks should be surrounded by blank lines\n\n(MD031, blanks-around-fences)\n\n</details>\n\n</details>\n\n<details>\n<summary>🤖 Prompt for AI Agents</summary>\n\n````\nIn docs/api.md around lines 473-474, the heading \"#### Example (2D)\" and the\nfollowing code fence are missing the required blank-line separation; insert a\nsingle blank line after the heading so the file reads: the heading line, a blank\nline, then the ```go code fence (and ensure the code content follows the fence\non the next line) to satisfy markdownlint.\n````\n\n</details>\n\n<!-- This is an auto-generated comment by CodeRabbit -->",
+    "created_at": "2025-11-03T20:32:36Z",
+    "updated_at": "2025-11-03T20:32:41Z",
+    "html_url": "https://github.com/Snider/Poindexter/pull/2#discussion_r2487777202",
+    "pull_request_url": "https://api.github.com/repos/Snider/Poindexter/pulls/2",
+    "_links": {
+      "self": {
+        "href": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777202"
+      },
+      "html": {
+        "href": "https://github.com/Snider/Poindexter/pull/2#discussion_r2487777202"
+      },
+      "pull_request": {
+        "href": "https://api.github.com/repos/Snider/Poindexter/pulls/2"
+      }
+    },
+    "reactions": {
+      "url": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777202/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "start_line": 473,
+    "original_start_line": 473,
+    "start_side": "RIGHT",
+    "line": null,
+    "original_line": 474,
+    "side": "RIGHT",
+    "author_association": "NONE",
+    "original_position": 175,
+    "position": 1,
+    "subject_type": "line"
+  },
+  {
+    "url": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777212",
+    "pull_request_review_id": 3412823328,
+    "id": 2487777212,
+    "node_id": "PRRC_kwDOQOcBaM6USHe8",
+    "diff_hunk": "@@ -0,0 +1,114 @@\n+# Example: Find the best (lowest‑ping) peer in a DHT table\n+\n+This example shows how to model a \"made up\" DHT routing table and use Poindexter's `KDTree` to quickly find:\n+\n+- the single best peer by ping (nearest neighbor)\n+- the top N best peers by ping (k‑nearest neighbors)\n+- all peers under a ping threshold (radius search)\n+\n+We keep it simple by mapping each peer to a 1‑dimensional coordinate: its ping in milliseconds. Using 1D means the KDTree's distance is just the absolute difference between pings.\n+\n+> Tip: In a real system, you might expand to multiple dimensions (e.g., `[ping_ms, hop_count, geo_distance, score]`) and choose a metric (`L1`, `L2`, or `L∞`) that best matches your routing heuristic. See how to build normalized, weighted multi‑dimensional points with the public helpers `poindexter.Build2D/3D/4D` here: [Multi-Dimensional KDTree (DHT)](kdtree-multidimensional.md).\n+\n+---\n+\n+## Full example\n+\n+```go\n+package main\n+\n+import (\n+    \"fmt\"\n+    poindexter \"github.com/Snider/Poindexter\"\n+)\n+\n+// Peer is our DHT peer entry (made up for this example).\n+type Peer struct {\n+    Addr string // multiaddr or host:port\n+    Ping int    // measured ping in milliseconds\n+}\n+\n+func main() {\n+    // A toy DHT routing table with made-up ping values\n+    table := []Peer{\n+        {Addr: \"peer1.example:4001\", Ping: 74},\n+        {Addr: \"peer2.example:4001\", Ping: 52},\n+        {Addr: \"peer3.example:4001\", Ping: 110},\n+        {Addr: \"peer4.example:4001\", Ping: 35},\n+        {Addr: \"peer5.example:4001\", Ping: 60},\n+        {Addr: \"peer6.example:4001\", Ping: 44},\n+    }\n+\n+    // Map peers to KD points in 1D where coordinate = ping (ms).\n+    // Use stable string IDs so we can delete/update later.\n+    pts := make([]poindexter.KDPoint[Peer], 0, len(table))\n+    for i, p := range table {\n+        pts = append(pts, poindexter.KDPoint[Peer]{\n+            ID:     fmt.Sprintf(\"peer-%d\", i+1),\n+            Coords: []float64{float64(p.Ping)},\n+            Value:  p,\n+        })\n+    }\n+\n+    // Build a KDTree. Euclidean metric is fine for 1D ping comparisons.\n+    kdt, err := poindexter.NewKDTree(pts, poindexter.WithMetric(poindexter.EuclideanDistance{}))\n+    if err != nil {\n+        panic(err)\n+    }\n+\n+    // 1) Find the best (lowest-ping) peer.\n+    //    Query is a 1D point representing desired ping target. Using 0 finds the min.\n+    best, d, ok := kdt.Nearest([]float64{0})\n+    if !ok {\n+        fmt.Println(\"no peers found\")\n+        return\n+    }\n+    fmt.Printf(\"Best peer: %s (ping=%d ms), distance=%.0f\\n\", best.Value.Addr, best.Value.Ping, d)\n+    // Example output: Best peer: peer4.example:4001 (ping=35 ms), distance=35\n+\n+    // 2) Top-N best peers by ping.\n+    top, dists := kdt.KNearest([]float64{0}, 3)\n+    fmt.Println(\"Top 3 peers by ping:\")\n+    for i := range top {\n+        fmt.Printf(\"  #%d %s (ping=%d ms), distance=%.0f\\n\", i+1, top[i].Value.Addr, top[i].Value.Ping, dists[i])\n+    }\n+\n+    // 3) All peers under a threshold (e.g., <= 50 ms): radius search.\n+    within, wd := kdt.Radius([]float64{0}, 50)\n+    fmt.Println(\"Peers with ping <= 50 ms:\")\n+    for i := range within {\n+        fmt.Printf(\"  %s (ping=%d ms), distance=%.0f\\n\", within[i].Value.Addr, within[i].Value.Ping, wd[i])\n+    }\n+\n+    // 4) Dynamic updates: if a peer improves ping, we can delete & re-insert with a new ID\n+    //    (or keep the same ID and just update the point if your application tracks indices).\n+    //    Here we simulate peer5 dropping from 60 ms to 30 ms.\n+    if kdt.DeleteByID(\"peer-5\") {\n+        improved := poindexter.KDPoint[Peer]{\n+            ID:     \"peer-5\", // keep the same ID for simplicity\n+            Coords: []float64{30},\n+            Value:  Peer{Addr: \"peer5.example:4001\", Ping: 30},\n+        }\n+        _ = kdt.Insert(improved)\n+    }\n+\n+    // Recompute the best after update\n+    best2, d2, _ := kdt.Nearest([]float64{0})\n+    fmt.Printf(\"After update, best peer: %s (ping=%d ms), distance=%.0f\\n\", best2.Value.Addr, best2.Value.Ping, d2)\n+}\n+```\n+\n+### Why does querying with `[0]` work?\n+We use Euclidean distance in 1D, so `distance = |ping - target|`. With target `0`, minimizing the distance is equivalent to minimizing the ping itself.\n+\n+### Extending the metric/space\n+- Multi-objective: encode more routing features (lower is better) as extra dimensions, e.g. `[ping_ms, hops, queue_delay_ms]`.\n+- Metric choice:\n+  - `EuclideanDistance` (L2): balances outliers smoothly.\n+  - `ManhattanDistance` (L1): linear penalty; robust for sparsity.\n+  - `ChebyshevDistance` (L∞): cares about the worst dimension.\n+- Normalization: when mixing units (ms, hops, km), normalize or weight dimensions so the metric reflects your priority.\n+\n+### Notes\n+- This KDTree currently uses an internal linear scan for queries. The API is stable and designed so it can be swapped to use `gonum.org/v1/gonum/spatial/kdtree` under the hood later for sub-linear queries on large datasets.",
+    "path": "docs/dht-best-ping.md",
+    "commit_id": "8e62b4e51da51a9ace3a1370bc6266c4af24e725",
+    "original_commit_id": "b876c318817eae35412ea8ba1ba04ee07aa0406c",
+    "user": {
+      "login": "coderabbitai[bot]",
+      "id": 136622811,
+      "node_id": "BOT_kgDOCCSy2w",
+      "avatar_url": "https://avatars.githubusercontent.com/in/347564?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/coderabbitai%5Bbot%5D",
+      "html_url": "https://github.com/apps/coderabbitai",
+      "followers_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/followers",
+      "following_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/following{/other_user}",
+      "gists_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/subscriptions",
+      "organizations_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/orgs",
+      "repos_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/repos",
+      "events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/received_events",
+      "type": "Bot",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "body": "_🛠️ Refactor suggestion_ | _🟠 Major_\n\n**Add blank lines before the third-level headings**\n\nThe fenced code block needs a blank line before each subsequent `###` heading; otherwise markdownlint (MD022) fails. Please insert empty lines so the headings are surrounded by blanks.\n\n\n```diff\n@@\n-```\n-### Why does querying with `[0]` work?\n+```\n+\n+### Why does querying with `[0]` work?\n@@\n-We use Euclidean distance in 1D, so `distance = |ping - target|`. With target `0`, minimizing the distance is equivalent to minimizing the ping itself.\n-### Extending the metric/space\n+We use Euclidean distance in 1D, so `distance = |ping - target|`. With target `0`, minimizing the distance is equivalent to minimizing the ping itself.\n+\n+### Extending the metric/space\n@@\n-- Normalization: when mixing units (ms, hops, km), normalize or weight dimensions so the metric reflects your priority.\n--### Notes\n+- Normalization: when mixing units (ms, hops, km), normalize or weight dimensions so the metric reflects your priority.\n+\n+### Notes\n```\n\n\n> Committable suggestion skipped: line range outside the PR's diff.\n\n<details>\n<summary>🧰 Tools</summary>\n\n<details>\n<summary>🪛 LanguageTool</summary>\n\n[uncategorized] ~110-~110: Use a comma before ‘so’ if it connects two independent clauses (unless they are closely connected and short).\nContext: ...ops, km), normalize or weight dimensions so the metric reflects your priority.  ###...\n\n(COMMA_COMPOUND_SENTENCE_2)\n\n---\n\n[misspelling] ~113-~113: This word is normally spelled as one.\nContext: ...patial/kdtree` under the hood later for sub-linear queries on large datasets. - IDs are op...\n\n(EN_COMPOUNDS_SUB_LINEAR)\n\n</details>\n<details>\n<summary>🪛 markdownlint-cli2 (0.18.1)</summary>\n\n101-101: Headings should be surrounded by blank lines\nExpected: 1; Actual: 0; Below\n\n(MD022, blanks-around-headings)\n\n---\n\n104-104: Headings should be surrounded by blank lines\nExpected: 1; Actual: 0; Below\n\n(MD022, blanks-around-headings)\n\n---\n\n112-112: Headings should be surrounded by blank lines\nExpected: 1; Actual: 0; Below\n\n(MD022, blanks-around-headings)\n\n</details>\n\n</details>\n\n<details>\n<summary>🤖 Prompt for AI Agents</summary>\n\n```\nIn docs/dht-best-ping.md around lines 100 to 113, several third-level headings\n(### Why does querying with `[0]` work?, ### Extending the metric/space, ###\nNotes) are missing blank lines before them which trips markdownlint MD022;\ninsert a single blank line immediately before each of these `###` heading lines\n(and ensure there's a blank line after the preceding paragraph) so each heading\nis surrounded by blank lines and the file passes the lint rule.\n```\n\n</details>\n\n<!-- fingerprinting:phantom:medusa:sabertoothed -->\n\n<!-- This is an auto-generated comment by CodeRabbit -->",
+    "created_at": "2025-11-03T20:32:37Z",
+    "updated_at": "2025-11-03T20:32:41Z",
+    "html_url": "https://github.com/Snider/Poindexter/pull/2#discussion_r2487777212",
+    "pull_request_url": "https://api.github.com/repos/Snider/Poindexter/pulls/2",
+    "_links": {
+      "self": {
+        "href": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777212"
+      },
+      "html": {
+        "href": "https://github.com/Snider/Poindexter/pull/2#discussion_r2487777212"
+      },
+      "pull_request": {
+        "href": "https://api.github.com/repos/Snider/Poindexter/pulls/2"
+      }
+    },
+    "reactions": {
+      "url": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777212/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "start_line": 100,
+    "original_start_line": 100,
+    "start_side": "RIGHT",
+    "line": null,
+    "original_line": 113,
+    "side": "RIGHT",
+    "author_association": "NONE",
+    "original_position": 113,
+    "position": 1,
+    "subject_type": "line"
+  },
+  {
+    "url": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777218",
+    "pull_request_review_id": 3412823328,
+    "id": 2487777218,
+    "node_id": "PRRC_kwDOQOcBaM6USHfC",
+    "diff_hunk": "@@ -122,4 +122,6 @@ func main() {\n ## Next Steps\n \n - Check out the [API Reference](api.md) for detailed documentation\n+- Try the example: [Find the best (lowest‑ping) DHT peer](dht-best-ping.md)\n+- Explore multi-dimensional KDTree over ping/hops/geo/score: [Multi-Dimensional KDTree (DHT)](kdtree-multidimensional.md)",
+    "path": "docs/getting-started.md",
+    "commit_id": "8e62b4e51da51a9ace3a1370bc6266c4af24e725",
+    "original_commit_id": "b876c318817eae35412ea8ba1ba04ee07aa0406c",
+    "user": {
+      "login": "coderabbitai[bot]",
+      "id": 136622811,
+      "node_id": "BOT_kgDOCCSy2w",
+      "avatar_url": "https://avatars.githubusercontent.com/in/347564?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/coderabbitai%5Bbot%5D",
+      "html_url": "https://github.com/apps/coderabbitai",
+      "followers_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/followers",
+      "following_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/following{/other_user}",
+      "gists_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/subscriptions",
+      "organizations_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/orgs",
+      "repos_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/repos",
+      "events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/received_events",
+      "type": "Bot",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "body": "_🧹 Nitpick_ | _🔵 Trivial_\n\n**LGTM!**\n\nThe new example links provide helpful next steps for users. Note: \"multi-dimensional\" could be written as \"multidimensional\" (one word) for consistency with common technical writing style, though both forms are acceptable.\n\n<details>\n<summary>🧰 Tools</summary>\n\n<details>\n<summary>🪛 LanguageTool</summary>\n\n[misspelling] ~126-~126: This word is normally spelled as one.\nContext: ...) DHT peer](dht-best-ping.md) - Explore multi-dimensional KDTree over ping/hops/geo/score: [Multi...\n\n(EN_COMPOUNDS_MULTI_DIMENSIONAL)\n\n</details>\n\n</details>\n\n<details>\n<summary>🤖 Prompt for AI Agents</summary>\n\n```\nIn docs/getting-started.md around lines 125 to 126, update the link text\n\"Multi-Dimensional KDTree (DHT)\" to use the single-word \"Multidimensional\" for\nconsistency (i.e., \"Multidimensional KDTree (DHT)\"); leave the URL unchanged and\nkeep the surrounding list items intact.\n```\n\n</details>\n\n<!-- This is an auto-generated comment by CodeRabbit -->",
+    "created_at": "2025-11-03T20:32:37Z",
+    "updated_at": "2025-11-03T20:32:41Z",
+    "html_url": "https://github.com/Snider/Poindexter/pull/2#discussion_r2487777218",
+    "pull_request_url": "https://api.github.com/repos/Snider/Poindexter/pulls/2",
+    "_links": {
+      "self": {
+        "href": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777218"
+      },
+      "html": {
+        "href": "https://github.com/Snider/Poindexter/pull/2#discussion_r2487777218"
+      },
+      "pull_request": {
+        "href": "https://api.github.com/repos/Snider/Poindexter/pulls/2"
+      }
+    },
+    "reactions": {
+      "url": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777218/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "start_line": 125,
+    "original_start_line": 125,
+    "start_side": "RIGHT",
+    "line": null,
+    "original_line": 126,
+    "side": "RIGHT",
+    "author_association": "NONE",
+    "original_position": 5,
+    "position": 1,
+    "subject_type": "line"
+  },
+  {
+    "url": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777221",
+    "pull_request_review_id": 3412823328,
+    "id": 2487777221,
+    "node_id": "PRRC_kwDOQOcBaM6USHfF",
+    "diff_hunk": "@@ -0,0 +1,279 @@\n+# KDTree: Multi‑Dimensional Search (DHT peers)\n+\n+This example extends the single‑dimension \"best ping\" demo to a realistic multi‑dimensional selection:\n+\n+- ping_ms (lower is better)\n+- hop_count (lower is better)\n+- geo_distance_km (lower is better)\n+- score (higher is better — e.g., capacity/reputation)\n+\n+We will:\n+- Build 4‑D points over these features\n+- Run `Nearest`, `KNearest`, and `Radius` queries\n+- Show subsets: ping+hop (2‑D) and ping+hop+geo (3‑D)\n+- Demonstrate weighting/normalization to balance disparate units\n+\n+> Tip: KDTree distances are geometric. Mixing units (ms, hops, km, arbitrary score) requires scaling so that each axis contributes proportionally to your decision policy.\n+\n+## Dataset\n+\n+We’ll use a small, made‑up set of DHT peers in each runnable example below. Each example declares its own `Peer` type and dataset so you can copy‑paste and run independently.\n+\n+## Normalization and weights\n+\n+To make heterogeneous units comparable (ms, hops, km, score), use the library helpers which:\n+- Min‑max normalize each axis to [0,1] over your provided dataset\n+- Optionally invert axes where “higher is better” so they become “lower cost”\n+- Apply per‑axis weights so you can emphasize what matters\n+\n+Build 4‑D points and query them with helpers (full program):\n+\n+```go\n+package main\n+\n+import (\n+    \"fmt\"\n+    poindexter \"github.com/Snider/Poindexter\"\n+)\n+\n+type Peer struct {\n+    ID        string\n+    PingMS    float64\n+    Hops      float64\n+    GeoKM     float64\n+    Score     float64\n+}\n+\n+var peers = []Peer{\n+    {ID: \"A\", PingMS: 22, Hops: 3, GeoKM: 1200, Score: 0.86},\n+    {ID: \"B\", PingMS: 34, Hops: 2, GeoKM: 800,  Score: 0.91},\n+    {ID: \"C\", PingMS: 15, Hops: 4, GeoKM: 4500, Score: 0.70},\n+    {ID: \"D\", PingMS: 55, Hops: 1, GeoKM: 300,  Score: 0.95},\n+    {ID: \"E\", PingMS: 18, Hops: 2, GeoKM: 2200, Score: 0.80},\n+}\n+\n+func main() {\n+    // Build 4‑D KDTree using Euclidean (L2)\n+    weights4 := [4]float64{1.0, 0.7, 0.2, 1.2}\n+    invert4 := [4]bool{false, false, false, true} // invert score (higher is better)\n+    pts, err := poindexter.Build4D(\n+        peers,\n+        func(p Peer) string { return p.ID },\n+        func(p Peer) float64 { return p.PingMS },\n+        func(p Peer) float64 { return p.Hops },\n+        func(p Peer) float64 { return p.GeoKM },\n+        func(p Peer) float64 { return p.Score },\n+        weights4, invert4,\n+    )\n+    if err != nil { panic(err) }\n+    tree, _ := poindexter.NewKDTree(pts, poindexter.WithMetric(poindexter.EuclideanDistance{}))\n+\n+    // Query target preferences (construct a query in normalized/weighted space)\n+    // Example: seek very low ping, low hops, moderate geo, high score (low score_cost)\n+    query := []float64{weights4[0]*0.0, weights4[1]*0.2, weights4[2]*0.3, weights4[3]*0.0}\n+\n+    // 1‑NN\n+    best, dist, ok := tree.Nearest(query)\n+    if ok {\n+        fmt.Printf(\"Best peer: %s (dist=%.4f)\\n\", best.ID, dist)\n+    }\n+\n+    // k‑NN (top 3)\n+    neigh, dists := tree.KNearest(query, 3)\n+    for i := range neigh {\n+        fmt.Printf(\"%d) %s dist=%.4f\\n\", i+1, neigh[i].ID, dists[i])\n+    }\n+\n+    // Radius query\n+    within, wd := tree.Radius(query, 0.35)\n+    fmt.Printf(\"Within radius 0.35: \")\n+    for i := range within {\n+        fmt.Printf(\"%s(%.3f) \", within[i].ID, wd[i])\n+    }\n+    fmt.Println()\n+}\n+```\n+\n+## 2‑D: Ping + Hop\n+\n+Sometimes you want a strict trade‑off between just latency and path length. Build 2‑D points using helpers:\n+\n+```go\n+package main\n+\n+import (\n+    \"fmt\"\n+    poindexter \"github.com/Snider/Poindexter\"\n+)\n+\n+type Peer struct {\n+    ID     string\n+    PingMS float64\n+    Hops   float64\n+}\n+\n+var peers = []Peer{\n+    {ID: \"A\", PingMS: 22, Hops: 3},\n+    {ID: \"B\", PingMS: 34, Hops: 2},\n+    {ID: \"C\", PingMS: 15, Hops: 4},\n+    {ID: \"D\", PingMS: 55, Hops: 1},\n+    {ID: \"E\", PingMS: 18, Hops: 2},\n+}\n+\n+func main() {\n+    weights2 := [2]float64{1.0, 1.0}\n+    invert2  := [2]bool{false, false}\n+\n+    pts2, err := poindexter.Build2D(\n+        peers,\n+        func(p Peer) string { return p.ID },     // id\n+        func(p Peer) float64 { return p.PingMS },// f1: ping\n+        func(p Peer) float64 { return p.Hops },  // f2: hops\n+        weights2, invert2,\n+    )\n+    if err != nil { panic(err) }\n+\n+    tree2, _ := poindexter.NewKDTree(pts2, poindexter.WithMetric(poindexter.ManhattanDistance{})) // L1 favors axis‑aligned tradeoffs\n+    // Prefer very low ping, modest hops\n+    query2 := []float64{weights2[0]*0.0, weights2[1]*0.3}\n+    best2, _, _ := tree2.Nearest(query2)\n+    fmt.Println(\"2D best (ping+hop):\", best2.ID)\n+}\n+```\n+\n+## 3‑D: Ping + Hop + Geo\n+\n+Add geography to discourage far peers when latency is similar. Use the 3‑D helper:\n+\n+```go\n+package main\n+\n+import (\n+    \"fmt\"\n+    poindexter \"github.com/Snider/Poindexter\"\n+)\n+\n+type Peer struct {\n+    ID     string\n+    PingMS float64\n+    Hops   float64\n+    GeoKM  float64\n+}\n+\n+var peers = []Peer{\n+    {ID: \"A\", PingMS: 22, Hops: 3, GeoKM: 1200},\n+    {ID: \"B\", PingMS: 34, Hops: 2, GeoKM: 800},\n+    {ID: \"C\", PingMS: 15, Hops: 4, GeoKM: 4500},\n+    {ID: \"D\", PingMS: 55, Hops: 1, GeoKM: 300},\n+    {ID: \"E\", PingMS: 18, Hops: 2, GeoKM: 2200},\n+}\n+\n+func main() {\n+    weights3 := [3]float64{1.0, 0.7, 0.3}\n+    invert3  := [3]bool{false, false, false}\n+\n+    pts3, err := poindexter.Build3D(\n+        peers,\n+        func(p Peer) string { return p.ID },\n+        func(p Peer) float64 { return p.PingMS },\n+        func(p Peer) float64 { return p.Hops },\n+        func(p Peer) float64 { return p.GeoKM },\n+        weights3, invert3,\n+    )\n+    if err != nil { panic(err) }\n+\n+    tree3, _ := poindexter.NewKDTree(pts3, poindexter.WithMetric(poindexter.EuclideanDistance{}))\n+    // Prefer low ping/hop, modest geo\n+    query3 := []float64{weights3[0]*0.0, weights3[1]*0.2, weights3[2]*0.4}\n+    top3, _, _ := tree3.Nearest(query3)\n+    fmt.Println(\"3D best (ping+hop+geo):\", top3.ID)\n+}\n+```\n+\n+## Dynamic updates\n+\n+Your routing table changes constantly. Insert/remove peers. For consistent normalization, compute and reuse your min/max stats (preferred) or rebuild points when the candidate set changes.\n+\n+Tip: Use the WithStats helpers to reuse normalization across updates:\n+\n+```go\n+// Compute once over your baseline\n+stats := poindexter.ComputeNormStats2D(peers,\n+    func(p Peer) float64 { return p.PingMS },\n+    func(p Peer) float64 { return p.Hops },\n+)\n+\n+// Build now or later using the same stats\n+ts, _ := poindexter.Build2DWithStats(\n+    peers,\n+    func(p Peer) string { return p.ID },\n+    func(p Peer) float64 { return p.PingMS },\n+    func(p Peer) float64 { return p.Hops },\n+    [2]float64{1,1}, [2]bool{false,false}, stats,\n+)\n+```\n+\n+```go\n+package main\n+\n+import (\n+    \"fmt\"\n+    poindexter \"github.com/Snider/Poindexter\"\n+)\n+\n+type Peer struct {\n+    ID     string\n+    PingMS float64\n+    Hops   float64\n+}\n+\n+var peers = []Peer{\n+    {ID: \"A\", PingMS: 22, Hops: 3},\n+    {ID: \"B\", PingMS: 34, Hops: 2},\n+    {ID: \"C\", PingMS: 15, Hops: 4},\n+}\n+\n+func main() {\n+    // Initial 2‑D build (ping + hops)\n+    weights2 := [2]float64{1.0, 1.0}\n+    invert2  := [2]bool{false, false}\n+    pts, _ := poindexter.Build2D(\n+        peers,\n+        func(p Peer) string { return p.ID },\n+        func(p Peer) float64 { return p.PingMS },\n+        func(p Peer) float64 { return p.Hops },\n+        weights2, invert2,\n+    )\n+    tree, _ := poindexter.NewKDTree(pts)\n+\n+    // Insert a new peer: rebuild its point using the same helper.\n+    newPeer := Peer{ID: \"Z\", PingMS: 12, Hops: 2}\n+    addPts, _ := poindexter.Build2D(\n+        []Peer{newPeer},\n+        func(p Peer) string { return p.ID },\n+        func(p Peer) float64 { return p.PingMS },\n+        func(p Peer) float64 { return p.Hops },\n+        weights2, invert2,\n+    )\n+    _ = tree.Insert(addPts[0])\n+\n+    // Verify nearest now prefers Z for low ping target\n+    best, _, _ := tree.Nearest([]float64{0, 0})\n+    fmt.Println(\"Best after insert:\", best.ID)\n+\n+    // Delete by ID when peer goes offline\n+    _ = tree.DeleteByID(\"Z\")\n+}",
+    "path": "docs/kdtree-multidimensional.md",
+    "commit_id": "8e62b4e51da51a9ace3a1370bc6266c4af24e725",
+    "original_commit_id": "b876c318817eae35412ea8ba1ba04ee07aa0406c",
+    "user": {
+      "login": "coderabbitai[bot]",
+      "id": 136622811,
+      "node_id": "BOT_kgDOCCSy2w",
+      "avatar_url": "https://avatars.githubusercontent.com/in/347564?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/coderabbitai%5Bbot%5D",
+      "html_url": "https://github.com/apps/coderabbitai",
+      "followers_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/followers",
+      "following_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/following{/other_user}",
+      "gists_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/subscriptions",
+      "organizations_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/orgs",
+      "repos_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/repos",
+      "events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/received_events",
+      "type": "Bot",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "body": "_⚠️ Potential issue_ | _🟠 Major_\n\n**Re-use normalisation stats when inserting new peers**\n\n`Build2D` normalises every slice against that slice’s own min/max. When you call it with `[]Peer{newPeer}`, both axes collapse to zero, so the inserted point is always `[0,0]` and becomes “best” regardless of its real metrics. Reuse the original normalisation stats (or rebuild the whole tree) so inserts share the same scale.\n\n\n```diff\n func main() {\n-    // Initial 2‑D build (ping + hops)\n-    weights2 := [2]float64{1.0, 1.0}\n-    invert2  := [2]bool{false, false}\n-    pts, _ := poindexter.Build2D(\n-        peers,\n-        func(p Peer) string { return p.ID },\n-        func(p Peer) float64 { return p.PingMS },\n-        func(p Peer) float64 { return p.Hops },\n-        weights2, invert2,\n-    )\n+    // Initial 2‑D build (ping + hops)\n+    weights2 := [2]float64{1.0, 1.0}\n+    invert2  := [2]bool{false, false}\n+    stats := poindexter.ComputeNormStats2D(\n+        peers,\n+        func(p Peer) float64 { return p.PingMS },\n+        func(p Peer) float64 { return p.Hops },\n+    )\n+    pts, _ := poindexter.Build2DWithStats(\n+        peers,\n+        func(p Peer) string { return p.ID },\n+        func(p Peer) float64 { return p.PingMS },\n+        func(p Peer) float64 { return p.Hops },\n+        weights2, invert2, stats,\n+    )\n     tree, _ := poindexter.NewKDTree(pts)\n@@\n-    addPts, _ := poindexter.Build2D(\n+    addPts, _ := poindexter.Build2DWithStats(\n         []Peer{newPeer},\n         func(p Peer) string { return p.ID },\n         func(p Peer) float64 { return p.PingMS },\n         func(p Peer) float64 { return p.Hops },\n-        weights2, invert2,\n+        weights2, invert2, stats,\n     )\n```\n\n\n> Committable suggestion skipped: line range outside the PR's diff.\n\n<details>\n<summary>🤖 Prompt for AI Agents</summary>\n\n```\nIn docs/kdtree-multidimensional.md around lines 237 to 266, the example calls\nBuild2D for a single new peer which recomputes min/max and collapses the point\nto [0,0]; update the example to reuse the original normalization stats so the\ninserted point is on the same scale as the tree (either by using a Build2D\noverload or helper that accepts the prior min/max/scale from the first Build2D,\nor by normalizing the new peer’s raw metrics with the original stats before\ncalling tree.Insert), or explicitly note and demonstrate rebuilding the whole\ntree from the full peer list; ensure the instructions show reusing the\npreviously computed normalization stats when creating addPts so Insert receives\ncorrectly scaled coordinates.\n```\n\n</details>\n\n<!-- fingerprinting:phantom:medusa:sabertoothed -->\n\n<!-- This is an auto-generated comment by CodeRabbit -->",
+    "created_at": "2025-11-03T20:32:37Z",
+    "updated_at": "2025-11-03T20:32:41Z",
+    "html_url": "https://github.com/Snider/Poindexter/pull/2#discussion_r2487777221",
+    "pull_request_url": "https://api.github.com/repos/Snider/Poindexter/pulls/2",
+    "_links": {
+      "self": {
+        "href": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777221"
+      },
+      "html": {
+        "href": "https://github.com/Snider/Poindexter/pull/2#discussion_r2487777221"
+      },
+      "pull_request": {
+        "href": "https://api.github.com/repos/Snider/Poindexter/pulls/2"
+      }
+    },
+    "reactions": {
+      "url": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777221/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "start_line": 237,
+    "original_start_line": 237,
+    "start_side": "RIGHT",
+    "line": null,
+    "original_line": 266,
+    "side": "RIGHT",
+    "author_association": "NONE",
+    "original_position": 266,
+    "position": 1,
+    "subject_type": "line"
+  },
+  {
+    "url": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777226",
+    "pull_request_review_id": 3412823328,
+    "id": 2487777226,
+    "node_id": "PRRC_kwDOQOcBaM6USHfK",
+    "diff_hunk": "@@ -0,0 +1,104 @@\n+# Browser/WebAssembly (WASM)\n+\n+Poindexter ships a browser build compiled to WebAssembly along with a small JS loader and TypeScript types. This allows you to use the KD‑Tree functionality directly from web apps (Angular, React, Vue, plain ESM, etc.).\n+\n+## What’s included\n+\n+- `dist/poindexter.wasm` — the compiled Go WASM module\n+- `dist/wasm_exec.js` — Go’s runtime shim required to run WASM in the browser\n+- `npm/poindexter-wasm/loader.js` — ESM loader that instantiates the WASM and exposes a friendly API\n+- `npm/poindexter-wasm/index.d.ts` — TypeScript typings for the loader and KD‑Tree API\n+\n+## Building locally\n+\n+```bash\n+make wasm-build\n+```\n+\n+This produces `dist/poindexter.wasm` and copies `wasm_exec.js` into `dist/` from your Go installation. If your environment is non‑standard, you can override the path:\n+\n+```bash\n+WASM_EXEC=/custom/path/wasm_exec.js make wasm-build\n+```\n+\n+To assemble the npm package folder with the built artifacts:\n+\n+```bash\n+make npm-pack\n+```\n+\n+This populates `npm/poindexter-wasm/` with `dist/`, license and readme files. You can then create a tarball for local testing:\n+\n+```bash\n+npm pack ./npm/poindexter-wasm\n+```\n+\n+## Using in Angular (example)\n+\n+1) Install the package (use the tarball generated above or a published version):\n+\n+```bash\n+npm install <path-to>/snider-poindexter-wasm-0.0.0-development.tgz\n+# or once published\n+npm install @snider/poindexter-wasm\n+```\n+\n+2) Make the WASM runtime files available as app assets. In `angular.json` under `build.options.assets`:\n+\n+```json\n+{\n+  \"glob\": \"**/*\",\n+  \"input\": \"node_modules/@snider/poindexter-wasm/dist\",\n+  \"output\": \"/assets/poindexter/\"\n+}\n+```\n+\n+3) Import and initialize in your code:\n+\n+```ts\n+import { init } from '@snider/poindexter-wasm';\n+\n+const px = await init({\n+  // If you used the assets mapping above, these defaults should work:\n+  wasmURL: '/assets/poindexter/poindexter.wasm',\n+  wasmExecURL: '/assets/poindexter/wasm_exec.js',\n+});\n+\n+const tree = await px.newTree(2);\n+await tree.insert({ id: 'a', coords: [0, 0], value: 'A' });\n+const nearest = await tree.nearest([0.1, 0.2]);\n+console.log(nearest);\n+```\n+\n+## JavaScript API\n+\n+Top‑level functions returned by `init()`:\n+\n+- `version(): string`\n+- `hello(name?: string): string`\n+- `newTree(dim: number): Promise<Tree>`\n+\n+Tree methods:\n+\n+- `dim(): Promise<number>`\n+- `len(): Promise<number>`\n+- `insert(p: { id: string; coords: number[]; value?: string }): Promise<void>`\n+- `deleteByID(id: string): Promise<boolean>`\n+- `nearest(query: number[]): Promise<{ id: string; coords: number[]; value: string; dist: number } | null>`\n+- `kNearest(query: number[], k: number): Promise<Array<{ id: string; coords: number[]; value: string; dist: number }>>`\n+- `radius(query: number[], r: number): Promise<Array<{ id: string; coords: number[]; value: string; dist: number }>>`\n+- `exportJSON(): Promise<string>`\n+\n+Notes:\n+- The WASM bridge currently uses `KDTree[string]` for values to keep the boundary simple. You can encode richer payloads as JSON strings if needed.\n+- `wasm_exec.js` must be available next to the `.wasm` file (the loader accepts explicit URLs if you place them elsewhere).\n+\n+## CI artifacts\n+\n+Our CI builds and uploads the following artifacts on each push/PR:\n+\n+- `poindexter-wasm-dist` — the `dist/` folder containing `poindexter.wasm` and `wasm_exec.js`\n+- `npm-poindexter-wasm` — the prepared npm package folder with `dist/` and documentation\n+- `npm-poindexter-wasm-tarball` — a `.tgz` created via `npm pack` for quick local install/testing\n+\n+You can download these artifacts from the workflow run summary in GitHub Actions.",
+    "path": "docs/wasm.md",
+    "commit_id": "8e62b4e51da51a9ace3a1370bc6266c4af24e725",
+    "original_commit_id": "b876c318817eae35412ea8ba1ba04ee07aa0406c",
+    "user": {
+      "login": "coderabbitai[bot]",
+      "id": 136622811,
+      "node_id": "BOT_kgDOCCSy2w",
+      "avatar_url": "https://avatars.githubusercontent.com/in/347564?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/coderabbitai%5Bbot%5D",
+      "html_url": "https://github.com/apps/coderabbitai",
+      "followers_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/followers",
+      "following_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/following{/other_user}",
+      "gists_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/subscriptions",
+      "organizations_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/orgs",
+      "repos_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/repos",
+      "events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/received_events",
+      "type": "Bot",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "body": "_🧹 Nitpick_ | _🔵 Trivial_\n\n**LGTM!**\n\nComprehensive documentation for the WebAssembly build and integration. The examples and API reference are clear and helpful.\n\nOptional nitpicks:\n- Line 30: In British English, \"licence\" (noun) vs \"license\" (verb) - consider \"licence\" for the noun usage.\n- Lines 46 & 56: Markdown list numbering could restart at \"1)\" for consistency with some formatters.\n\n<details>\n<summary>🧰 Tools</summary>\n\n<details>\n<summary>🪛 LanguageTool</summary>\n\n[locale-violation] ~30-~30: license must be spelled with a “c” when used as a noun in British English. Use “licence”.\nContext: ...es `npm/poindexter-wasm/` with `dist/`, license and readme files. You can then create a...\n\n(LICENCE_LICENSE_NOUN_SINGULAR)\n\n</details>\n<details>\n<summary>🪛 markdownlint-cli2 (0.18.1)</summary>\n\n46-46: Ordered list item prefix\nExpected: 1; Actual: 2; Style: 1/1/1\n\n(MD029, ol-prefix)\n\n---\n\n56-56: Ordered list item prefix\nExpected: 1; Actual: 3; Style: 1/1/1\n\n(MD029, ol-prefix)\n\n</details>\n\n</details>\n\n<details>\n<summary>🤖 Prompt for AI Agents</summary>\n\n```\nIn docs/wasm.md around lines 1–104, update the noun \"license\" at approx line 30\nto British English \"licence\" and change the ordered list numbering at lines ~46\nand ~56 so each example section restarts numbering at \"1)\" (i.e., make the list\nmarkers for the Angular usage steps and the import/initialize snippet both begin\nat 1) rather than continuing the prior sequence); edit the two lines accordingly\nand run a quick markdown preview to ensure numbering renders as intended.\n```\n\n</details>\n\n<!-- This is an auto-generated comment by CodeRabbit -->",
+    "created_at": "2025-11-03T20:32:37Z",
+    "updated_at": "2025-11-03T20:32:42Z",
+    "html_url": "https://github.com/Snider/Poindexter/pull/2#discussion_r2487777226",
+    "pull_request_url": "https://api.github.com/repos/Snider/Poindexter/pulls/2",
+    "_links": {
+      "self": {
+        "href": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777226"
+      },
+      "html": {
+        "href": "https://github.com/Snider/Poindexter/pull/2#discussion_r2487777226"
+      },
+      "pull_request": {
+        "href": "https://api.github.com/repos/Snider/Poindexter/pulls/2"
+      }
+    },
+    "reactions": {
+      "url": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777226/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "start_line": 1,
+    "original_start_line": 1,
+    "start_side": "RIGHT",
+    "line": null,
+    "original_line": 104,
+    "side": "RIGHT",
+    "author_association": "NONE",
+    "original_position": 104,
+    "position": 1,
+    "subject_type": "line"
+  },
+  {
+    "url": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777232",
+    "pull_request_review_id": 3412823328,
+    "id": 2487777232,
+    "node_id": "PRRC_kwDOQOcBaM6USHfQ",
+    "diff_hunk": "@@ -0,0 +1,48 @@\n+package main\n+\n+import (\n+\t\"fmt\"\n+\tpoindexter \"github.com/Snider/Poindexter\"\n+\t\"testing\"\n+)\n+\n+type peer struct {\n+\tAddr string\n+\tPing int\n+}\n+\n+// TestExample1D ensures the 1D example logic runs and exercises KDTree paths.\n+func TestExample1D(t *testing.T) {\n+\t// Same toy table as the example\n+\ttable := []peer{\n+\t\t{Addr: \"peer1.example:4001\", Ping: 74},\n+\t\t{Addr: \"peer2.example:4001\", Ping: 52},\n+\t\t{Addr: \"peer3.example:4001\", Ping: 110},\n+\t\t{Addr: \"peer4.example:4001\", Ping: 35},\n+\t\t{Addr: \"peer5.example:4001\", Ping: 60},\n+\t\t{Addr: \"peer6.example:4001\", Ping: 44},\n+\t}\n+\tpts := make([]poindexter.KDPoint[peer], 0, len(table))\n+\tfor i, p := range table {\n+\t\tpts = append(pts, poindexter.KDPoint[peer]{\n+\t\t\tID:     fmt.Sprintf(\"peer-%d\", i+1),\n+\t\t\tCoords: []float64{float64(p.Ping)},\n+\t\t\tValue:  p,\n+\t\t})\n+\t}\n+\tkdt, err := poindexter.NewKDTree(pts, poindexter.WithMetric(poindexter.EuclideanDistance{}))\n+\tif err != nil {\n+\t\tt.Fatalf(\"NewKDTree err: %v\", err)\n+\t}\n+\tbest, d, ok := kdt.Nearest([]float64{0})\n+\tif !ok {\n+\t\tt.Fatalf(\"no nearest\")\n+\t}\n+\t// Expect the minimum ping (35ms)\n+\tif best.Value.Ping != 35 {\n+\t\tt.Fatalf(\"expected best ping 35ms, got %d\", best.Value.Ping)\n+\t}\n+\tif d <= 0 {\n+\t\tt.Fatalf(\"expected positive distance, got %v\", d)\n+\t}",
+    "path": "examples/dht_ping_1d/example_test.go",
+    "commit_id": "8e62b4e51da51a9ace3a1370bc6266c4af24e725",
+    "original_commit_id": "b876c318817eae35412ea8ba1ba04ee07aa0406c",
+    "user": {
+      "login": "coderabbitai[bot]",
+      "id": 136622811,
+      "node_id": "BOT_kgDOCCSy2w",
+      "avatar_url": "https://avatars.githubusercontent.com/in/347564?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/coderabbitai%5Bbot%5D",
+      "html_url": "https://github.com/apps/coderabbitai",
+      "followers_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/followers",
+      "following_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/following{/other_user}",
+      "gists_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/subscriptions",
+      "organizations_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/orgs",
+      "repos_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/repos",
+      "events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/received_events",
+      "type": "Bot",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "body": "_🧹 Nitpick_ | _🔵 Trivial_\n\n**Consider more precise distance validation.**\n\nThe test correctly identifies the minimum ping peer, but the distance assertion could be more explicit and precise.\n\n\nApply this diff for clearer validation:\n\n```diff\n \tbest, d, ok := kdt.Nearest([]float64{0})\n \tif !ok {\n \t\tt.Fatalf(\"no nearest\")\n \t}\n \t// Expect the minimum ping (35ms)\n \tif best.Value.Ping != 35 {\n \t\tt.Fatalf(\"expected best ping 35ms, got %d\", best.Value.Ping)\n \t}\n-\tif d <= 0 {\n-\t\tt.Fatalf(\"expected positive distance, got %v\", d)\n+\t// Distance from [0] to [35] should be 35\n+\tif d != 35 {\n+\t\tt.Fatalf(\"expected distance 35, got %v\", d)\n \t}\n```\n\n<!-- suggestion_start -->\n\n<details>\n<summary>📝 Committable suggestion</summary>\n\n> ‼️ **IMPORTANT**\n> Carefully review the code before committing. Ensure that it accurately replaces the highlighted code, contains no missing lines, and has no issues with indentation. Thoroughly test & benchmark the code to ensure it meets the requirements.\n\n```suggestion\n\tbest, d, ok := kdt.Nearest([]float64{0})\n\tif !ok {\n\t\tt.Fatalf(\"no nearest\")\n\t}\n\t// Expect the minimum ping (35ms)\n\tif best.Value.Ping != 35 {\n\t\tt.Fatalf(\"expected best ping 35ms, got %d\", best.Value.Ping)\n\t}\n\t// Distance from [0] to [35] should be 35\n\tif d != 35 {\n\t\tt.Fatalf(\"expected distance 35, got %v\", d)\n\t}\n```\n\n</details>\n\n<!-- suggestion_end -->\n\n<details>\n<summary>🤖 Prompt for AI Agents</summary>\n\n```\nIn examples/dht_ping_1d/example_test.go around lines 37 to 47, the test\ncurrently only asserts that the returned distance d is positive (d <= 0), which\nis imprecise; replace that loose check with a precise distance assertion by\ncomputing the expected distance for the query (from the known coordinates of the\npeers or from the same distance function used by the KD-tree) and assert d\nequals that expected value within a tiny epsilon (e.g., use math.Abs(d-expected)\n> epsilon to fail), so the test verifies the exact distance rather than merely\npositivity.\n```\n\n</details>\n\n<!-- This is an auto-generated comment by CodeRabbit -->",
+    "created_at": "2025-11-03T20:32:37Z",
+    "updated_at": "2025-11-03T20:32:42Z",
+    "html_url": "https://github.com/Snider/Poindexter/pull/2#discussion_r2487777232",
+    "pull_request_url": "https://api.github.com/repos/Snider/Poindexter/pulls/2",
+    "_links": {
+      "self": {
+        "href": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777232"
+      },
+      "html": {
+        "href": "https://github.com/Snider/Poindexter/pull/2#discussion_r2487777232"
+      },
+      "pull_request": {
+        "href": "https://api.github.com/repos/Snider/Poindexter/pulls/2"
+      }
+    },
+    "reactions": {
+      "url": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777232/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "start_line": 37,
+    "original_start_line": 37,
+    "start_side": "RIGHT",
+    "line": null,
+    "original_line": 47,
+    "side": "RIGHT",
+    "author_association": "NONE",
+    "original_position": 47,
+    "position": 1,
+    "subject_type": "line"
+  },
+  {
+    "url": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777236",
+    "pull_request_review_id": 3412823328,
+    "id": 2487777236,
+    "node_id": "PRRC_kwDOQOcBaM6USHfU",
+    "diff_hunk": "@@ -0,0 +1,34 @@\n+package main\n+\n+import (\n+\t\"fmt\"\n+\tpoindexter \"github.com/Snider/Poindexter\"\n+)\n+\n+type Peer2 struct {\n+\tID     string\n+\tPingMS float64\n+\tHops   float64\n+}\n+\n+func main() {\n+\tpeers := []Peer2{\n+\t\t{ID: \"A\", PingMS: 22, Hops: 3},\n+\t\t{ID: \"B\", PingMS: 34, Hops: 2},\n+\t\t{ID: \"C\", PingMS: 15, Hops: 4},\n+\t\t{ID: \"D\", PingMS: 55, Hops: 1},\n+\t\t{ID: \"E\", PingMS: 18, Hops: 2},\n+\t}\n+\tweights := [2]float64{1.0, 1.0}\n+\tinvert := [2]bool{false, false}\n+\tpts, _ := poindexter.Build2D(\n+\t\tpeers,\n+\t\tfunc(p Peer2) string { return p.ID },\n+\t\tfunc(p Peer2) float64 { return p.PingMS },\n+\t\tfunc(p Peer2) float64 { return p.Hops },\n+\t\tweights, invert,\n+\t)\n+\ttr, _ := poindexter.NewKDTree(pts, poindexter.WithMetric(poindexter.ManhattanDistance{}))\n+\tbest, _, _ := tr.Nearest([]float64{0, 0.3})",
+    "path": "examples/kdtree_2d_ping_hop/main.go",
+    "commit_id": "8e62b4e51da51a9ace3a1370bc6266c4af24e725",
+    "original_commit_id": "b876c318817eae35412ea8ba1ba04ee07aa0406c",
+    "user": {
+      "login": "coderabbitai[bot]",
+      "id": 136622811,
+      "node_id": "BOT_kgDOCCSy2w",
+      "avatar_url": "https://avatars.githubusercontent.com/in/347564?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/coderabbitai%5Bbot%5D",
+      "html_url": "https://github.com/apps/coderabbitai",
+      "followers_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/followers",
+      "following_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/following{/other_user}",
+      "gists_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/subscriptions",
+      "organizations_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/orgs",
+      "repos_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/repos",
+      "events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/received_events",
+      "type": "Bot",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "body": "_⚠️ Potential issue_ | _🟠 Major_\n\n**Handle errors instead of ignoring them.**\n\nAll errors and the `ok` return value from these operations are silently ignored. If `Build2D` or `NewKDTree` fail, the program will likely panic on the next line. If `Nearest` returns `ok=false`, accessing `best` may cause issues. Examples should demonstrate proper error handling.\n\n\n\nApply this diff to add error handling:\n\n```diff\n-\tpts, _ := poindexter.Build2D(\n+\tpts, err := poindexter.Build2D(\n \t\tpeers,\n \t\tfunc(p Peer2) string { return p.ID },\n \t\tfunc(p Peer2) float64 { return p.PingMS },\n \t\tfunc(p Peer2) float64 { return p.Hops },\n \t\tweights, invert,\n \t)\n+\tif err != nil {\n+\t\tpanic(fmt.Sprintf(\"Build2D failed: %v\", err))\n+\t}\n-\ttr, _ := poindexter.NewKDTree(pts, poindexter.WithMetric(poindexter.ManhattanDistance{}))\n+\ttr, err := poindexter.NewKDTree(pts, poindexter.WithMetric(poindexter.ManhattanDistance{}))\n+\tif err != nil {\n+\t\tpanic(fmt.Sprintf(\"NewKDTree failed: %v\", err))\n+\t}\n-\tbest, _, _ := tr.Nearest([]float64{0, 0.3})\n+\tbest, _, ok := tr.Nearest([]float64{0, 0.3})\n+\tif !ok {\n+\t\tpanic(\"no nearest neighbour found\")\n+\t}\n \tfmt.Println(\"2D best:\", best.ID)\n```\n\n<!-- suggestion_start -->\n\n<details>\n<summary>📝 Committable suggestion</summary>\n\n> ‼️ **IMPORTANT**\n> Carefully review the code before committing. Ensure that it accurately replaces the highlighted code, contains no missing lines, and has no issues with indentation. Thoroughly test & benchmark the code to ensure it meets the requirements.\n\n```suggestion\n\tpts, err := poindexter.Build2D(\n\t\tpeers,\n\t\tfunc(p Peer2) string { return p.ID },\n\t\tfunc(p Peer2) float64 { return p.PingMS },\n\t\tfunc(p Peer2) float64 { return p.Hops },\n\t\tweights, invert,\n\t)\n\tif err != nil {\n\t\tpanic(fmt.Sprintf(\"Build2D failed: %v\", err))\n\t}\n\ttr, err := poindexter.NewKDTree(pts, poindexter.WithMetric(poindexter.ManhattanDistance{}))\n\tif err != nil {\n\t\tpanic(fmt.Sprintf(\"NewKDTree failed: %v\", err))\n\t}\n\tbest, _, ok := tr.Nearest([]float64{0, 0.3})\n\tif !ok {\n\t\tpanic(\"no nearest neighbour found\")\n\t}\n```\n\n</details>\n\n<!-- suggestion_end -->\n\n<details>\n<summary>🤖 Prompt for AI Agents</summary>\n\n```\nIn examples/kdtree_2d_ping_hop/main.go around lines 24 to 32, the returned\nerrors and the boolean \"ok\" are ignored for Build2D, NewKDTree and Nearest;\nupdate the code to check and handle those return values: capture and check the\nerror from poindexter.Build2D and return/log/fatal if non-nil, capture and check\nthe error from poindexter.NewKDTree and return/log/fatal if non-nil, and inspect\nthe ok flag from tr.Nearest before using best (handle the false case by logging\nor returning an error); ensure each failure path provides a clear message and\nterminates or recovers safely instead of proceeding to use invalid values.\n```\n\n</details>\n\n<!-- This is an auto-generated comment by CodeRabbit -->",
+    "created_at": "2025-11-03T20:32:37Z",
+    "updated_at": "2025-11-03T20:32:42Z",
+    "html_url": "https://github.com/Snider/Poindexter/pull/2#discussion_r2487777236",
+    "pull_request_url": "https://api.github.com/repos/Snider/Poindexter/pulls/2",
+    "_links": {
+      "self": {
+        "href": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777236"
+      },
+      "html": {
+        "href": "https://github.com/Snider/Poindexter/pull/2#discussion_r2487777236"
+      },
+      "pull_request": {
+        "href": "https://api.github.com/repos/Snider/Poindexter/pulls/2"
+      }
+    },
+    "reactions": {
+      "url": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777236/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "start_line": 24,
+    "original_start_line": 24,
+    "start_side": "RIGHT",
+    "line": null,
+    "original_line": 32,
+    "side": "RIGHT",
+    "author_association": "NONE",
+    "original_position": 32,
+    "position": 1,
+    "subject_type": "line"
+  },
+  {
+    "url": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777242",
+    "pull_request_review_id": 3412823328,
+    "id": 2487777242,
+    "node_id": "PRRC_kwDOQOcBaM6USHfa",
+    "diff_hunk": "@@ -0,0 +1,7 @@\n+package main\n+\n+import \"testing\"\n+\n+func TestExample3D_Main(t *testing.T) {\n+\tmain()\n+}",
+    "path": "examples/kdtree_3d_ping_hop_geo/main_test.go",
+    "commit_id": "8e62b4e51da51a9ace3a1370bc6266c4af24e725",
+    "original_commit_id": "b876c318817eae35412ea8ba1ba04ee07aa0406c",
+    "user": {
+      "login": "coderabbitai[bot]",
+      "id": 136622811,
+      "node_id": "BOT_kgDOCCSy2w",
+      "avatar_url": "https://avatars.githubusercontent.com/in/347564?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/coderabbitai%5Bbot%5D",
+      "html_url": "https://github.com/apps/coderabbitai",
+      "followers_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/followers",
+      "following_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/following{/other_user}",
+      "gists_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/subscriptions",
+      "organizations_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/orgs",
+      "repos_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/repos",
+      "events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/received_events",
+      "type": "Bot",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "body": "_🧹 Nitpick_ | _🔵 Trivial_\n\n**Consider adding assertions to validate the example's behaviour.**\n\nThis smoke test only verifies that `main()` doesn't panic. Consider capturing output or adding basic assertions to validate that the example produces expected results, improving test coverage and making failures more informative.\n\n<details>\n<summary>🤖 Prompt for AI Agents</summary>\n\n```\nIn examples/kdtree_3d_ping_hop_geo/main_test.go around lines 5 to 7, the test\nonly calls main() to ensure no panic; update it to capture and assert expected\nbehavior by redirecting stdout/stderr (or modifying main to return results) and\nasserting on known output values or side-effects—e.g., run main(), read the\ncaptured output, and add assertions that specific strings or numeric results\nappear and that exit code/state is correct; keep the test deterministic and\nrestore original stdout/stderr after the check.\n```\n\n</details>\n\n<!-- This is an auto-generated comment by CodeRabbit -->",
+    "created_at": "2025-11-03T20:32:38Z",
+    "updated_at": "2025-11-03T20:32:42Z",
+    "html_url": "https://github.com/Snider/Poindexter/pull/2#discussion_r2487777242",
+    "pull_request_url": "https://api.github.com/repos/Snider/Poindexter/pulls/2",
+    "_links": {
+      "self": {
+        "href": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777242"
+      },
+      "html": {
+        "href": "https://github.com/Snider/Poindexter/pull/2#discussion_r2487777242"
+      },
+      "pull_request": {
+        "href": "https://api.github.com/repos/Snider/Poindexter/pulls/2"
+      }
+    },
+    "reactions": {
+      "url": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777242/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "start_line": 5,
+    "original_start_line": 5,
+    "start_side": "RIGHT",
+    "line": null,
+    "original_line": 7,
+    "side": "RIGHT",
+    "author_association": "NONE",
+    "original_position": 7,
+    "position": 1,
+    "subject_type": "line"
+  },
+  {
+    "url": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777248",
+    "pull_request_review_id": 3412823328,
+    "id": 2487777248,
+    "node_id": "PRRC_kwDOQOcBaM6USHfg",
+    "diff_hunk": "@@ -0,0 +1,7 @@\n+package main\n+\n+import \"testing\"\n+\n+func TestExample4D_Main(t *testing.T) {\n+\tmain()\n+}",
+    "path": "examples/kdtree_4d_ping_hop_geo_score/main_test.go",
+    "commit_id": "8e62b4e51da51a9ace3a1370bc6266c4af24e725",
+    "original_commit_id": "b876c318817eae35412ea8ba1ba04ee07aa0406c",
+    "user": {
+      "login": "coderabbitai[bot]",
+      "id": 136622811,
+      "node_id": "BOT_kgDOCCSy2w",
+      "avatar_url": "https://avatars.githubusercontent.com/in/347564?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/coderabbitai%5Bbot%5D",
+      "html_url": "https://github.com/apps/coderabbitai",
+      "followers_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/followers",
+      "following_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/following{/other_user}",
+      "gists_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/subscriptions",
+      "organizations_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/orgs",
+      "repos_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/repos",
+      "events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/received_events",
+      "type": "Bot",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "body": "_🧹 Nitpick_ | _🔵 Trivial_\n\n**Consider adding assertions to validate the example's behaviour.**\n\nThis smoke test only verifies that `main()` doesn't panic. Consider capturing output or adding basic assertions to validate that the example produces expected results, improving test coverage and making failures more informative.\n\n<details>\n<summary>🤖 Prompt for AI Agents</summary>\n\n```\nIn examples/kdtree_4d_ping_hop_geo_score/main_test.go around lines 5 to 7, the\ntest only calls main() and doesn't assert any behavior; update the test to\ncapture and inspect program output and/or side effects: redirect stdout (and\nstderr if needed) to a buffer before calling main(), run main(), restore\noutputs, then use t.Fatalf/t.Errorf or testify assertions to check that the\nbuffer contains expected strings or values (or that expected files/metrics were\nproduced) so the test fails with informative messages when behaviour changes.\n```\n\n</details>\n\n<!-- This is an auto-generated comment by CodeRabbit -->",
+    "created_at": "2025-11-03T20:32:38Z",
+    "updated_at": "2025-11-03T20:32:42Z",
+    "html_url": "https://github.com/Snider/Poindexter/pull/2#discussion_r2487777248",
+    "pull_request_url": "https://api.github.com/repos/Snider/Poindexter/pulls/2",
+    "_links": {
+      "self": {
+        "href": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777248"
+      },
+      "html": {
+        "href": "https://github.com/Snider/Poindexter/pull/2#discussion_r2487777248"
+      },
+      "pull_request": {
+        "href": "https://api.github.com/repos/Snider/Poindexter/pulls/2"
+      }
+    },
+    "reactions": {
+      "url": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777248/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "start_line": 5,
+    "original_start_line": 5,
+    "start_side": "RIGHT",
+    "line": null,
+    "original_line": 7,
+    "side": "RIGHT",
+    "author_association": "NONE",
+    "original_position": 7,
+    "position": 1,
+    "subject_type": "line"
+  },
+  {
+    "url": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777255",
+    "pull_request_review_id": 3412823328,
+    "id": 2487777255,
+    "node_id": "PRRC_kwDOQOcBaM6USHfn",
+    "diff_hunk": "@@ -0,0 +1,38 @@\n+package main\n+\n+import (\n+\t\"fmt\"\n+\tpoindexter \"github.com/Snider/Poindexter\"\n+)\n+\n+type Peer4 struct {\n+\tID     string\n+\tPingMS float64\n+\tHops   float64\n+\tGeoKM  float64\n+\tScore  float64\n+}\n+\n+func main() {\n+\tpeers := []Peer4{\n+\t\t{ID: \"A\", PingMS: 22, Hops: 3, GeoKM: 1200, Score: 0.86},\n+\t\t{ID: \"B\", PingMS: 34, Hops: 2, GeoKM: 800, Score: 0.91},\n+\t\t{ID: \"C\", PingMS: 15, Hops: 4, GeoKM: 4500, Score: 0.70},\n+\t\t{ID: \"D\", PingMS: 55, Hops: 1, GeoKM: 300, Score: 0.95},\n+\t\t{ID: \"E\", PingMS: 18, Hops: 2, GeoKM: 2200, Score: 0.80},\n+\t}\n+\tweights := [4]float64{1.0, 0.7, 0.2, 1.2}\n+\tinvert := [4]bool{false, false, false, true}\n+\tpts, _ := poindexter.Build4D(\n+\t\tpeers,\n+\t\tfunc(p Peer4) string { return p.ID },\n+\t\tfunc(p Peer4) float64 { return p.PingMS },\n+\t\tfunc(p Peer4) float64 { return p.Hops },\n+\t\tfunc(p Peer4) float64 { return p.GeoKM },\n+\t\tfunc(p Peer4) float64 { return p.Score },\n+\t\tweights, invert,\n+\t)",
+    "path": "examples/kdtree_4d_ping_hop_geo_score/main.go",
+    "commit_id": "8e62b4e51da51a9ace3a1370bc6266c4af24e725",
+    "original_commit_id": "b876c318817eae35412ea8ba1ba04ee07aa0406c",
+    "user": {
+      "login": "coderabbitai[bot]",
+      "id": 136622811,
+      "node_id": "BOT_kgDOCCSy2w",
+      "avatar_url": "https://avatars.githubusercontent.com/in/347564?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/coderabbitai%5Bbot%5D",
+      "html_url": "https://github.com/apps/coderabbitai",
+      "followers_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/followers",
+      "following_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/following{/other_user}",
+      "gists_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/subscriptions",
+      "organizations_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/orgs",
+      "repos_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/repos",
+      "events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/received_events",
+      "type": "Bot",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "body": "_🧹 Nitpick_ | _🔵 Trivial_\n\n**Consider handling errors for demonstration purposes.**\n\nWhilst the example works correctly, explicitly handling the error from `Build4D` would demonstrate best practices to users learning from this code.\n\n\nApply this diff to improve error handling:\n\n```diff\n-\tpts, _ := poindexter.Build4D(\n+\tpts, err := poindexter.Build4D(\n \t\tpeers,\n \t\tfunc(p Peer4) string { return p.ID },\n \t\tfunc(p Peer4) float64 { return p.PingMS },\n \t\tfunc(p Peer4) float64 { return p.Hops },\n \t\tfunc(p Peer4) float64 { return p.GeoKM },\n \t\tfunc(p Peer4) float64 { return p.Score },\n \t\tweights, invert,\n \t)\n+\tif err != nil {\n+\t\tpanic(err)\n+\t}\n```\n\n<!-- suggestion_start -->\n\n<details>\n<summary>📝 Committable suggestion</summary>\n\n> ‼️ **IMPORTANT**\n> Carefully review the code before committing. Ensure that it accurately replaces the highlighted code, contains no missing lines, and has no issues with indentation. Thoroughly test & benchmark the code to ensure it meets the requirements.\n\n```suggestion\n\tpts, err := poindexter.Build4D(\n\t\tpeers,\n\t\tfunc(p Peer4) string { return p.ID },\n\t\tfunc(p Peer4) float64 { return p.PingMS },\n\t\tfunc(p Peer4) float64 { return p.Hops },\n\t\tfunc(p Peer4) float64 { return p.GeoKM },\n\t\tfunc(p Peer4) float64 { return p.Score },\n\t\tweights, invert,\n\t)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n```\n\n</details>\n\n<!-- suggestion_end -->\n\n<details>\n<summary>🤖 Prompt for AI Agents</summary>\n\n```\nIn examples/kdtree_4d_ping_hop_geo_score/main.go around lines 26 to 34, the call\nto poindexter.Build4D ignores its returned error; update this to capture the\nerror (e.g., pts, err := poindexter.Build4D(...)), check if err != nil, and\nhandle it by printing/logging a clear message and exiting or returning (for\nexample using log.Fatalf or fmt.Println + os.Exit(1)) so the example\ndemonstrates proper error handling.\n```\n\n</details>\n\n<!-- This is an auto-generated comment by CodeRabbit -->",
+    "created_at": "2025-11-03T20:32:38Z",
+    "updated_at": "2025-11-03T20:32:42Z",
+    "html_url": "https://github.com/Snider/Poindexter/pull/2#discussion_r2487777255",
+    "pull_request_url": "https://api.github.com/repos/Snider/Poindexter/pulls/2",
+    "_links": {
+      "self": {
+        "href": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777255"
+      },
+      "html": {
+        "href": "https://github.com/Snider/Poindexter/pull/2#discussion_r2487777255"
+      },
+      "pull_request": {
+        "href": "https://api.github.com/repos/Snider/Poindexter/pulls/2"
+      }
+    },
+    "reactions": {
+      "url": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777255/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "start_line": 26,
+    "original_start_line": 26,
+    "start_side": "RIGHT",
+    "line": null,
+    "original_line": 34,
+    "side": "RIGHT",
+    "author_association": "NONE",
+    "original_position": 34,
+    "position": 1,
+    "subject_type": "line"
+  },
+  {
+    "url": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777260",
+    "pull_request_review_id": 3412823328,
+    "id": 2487777260,
+    "node_id": "PRRC_kwDOQOcBaM6USHfs",
+    "diff_hunk": "@@ -0,0 +1,38 @@\n+package main\n+\n+import (\n+\t\"fmt\"\n+\tpoindexter \"github.com/Snider/Poindexter\"\n+)\n+\n+type Peer4 struct {\n+\tID     string\n+\tPingMS float64\n+\tHops   float64\n+\tGeoKM  float64\n+\tScore  float64\n+}\n+\n+func main() {\n+\tpeers := []Peer4{\n+\t\t{ID: \"A\", PingMS: 22, Hops: 3, GeoKM: 1200, Score: 0.86},\n+\t\t{ID: \"B\", PingMS: 34, Hops: 2, GeoKM: 800, Score: 0.91},\n+\t\t{ID: \"C\", PingMS: 15, Hops: 4, GeoKM: 4500, Score: 0.70},\n+\t\t{ID: \"D\", PingMS: 55, Hops: 1, GeoKM: 300, Score: 0.95},\n+\t\t{ID: \"E\", PingMS: 18, Hops: 2, GeoKM: 2200, Score: 0.80},\n+\t}\n+\tweights := [4]float64{1.0, 0.7, 0.2, 1.2}\n+\tinvert := [4]bool{false, false, false, true}\n+\tpts, _ := poindexter.Build4D(\n+\t\tpeers,\n+\t\tfunc(p Peer4) string { return p.ID },\n+\t\tfunc(p Peer4) float64 { return p.PingMS },\n+\t\tfunc(p Peer4) float64 { return p.Hops },\n+\t\tfunc(p Peer4) float64 { return p.GeoKM },\n+\t\tfunc(p Peer4) float64 { return p.Score },\n+\t\tweights, invert,\n+\t)\n+\ttr, _ := poindexter.NewKDTree(pts, poindexter.WithMetric(poindexter.EuclideanDistance{}))\n+\tbest, _, _ := tr.Nearest([]float64{0, weights[1] * 0.2, weights[2] * 0.3, 0})\n+\tfmt.Println(\"4D best:\", best.ID)",
+    "path": "examples/kdtree_4d_ping_hop_geo_score/main.go",
+    "commit_id": "8e62b4e51da51a9ace3a1370bc6266c4af24e725",
+    "original_commit_id": "b876c318817eae35412ea8ba1ba04ee07aa0406c",
+    "user": {
+      "login": "coderabbitai[bot]",
+      "id": 136622811,
+      "node_id": "BOT_kgDOCCSy2w",
+      "avatar_url": "https://avatars.githubusercontent.com/in/347564?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/coderabbitai%5Bbot%5D",
+      "html_url": "https://github.com/apps/coderabbitai",
+      "followers_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/followers",
+      "following_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/following{/other_user}",
+      "gists_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/subscriptions",
+      "organizations_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/orgs",
+      "repos_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/repos",
+      "events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/received_events",
+      "type": "Bot",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "body": "_🧹 Nitpick_ | _🔵 Trivial_\n\n**Consider handling errors for demonstration purposes.**\n\nSimilarly to the Build4D call, handling errors from `NewKDTree` and `Nearest` would demonstrate best practices.\n\n\nApply this diff:\n\n```diff\n-\ttr, _ := poindexter.NewKDTree(pts, poindexter.WithMetric(poindexter.EuclideanDistance{}))\n-\tbest, _, _ := tr.Nearest([]float64{0, weights[1] * 0.2, weights[2] * 0.3, 0})\n+\ttr, err := poindexter.NewKDTree(pts, poindexter.WithMetric(poindexter.EuclideanDistance{}))\n+\tif err != nil {\n+\t\tpanic(err)\n+\t}\n+\tbest, _, ok := tr.Nearest([]float64{0, weights[1] * 0.2, weights[2] * 0.3, 0})\n+\tif !ok {\n+\t\tpanic(\"no nearest neighbour found\")\n+\t}\n \tfmt.Println(\"4D best:\", best.ID)\n```\n\n<!-- suggestion_start -->\n\n<details>\n<summary>📝 Committable suggestion</summary>\n\n> ‼️ **IMPORTANT**\n> Carefully review the code before committing. Ensure that it accurately replaces the highlighted code, contains no missing lines, and has no issues with indentation. Thoroughly test & benchmark the code to ensure it meets the requirements.\n\n```suggestion\n\ttr, err := poindexter.NewKDTree(pts, poindexter.WithMetric(poindexter.EuclideanDistance{}))\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\tbest, _, ok := tr.Nearest([]float64{0, weights[1] * 0.2, weights[2] * 0.3, 0})\n\tif !ok {\n\t\tpanic(\"no nearest neighbour found\")\n\t}\n\tfmt.Println(\"4D best:\", best.ID)\n```\n\n</details>\n\n<!-- suggestion_end -->\n\n<details>\n<summary>🤖 Prompt for AI Agents</summary>\n\n```\nIn examples/kdtree_4d_ping_hop_geo_score/main.go around lines 35 to 37, the\ncalls to poindexter.NewKDTree and tr.Nearest ignore returned errors; update the\nexample to check and handle those errors (like the Build4D call does) by\ncapturing the error return values, printing/logging a descriptive error message\nand exiting or returning on failure, and only using best when err is nil so the\ndemo shows proper error handling.\n```\n\n</details>\n\n<!-- This is an auto-generated comment by CodeRabbit -->",
+    "created_at": "2025-11-03T20:32:38Z",
+    "updated_at": "2025-11-03T20:32:42Z",
+    "html_url": "https://github.com/Snider/Poindexter/pull/2#discussion_r2487777260",
+    "pull_request_url": "https://api.github.com/repos/Snider/Poindexter/pulls/2",
+    "_links": {
+      "self": {
+        "href": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777260"
+      },
+      "html": {
+        "href": "https://github.com/Snider/Poindexter/pull/2#discussion_r2487777260"
+      },
+      "pull_request": {
+        "href": "https://api.github.com/repos/Snider/Poindexter/pulls/2"
+      }
+    },
+    "reactions": {
+      "url": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777260/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "start_line": 35,
+    "original_start_line": 35,
+    "start_side": "RIGHT",
+    "line": null,
+    "original_line": 37,
+    "side": "RIGHT",
+    "author_association": "NONE",
+    "original_position": 37,
+    "position": 1,
+    "subject_type": "line"
+  },
+  {
+    "url": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777267",
+    "pull_request_review_id": 3412823328,
+    "id": 2487777267,
+    "node_id": "PRRC_kwDOQOcBaM6USHfz",
+    "diff_hunk": "@@ -0,0 +1,430 @@\n+package poindexter\n+\n+import \"errors\"\n+\n+// Helper builders for KDTree points with min-max normalisation, optional inversion per-axis,\n+// and per-axis weights. These are convenience utilities to make it easy to map domain\n+// records into KD space for 2D/3D/4D use-cases.\n+\n+// Errors for helper builders.\n+var (\n+\t// ErrInvalidFeatures indicates that no features were provided or nil feature encountered.\n+\tErrInvalidFeatures = errors.New(\"kdtree: invalid features: provide at least one feature and ensure none are nil\")\n+\t// ErrInvalidWeights indicates weights length doesn't match features length.\n+\tErrInvalidWeights = errors.New(\"kdtree: invalid weights length; must match number of features\")\n+\t// ErrInvalidInvert indicates invert flags length doesn't match features length.\n+\tErrInvalidInvert = errors.New(\"kdtree: invalid invert length; must match number of features\")\n+\t// ErrStatsDimMismatch indicates NormStats dimensions do not match features length.\n+\tErrStatsDimMismatch = errors.New(\"kdtree: stats dimensionality mismatch\")\n+)\n+\n+// AxisStats holds the min/max observed for a single axis.\n+type AxisStats struct {\n+\tMin float64\n+\tMax float64\n+}\n+\n+// NormStats holds per-axis normalisation statistics.\n+// For D dimensions, Stats has length D.\n+type NormStats struct {\n+\tStats []AxisStats\n+}\n+\n+// ComputeNormStatsND computes per-axis min/max for an arbitrary number of features.\n+func ComputeNormStatsND[T any](items []T, features []func(T) float64) (NormStats, error) {\n+\tif len(features) == 0 {\n+\t\treturn NormStats{}, ErrInvalidFeatures\n+\t}\n+\t// Initialise mins/maxes on first item where possible\n+\tstats := make([]AxisStats, len(features))\n+\tif len(items) == 0 {\n+\t\t// empty items → zero stats slice of correct dim\n+\t\treturn NormStats{Stats: stats}, nil\n+\t}\n+\t// Seed with first item values\n+\tfirst := items[0]\n+\tfor i, f := range features {\n+\t\tif f == nil {\n+\t\t\treturn NormStats{}, ErrInvalidFeatures\n+\t\t}\n+\t\tv := f(first)\n+\t\tstats[i] = AxisStats{Min: v, Max: v}\n+\t}\n+\t// Process remaining items\n+\tfor _, it := range items[1:] {\n+\t\tfor i, f := range features {\n+\t\t\tv := f(it)\n+\t\t\tif v < stats[i].Min {\n+\t\t\t\tstats[i].Min = v\n+\t\t\t}\n+\t\t\tif v > stats[i].Max {\n+\t\t\t\tstats[i].Max = v\n+\t\t\t}\n+\t\t}\n+\t}\n+\treturn NormStats{Stats: stats}, nil\n+}\n+\n+// BuildND constructs normalised-and-weighted KD points from arbitrary amount features.\n+// Features are min-max normalised per axis over the provided items, optionally inverted,\n+// then multiplied by per-axis weights.\n+func BuildND[T any](items []T, id func(T) string, features []func(T) float64, weights []float64, invert []bool) ([]KDPoint[T], error) {\n+\tif len(items) == 0 {\n+\t\treturn nil, nil\n+\t}\n+\tif len(features) == 0 {\n+\t\treturn nil, ErrInvalidFeatures\n+\t}\n+\tif len(weights) != len(features) {\n+\t\treturn nil, ErrInvalidWeights\n+\t}\n+\tif len(invert) != len(features) {\n+\t\treturn nil, ErrInvalidInvert\n+\t}\n+\tstats, err := ComputeNormStatsND(items, features)\n+\tif err != nil {\n+\t\treturn nil, err\n+\t}\n+\treturn BuildNDWithStats(items, id, features, weights, invert, stats)\n+}\n+\n+// BuildNDWithStats builds points using provided normalisation stats.\n+func BuildNDWithStats[T any](items []T, id func(T) string, features []func(T) float64, weights []float64, invert []bool, stats NormStats) ([]KDPoint[T], error) {\n+\tif len(items) == 0 {\n+\t\treturn nil, nil\n+\t}\n+\tif len(features) == 0 {\n+\t\treturn nil, ErrInvalidFeatures\n+\t}\n+\tif len(weights) != len(features) {\n+\t\treturn nil, ErrInvalidWeights\n+\t}\n+\tif len(invert) != len(features) {\n+\t\treturn nil, ErrInvalidInvert\n+\t}\n+\tif len(stats.Stats) != len(features) {\n+\t\treturn nil, ErrStatsDimMismatch\n+\t}\n+\tpts := make([]KDPoint[T], len(items))\n+\tfor i, it := range items {\n+\t\tcoords := make([]float64, len(features))\n+\t\tfor d, f := range features {\n+\t\t\tif f == nil {\n+\t\t\t\treturn nil, ErrInvalidFeatures\n+\t\t\t}\n+\t\t\tn := scale01(f(it), stats.Stats[d].Min, stats.Stats[d].Max)\n+\t\t\tif invert[d] {\n+\t\t\t\tn = 1 - n\n+\t\t\t}\n+\t\t\tcoords[d] = weights[d] * n\n+\t\t}\n+\t\tvar pid string\n+\t\tif id != nil {\n+\t\t\tpid = id(it)\n+\t\t}\n+\t\tpts[i] = KDPoint[T]{ID: pid, Value: it, Coords: coords}\n+\t}\n+\treturn pts, nil\n+}\n+\n+// minMax returns (min,max) of a slice.\n+func minMax(xs []float64) (float64, float64) {\n+\tif len(xs) == 0 {\n+\t\treturn 0, 0\n+\t}\n+\tmn, mx := xs[0], xs[0]\n+\tfor _, v := range xs[1:] {\n+\t\tif v < mn {\n+\t\t\tmn = v\n+\t\t}\n+\t\tif v > mx {\n+\t\t\tmx = v\n+\t\t}\n+\t}\n+\treturn mn, mx\n+}\n+\n+// scale01 maps v from [min,max] to [0,1]. If min==max, returns 0.\n+func scale01(v, min, max float64) float64 {\n+\tif max == min {\n+\t\treturn 0\n+\t}\n+\treturn (v - min) / (max - min)\n+}\n+\n+// ComputeNormStats2D computes per-axis min/max for two features.\n+func ComputeNormStats2D[T any](items []T, f1, f2 func(T) float64) NormStats {\n+\tvals1 := make([]float64, len(items))\n+\tvals2 := make([]float64, len(items))\n+\tfor i, it := range items {\n+\t\tvals1[i] = f1(it)\n+\t\tvals2[i] = f2(it)\n+\t}\n+\tmn1, mx1 := minMax(vals1)\n+\tmn2, mx2 := minMax(vals2)\n+\treturn NormStats{Stats: []AxisStats{{mn1, mx1}, {mn2, mx2}}}\n+}\n+\n+// ComputeNormStats3D computes per-axis min/max for three features.\n+func ComputeNormStats3D[T any](items []T, f1, f2, f3 func(T) float64) NormStats {\n+\tvals1 := make([]float64, len(items))\n+\tvals2 := make([]float64, len(items))\n+\tvals3 := make([]float64, len(items))\n+\tfor i, it := range items {\n+\t\tvals1[i] = f1(it)\n+\t\tvals2[i] = f2(it)\n+\t\tvals3[i] = f3(it)\n+\t}\n+\tmn1, mx1 := minMax(vals1)\n+\tmn2, mx2 := minMax(vals2)\n+\tmn3, mx3 := minMax(vals3)\n+\treturn NormStats{Stats: []AxisStats{{mn1, mx1}, {mn2, mx2}, {mn3, mx3}}}\n+}\n+\n+// ComputeNormStats4D computes per-axis min/max for four features.\n+func ComputeNormStats4D[T any](items []T, f1, f2, f3, f4 func(T) float64) NormStats {\n+\tvals1 := make([]float64, len(items))\n+\tvals2 := make([]float64, len(items))\n+\tvals3 := make([]float64, len(items))\n+\tvals4 := make([]float64, len(items))\n+\tfor i, it := range items {\n+\t\tvals1[i] = f1(it)\n+\t\tvals2[i] = f2(it)\n+\t\tvals3[i] = f3(it)\n+\t\tvals4[i] = f4(it)\n+\t}\n+\tmn1, mx1 := minMax(vals1)\n+\tmn2, mx2 := minMax(vals2)\n+\tmn3, mx3 := minMax(vals3)\n+\tmn4, mx4 := minMax(vals4)\n+\treturn NormStats{Stats: []AxisStats{{mn1, mx1}, {mn2, mx2}, {mn3, mx3}, {mn4, mx4}}}\n+}\n+\n+// Build2D constructs normalised-and-weighted KD points from items using two feature extractors.\n+// - id: function to provide a stable string ID (can return \"\" if you don't need DeleteByID)\n+// - f1,f2: feature extractors (raw values)\n+// - weights: per-axis weights applied after normalization\n+// - invert: per-axis flags; if true, the axis is inverted (1-norm) so that higher raw values become lower cost\n+func Build2D[T any](items []T, id func(T) string, f1, f2 func(T) float64, weights [2]float64, invert [2]bool) ([]KDPoint[T], error) {\n+\tif len(items) == 0 {\n+\t\treturn nil, nil\n+\t}\n+\tvals1 := make([]float64, len(items))\n+\tvals2 := make([]float64, len(items))\n+\tfor i, it := range items {\n+\t\tvals1[i] = f1(it)\n+\t\tvals2[i] = f2(it)\n+\t}\n+\tmn1, mx1 := minMax(vals1)\n+\tmn2, mx2 := minMax(vals2)\n+\n+\tpts := make([]KDPoint[T], len(items))\n+\tfor i, it := range items {\n+\t\tn1 := scale01(vals1[i], mn1, mx1)\n+\t\tn2 := scale01(vals2[i], mn2, mx2)\n+\t\tif invert[0] {\n+\t\t\tn1 = 1 - n1\n+\t\t}\n+\t\tif invert[1] {\n+\t\t\tn2 = 1 - n2\n+\t\t}\n+\t\tpts[i] = KDPoint[T]{\n+\t\t\tID:    id(it),\n+\t\t\tValue: it,\n+\t\t\tCoords: []float64{\n+\t\t\t\tweights[0] * n1,\n+\t\t\t\tweights[1] * n2,\n+\t\t\t},\n+\t\t}\n+\t}\n+\treturn pts, nil\n+}\n+\n+// Build2DWithStats builds points using provided normalisation stats.\n+func Build2DWithStats[T any](items []T, id func(T) string, f1, f2 func(T) float64, weights [2]float64, invert [2]bool, stats NormStats) ([]KDPoint[T], error) {\n+\tif len(items) == 0 {\n+\t\treturn nil, nil\n+\t}\n+\tif len(stats.Stats) != 2 {\n+\t\treturn nil, nil\n+\t}\n+\tpts := make([]KDPoint[T], len(items))\n+\tfor i, it := range items {\n+\t\tn1 := scale01(f1(it), stats.Stats[0].Min, stats.Stats[0].Max)\n+\t\tn2 := scale01(f2(it), stats.Stats[1].Min, stats.Stats[1].Max)\n+\t\tif invert[0] {\n+\t\t\tn1 = 1 - n1\n+\t\t}\n+\t\tif invert[1] {\n+\t\t\tn2 = 1 - n2\n+\t\t}\n+\t\tpts[i] = KDPoint[T]{\n+\t\t\tID:     id(it),\n+\t\t\tValue:  it,\n+\t\t\tCoords: []float64{weights[0] * n1, weights[1] * n2},\n+\t\t}\n+\t}\n+\treturn pts, nil\n+}\n+\n+// Build3D constructs normalised-and-weighted KD points using three feature extractors.\n+func Build3D[T any](items []T, id func(T) string, f1, f2, f3 func(T) float64, weights [3]float64, invert [3]bool) ([]KDPoint[T], error) {\n+\tif len(items) == 0 {\n+\t\treturn nil, nil\n+\t}\n+\tvals1 := make([]float64, len(items))\n+\tvals2 := make([]float64, len(items))\n+\tvals3 := make([]float64, len(items))\n+\tfor i, it := range items {\n+\t\tvals1[i] = f1(it)\n+\t\tvals2[i] = f2(it)\n+\t\tvals3[i] = f3(it)\n+\t}\n+\tmn1, mx1 := minMax(vals1)\n+\tmn2, mx2 := minMax(vals2)\n+\tmn3, mx3 := minMax(vals3)\n+\n+\tpts := make([]KDPoint[T], len(items))\n+\tfor i, it := range items {\n+\t\tn1 := scale01(vals1[i], mn1, mx1)\n+\t\tn2 := scale01(vals2[i], mn2, mx2)\n+\t\tn3 := scale01(vals3[i], mn3, mx3)\n+\t\tif invert[0] {\n+\t\t\tn1 = 1 - n1\n+\t\t}\n+\t\tif invert[1] {\n+\t\t\tn2 = 1 - n2\n+\t\t}\n+\t\tif invert[2] {\n+\t\t\tn3 = 1 - n3\n+\t\t}\n+\t\tpts[i] = KDPoint[T]{\n+\t\t\tID:    id(it),\n+\t\t\tValue: it,\n+\t\t\tCoords: []float64{\n+\t\t\t\tweights[0] * n1,\n+\t\t\t\tweights[1] * n2,\n+\t\t\t\tweights[2] * n3,\n+\t\t\t},\n+\t\t}\n+\t}\n+\treturn pts, nil\n+}\n+\n+// Build3DWithStats builds points using provided normalisation stats.\n+func Build3DWithStats[T any](items []T, id func(T) string, f1, f2, f3 func(T) float64, weights [3]float64, invert [3]bool, stats NormStats) ([]KDPoint[T], error) {\n+\tif len(items) == 0 {\n+\t\treturn nil, nil\n+\t}\n+\tif len(stats.Stats) != 3 {\n+\t\treturn nil, nil\n+\t}\n+\tpts := make([]KDPoint[T], len(items))\n+\tfor i, it := range items {\n+\t\tn1 := scale01(f1(it), stats.Stats[0].Min, stats.Stats[0].Max)\n+\t\tn2 := scale01(f2(it), stats.Stats[1].Min, stats.Stats[1].Max)\n+\t\tn3 := scale01(f3(it), stats.Stats[2].Min, stats.Stats[2].Max)\n+\t\tif invert[0] {\n+\t\t\tn1 = 1 - n1\n+\t\t}\n+\t\tif invert[1] {\n+\t\t\tn2 = 1 - n2\n+\t\t}\n+\t\tif invert[2] {\n+\t\t\tn3 = 1 - n3\n+\t\t}\n+\t\tpts[i] = KDPoint[T]{\n+\t\t\tID:     id(it),\n+\t\t\tValue:  it,\n+\t\t\tCoords: []float64{weights[0] * n1, weights[1] * n2, weights[2] * n3},\n+\t\t}\n+\t}\n+\treturn pts, nil\n+}\n+\n+// Build4D constructs normalised-and-weighted KD points using four feature extractors.\n+func Build4D[T any](items []T, id func(T) string, f1, f2, f3, f4 func(T) float64, weights [4]float64, invert [4]bool) ([]KDPoint[T], error) {\n+\tif len(items) == 0 {\n+\t\treturn nil, nil\n+\t}\n+\tvals1 := make([]float64, len(items))\n+\tvals2 := make([]float64, len(items))\n+\tvals3 := make([]float64, len(items))\n+\tvals4 := make([]float64, len(items))\n+\tfor i, it := range items {\n+\t\tvals1[i] = f1(it)\n+\t\tvals2[i] = f2(it)\n+\t\tvals3[i] = f3(it)\n+\t\tvals4[i] = f4(it)\n+\t}\n+\tmn1, mx1 := minMax(vals1)\n+\tmn2, mx2 := minMax(vals2)\n+\tmn3, mx3 := minMax(vals3)\n+\tmn4, mx4 := minMax(vals4)\n+\n+\tpts := make([]KDPoint[T], len(items))\n+\tfor i, it := range items {\n+\t\tn1 := scale01(vals1[i], mn1, mx1)\n+\t\tn2 := scale01(vals2[i], mn2, mx2)\n+\t\tn3 := scale01(vals3[i], mn3, mx3)\n+\t\tn4 := scale01(vals4[i], mn4, mx4)\n+\t\tif invert[0] {\n+\t\t\tn1 = 1 - n1\n+\t\t}\n+\t\tif invert[1] {\n+\t\t\tn2 = 1 - n2\n+\t\t}\n+\t\tif invert[2] {\n+\t\t\tn3 = 1 - n3\n+\t\t}\n+\t\tif invert[3] {\n+\t\t\tn4 = 1 - n4\n+\t\t}\n+\t\tpts[i] = KDPoint[T]{\n+\t\t\tID:    id(it),\n+\t\t\tValue: it,\n+\t\t\tCoords: []float64{\n+\t\t\t\tweights[0] * n1,\n+\t\t\t\tweights[1] * n2,\n+\t\t\t\tweights[2] * n3,\n+\t\t\t\tweights[3] * n4,\n+\t\t\t},\n+\t\t}\n+\t}\n+\treturn pts, nil\n+}\n+\n+// Build4DWithStats builds points using provided normalisation stats.\n+func Build4DWithStats[T any](items []T, id func(T) string, f1, f2, f3, f4 func(T) float64, weights [4]float64, invert [4]bool, stats NormStats) ([]KDPoint[T], error) {\n+\tif len(items) == 0 {\n+\t\treturn nil, nil\n+\t}\n+\tif len(stats.Stats) != 4 {\n+\t\treturn nil, nil\n+\t}\n+\tpts := make([]KDPoint[T], len(items))\n+\tfor i, it := range items {\n+\t\tn1 := scale01(f1(it), stats.Stats[0].Min, stats.Stats[0].Max)\n+\t\tn2 := scale01(f2(it), stats.Stats[1].Min, stats.Stats[1].Max)\n+\t\tn3 := scale01(f3(it), stats.Stats[2].Min, stats.Stats[2].Max)\n+\t\tn4 := scale01(f4(it), stats.Stats[3].Min, stats.Stats[3].Max)\n+\t\tif invert[0] {\n+\t\t\tn1 = 1 - n1\n+\t\t}\n+\t\tif invert[1] {\n+\t\t\tn2 = 1 - n2\n+\t\t}\n+\t\tif invert[2] {\n+\t\t\tn3 = 1 - n3\n+\t\t}\n+\t\tif invert[3] {\n+\t\t\tn4 = 1 - n4\n+\t\t}\n+\t\tpts[i] = KDPoint[T]{\n+\t\t\tID:     id(it),\n+\t\t\tValue:  it,\n+\t\t\tCoords: []float64{weights[0] * n1, weights[1] * n2, weights[2] * n3, weights[3] * n4},\n+\t\t}\n+\t}\n+\treturn pts, nil",
+    "path": "kdtree_helpers.go",
+    "commit_id": "8e62b4e51da51a9ace3a1370bc6266c4af24e725",
+    "original_commit_id": "b876c318817eae35412ea8ba1ba04ee07aa0406c",
+    "user": {
+      "login": "coderabbitai[bot]",
+      "id": 136622811,
+      "node_id": "BOT_kgDOCCSy2w",
+      "avatar_url": "https://avatars.githubusercontent.com/in/347564?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/coderabbitai%5Bbot%5D",
+      "html_url": "https://github.com/apps/coderabbitai",
+      "followers_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/followers",
+      "following_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/following{/other_user}",
+      "gists_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/subscriptions",
+      "organizations_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/orgs",
+      "repos_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/repos",
+      "events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/received_events",
+      "type": "Bot",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "body": "_⚠️ Potential issue_ | _🟠 Major_\n\n**Propagate stats dimensionality errors instead of returning nil silently**\n\n`Build2DWithStats`, `Build3DWithStats`, and `Build4DWithStats` return `(nil, nil)` when the supplied stats slice has the wrong length. That hides misconfiguration and drops all points without warning. Please surface `ErrStatsDimMismatch` so callers can detect and handle the issue. Based on review\n\n```diff\n- if len(stats.Stats) != 2 {\n-     return nil, nil\n- }\n+ if len(stats.Stats) != 2 {\n+     return nil, ErrStatsDimMismatch\n+ }\n...\n- if len(stats.Stats) != 3 {\n-     return nil, nil\n- }\n+ if len(stats.Stats) != 3 {\n+     return nil, ErrStatsDimMismatch\n+ }\n...\n- if len(stats.Stats) != 4 {\n-     return nil, nil\n- }\n+ if len(stats.Stats) != 4 {\n+     return nil, ErrStatsDimMismatch\n+ }\n```\n\n\n> Committable suggestion skipped: line range outside the PR's diff.\n\n<details>\n<summary>🤖 Prompt for AI Agents</summary>\n\n```\nIn kdtree_helpers.go around lines 244 to 429, the three functions\nBuild2DWithStats, Build3DWithStats and Build4DWithStats currently return (nil,\nnil) when stats.Stats has the wrong length; change those early-return paths to\nreturn (nil, ErrStatsDimMismatch) so callers can detect the mismatch; ensure\nErrStatsDimMismatch is defined and exported in this package (or referenced from\nits package) and update any tests/usage to expect the error instead of a nil\nresult.\n```\n\n</details>\n\n<!-- fingerprinting:phantom:medusa:sabertoothed -->\n\n<!-- This is an auto-generated comment by CodeRabbit -->",
+    "created_at": "2025-11-03T20:32:38Z",
+    "updated_at": "2025-11-03T20:32:42Z",
+    "html_url": "https://github.com/Snider/Poindexter/pull/2#discussion_r2487777267",
+    "pull_request_url": "https://api.github.com/repos/Snider/Poindexter/pulls/2",
+    "_links": {
+      "self": {
+        "href": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777267"
+      },
+      "html": {
+        "href": "https://github.com/Snider/Poindexter/pull/2#discussion_r2487777267"
+      },
+      "pull_request": {
+        "href": "https://api.github.com/repos/Snider/Poindexter/pulls/2"
+      }
+    },
+    "reactions": {
+      "url": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777267/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "start_line": 244,
+    "original_start_line": 244,
+    "start_side": "RIGHT",
+    "line": null,
+    "original_line": 429,
+    "side": "RIGHT",
+    "author_association": "NONE",
+    "original_position": 429,
+    "position": 1,
+    "subject_type": "line"
+  },
+  {
+    "url": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777274",
+    "pull_request_review_id": 3412823328,
+    "id": 2487777274,
+    "node_id": "PRRC_kwDOQOcBaM6USHf6",
+    "diff_hunk": "@@ -0,0 +1,100 @@\n+package poindexter\n+\n+import (\n+\t\"fmt\"\n+\t\"testing\"\n+)\n+\n+func TestInsert_DuplicateID(t *testing.T) {\n+\ttr, err := NewKDTreeFromDim[string](1)\n+\tif err != nil {\n+\t\tt.Fatalf(\"err: %v\", err)\n+\t}\n+\tok := tr.Insert(KDPoint[string]{ID: \"X\", Coords: []float64{0}})\n+\tif !ok {\n+\t\tt.Fatalf(\"first insert should succeed\")\n+\t}\n+\t// duplicate ID should fail\n+\tif tr.Insert(KDPoint[string]{ID: \"X\", Coords: []float64{1}}) {\n+\t\tt.Fatalf(\"expected insert duplicate ID to return false\")\n+\t}\n+}\n+\n+func TestDeleteByID_SwapDelete(t *testing.T) {\n+\t// Arrange 3 points so that deleting the middle triggers swap-delete path\n+\tpts := []KDPoint[int]{\n+\t\t{ID: \"A\", Coords: []float64{0}},\n+\t\t{ID: \"B\", Coords: []float64{1}},\n+\t\t{ID: \"C\", Coords: []float64{2}},\n+\t}\n+\ttr, err := NewKDTree(pts)\n+\tif err != nil {\n+\t\tt.Fatalf(\"NewKDTree err: %v\", err)\n+\t}\n+\tif !tr.DeleteByID(\"B\") {\n+\t\tt.Fatalf(\"delete B failed\")\n+\t}\n+\tif tr.Len() != 2 {\n+\t\tt.Fatalf(\"expected len 2, got %d\", tr.Len())\n+\t}\n+\t// Ensure B is gone and A/C remain reachable\n+\tids := make(map[string]bool)\n+\tfor _, q := range [][]float64{{0}, {2}} {\n+\t\tp, _, ok := tr.Nearest(q)\n+\t\tif ok {\n+\t\t\tids[p.ID] = true\n+\t\t}\n+\t}\n+\tif ids[\"B\"] {\n+\t\tt.Fatalf(\"B should not be present after delete\")\n+\t}\n+\tif !ids[\"A\"] && !ids[\"C\"] {\n+\t\tt.Fatalf(\"expected either A or C to be nearest for respective queries: %v\", ids)\n+\t}",
+    "path": "kdtree_morecov_test.go",
+    "commit_id": "8e62b4e51da51a9ace3a1370bc6266c4af24e725",
+    "original_commit_id": "b876c318817eae35412ea8ba1ba04ee07aa0406c",
+    "user": {
+      "login": "coderabbitai[bot]",
+      "id": 136622811,
+      "node_id": "BOT_kgDOCCSy2w",
+      "avatar_url": "https://avatars.githubusercontent.com/in/347564?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/coderabbitai%5Bbot%5D",
+      "html_url": "https://github.com/apps/coderabbitai",
+      "followers_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/followers",
+      "following_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/following{/other_user}",
+      "gists_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/subscriptions",
+      "organizations_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/orgs",
+      "repos_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/repos",
+      "events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/received_events",
+      "type": "Bot",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "body": "_🧹 Nitpick_ | _🔵 Trivial_\n\n**Consider stricter assertions for more precise validation.**\n\nThe test correctly validates deletion behaviour, but the final assertion could be more precise. Since query `[0]` should find point A and query `[2]` should find point C, we can assert both individually.\n\n\nApply this diff for stricter validation:\n\n```diff\n \t// Ensure B is gone and A/C remain reachable\n \tids := make(map[string]bool)\n \tfor _, q := range [][]float64{{0}, {2}} {\n \t\tp, _, ok := tr.Nearest(q)\n \t\tif ok {\n \t\t\tids[p.ID] = true\n \t\t}\n \t}\n \tif ids[\"B\"] {\n \t\tt.Fatalf(\"B should not be present after delete\")\n \t}\n-\tif !ids[\"A\"] && !ids[\"C\"] {\n-\t\tt.Fatalf(\"expected either A or C to be nearest for respective queries: %v\", ids)\n+\tif !ids[\"A\"] || !ids[\"C\"] {\n+\t\tt.Fatalf(\"expected both A and C to be found after deleting B, got: %v\", ids)\n \t}\n```\n\n<!-- suggestion_start -->\n\n<details>\n<summary>📝 Committable suggestion</summary>\n\n> ‼️ **IMPORTANT**\n> Carefully review the code before committing. Ensure that it accurately replaces the highlighted code, contains no missing lines, and has no issues with indentation. Thoroughly test & benchmark the code to ensure it meets the requirements.\n\n```suggestion\n\t// Ensure B is gone and A/C remain reachable\n\tids := make(map[string]bool)\n\tfor _, q := range [][]float64{{0}, {2}} {\n\t\tp, _, ok := tr.Nearest(q)\n\t\tif ok {\n\t\t\tids[p.ID] = true\n\t\t}\n\t}\n\tif ids[\"B\"] {\n\t\tt.Fatalf(\"B should not be present after delete\")\n\t}\n\tif !ids[\"A\"] || !ids[\"C\"] {\n\t\tt.Fatalf(\"expected both A and C to be found after deleting B, got: %v\", ids)\n\t}\n```\n\n</details>\n\n<!-- suggestion_end -->\n\n<details>\n<summary>🤖 Prompt for AI Agents</summary>\n\n```\nIn kdtree_morecov_test.go around lines 40 to 53, tighten the assertions by\nchecking each query result individually: for query [0] call tr.Nearest and\nassert ok is true and p.ID == \"A\"; for query [2] call tr.Nearest and assert ok\nis true and p.ID == \"C\"; keep the existing check that \"B\" is not present after\ndeletion and use clear t.Fatalf messages for each failure case.\n```\n\n</details>\n\n<!-- This is an auto-generated comment by CodeRabbit -->",
+    "created_at": "2025-11-03T20:32:39Z",
+    "updated_at": "2025-11-03T20:32:42Z",
+    "html_url": "https://github.com/Snider/Poindexter/pull/2#discussion_r2487777274",
+    "pull_request_url": "https://api.github.com/repos/Snider/Poindexter/pulls/2",
+    "_links": {
+      "self": {
+        "href": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777274"
+      },
+      "html": {
+        "href": "https://github.com/Snider/Poindexter/pull/2#discussion_r2487777274"
+      },
+      "pull_request": {
+        "href": "https://api.github.com/repos/Snider/Poindexter/pulls/2"
+      }
+    },
+    "reactions": {
+      "url": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777274/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "start_line": 40,
+    "original_start_line": 40,
+    "start_side": "RIGHT",
+    "line": null,
+    "original_line": 53,
+    "side": "RIGHT",
+    "author_association": "NONE",
+    "original_position": 53,
+    "position": 1,
+    "subject_type": "line"
+  },
+  {
+    "url": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777280",
+    "pull_request_review_id": 3412823328,
+    "id": 2487777280,
+    "node_id": "PRRC_kwDOQOcBaM6USHgA",
+    "diff_hunk": "@@ -0,0 +1,149 @@\n+# Maintainer Makefile for Poindexter\n+# Usage: `make <target>`\n+# Many targets are CI-parity helpers for local use.\n+\n+# Tools (override with env if needed)\n+GO           ?= go\n+GOLANGCI_LINT?= golangci-lint\n+GORELEASER   ?= goreleaser\n+MKDOCS       ?= mkdocs\n+\n+# Params\n+FUZZTIME ?= 10s\n+BENCHOUT ?= bench.txt\n+COVEROUT ?= coverage.out\n+COVERHTML?= coverage.html\n+\n+.PHONY: help all\n+all: help\n+help: ## List available targets\n+\t@awk 'BEGIN {FS = \":.*##\"}; /^[a-zA-Z0-9_.-]+:.*##/ {printf \"\\033[36m%-22s\\033[0m %s\\n\", $$1, $$2}' $(MAKEFILE_LIST) | sort\n+\n+.PHONY: tidy\n+tidy: ## Run `go mod tidy`\n+\t$(GO) mod tidy\n+\n+.PHONY: tidy-check\n+tidy-check: ## Run tidy and ensure go.mod/go.sum unchanged\n+\t$(GO) mod tidy\n+\t@git diff --exit-code -- go.mod go.sum\n+\n+.PHONY: fmt\n+fmt: ## Format code with go fmt\n+\t$(GO) fmt ./...\n+\n+.PHONY: vet\n+vet: ## Run go vet\n+\t$(GO) vet ./...\n+\n+.PHONY: build\n+build: ## Build all packages\n+\t$(GO) build ./...\n+\n+# WebAssembly build outputs\n+DIST_DIR ?= dist\n+WASM_OUT ?= $(DIST_DIR)/poindexter.wasm\n+WASM_EXEC ?= $(shell $(GO) env GOROOT)/lib/wasm/wasm_exec.js\n+\n+.PHONY: wasm-build\n+wasm-build: ## Build WebAssembly module to $(WASM_OUT)\n+\t@mkdir -p $(DIST_DIR)\n+\tGOOS=js GOARCH=wasm $(GO) build -o $(WASM_OUT) ./wasm\n+\t@set -e; \\\n+\tif [ -n \"$$WASM_EXEC\" ] && [ -f \"$$WASM_EXEC\" ]; then \\\n+\t  cp \"$$WASM_EXEC\" $(DIST_DIR)/wasm_exec.js; \\\n+\telse \\\n+\t  CAND1=\"$$($(GO) env GOROOT)/lib/wasm/wasm_exec.js\"; \\\n+\t  CAND2=\"$$($(GO) env GOROOT)/libexec/lib/wasm/wasm_exec.js\"; \\\n+\t  if [ -f \"$$CAND1\" ]; then cp \"$$CAND1\" $(DIST_DIR)/wasm_exec.js; \\\n+\t  elif [ -f \"$$CAND2\" ]; then cp \"$$CAND2\" $(DIST_DIR)/wasm_exec.js; \\\n+\t  else echo \"Warning: could not locate wasm_exec.js under GOROOT or WASM_EXEC; please copy it manually\"; fi; \\\n+\tfi\n+\t@echo \"WASM built: $(WASM_OUT)\"\n+\n+.PHONY: npm-pack\n+npm-pack: wasm-build ## Prepare npm package folder with dist artifacts\n+\t@mkdir -p npm/poindexter-wasm\n+\t@rm -rf npm/poindexter-wasm/dist\n+\t@cp -R $(DIST_DIR) npm/poindexter-wasm/dist\n+\t@cp LICENSE npm/poindexter-wasm/LICENSE\n+\t@cp README.md npm/poindexter-wasm/PROJECT_README.md\n+\t@echo \"npm package prepared in npm/poindexter-wasm\"\n+\n+.PHONY: examples\n+examples: ## Build all example programs under examples/\n+\t@if [ -d examples ]; then $(GO) build ./examples/...; else echo \"No examples/ directory\"; fi\n+\n+.PHONY: test\n+test: ## Run unit tests\n+\t$(GO) test ./...\n+\n+.PHONY: race\n+race: ## Run tests with race detector\n+\t$(GO) test -race ./...\n+\n+.PHONY: cover\n+cover: ## Run tests with race + coverage and summarize\n+\t$(GO) test -race -coverprofile=$(COVEROUT) -covermode=atomic  ./...\n+\t@$(GO) tool cover -func=$(COVEROUT) | tail -n 1\n+\n+.PHONY: coverfunc\n+coverfunc: ## Print per-function coverage from $(COVEROUT)\n+\t@$(GO) tool cover -func=$(COVEROUT)\n+\n+.PHONY: cover-kdtree\n+cover-kdtree: ## Print coverage details for kdtree.go only\n+\t@$(GO) tool cover -func=$(COVEROUT) | grep 'kdtree.go' || true\n+\n+.PHONY: coverhtml\n+coverhtml: cover ## Generate HTML coverage report at $(COVERHTML)\n+\t@$(GO) tool cover -html=$(COVEROUT) -o $(COVERHTML)\n+\t@echo \"Wrote $(COVERHTML)\"\n+\n+.PHONY: fuzz\n+fuzz: ## Run Go fuzz tests for $(FUZZTIME)\n+\t@set -e; \\\n+\tPKGS=\"$$($(GO) list ./...)\"; \\\n+\tfor pkg in $$PKGS; do \\\n+\t  FUZZES=\"$$($(GO) test -list '^Fuzz' $$pkg | grep '^Fuzz' || true)\"; \\\n+\t  if [ -z \"$$FUZZES\" ]; then \\\n+\t    echo \"==> Skipping $$pkg (no fuzz targets)\"; \\\n+\t    continue; \\\n+\t  fi; \\\n+\t  for fz in $$FUZZES; do \\\n+\t    echo \"==> Fuzzing $$pkg :: $$fz for $(FUZZTIME)\"; \\\n+\t    $(GO) test -run=NONE -fuzz=^$${fz}$$ -fuzztime=$(FUZZTIME) $$pkg; \\\n+\t  done; \\\n+\tdone\n+\n+.PHONY: bench\n+bench: ## Run benchmarks and write $(BENCHOUT)\n+\t$(GO) test -bench . -benchmem -run=^$$ ./... | tee $(BENCHOUT)\n+\n+.PHONY: lint\n+lint: ## Run golangci-lint (requires it installed)\n+\t$(GOLANGCI_LINT) run\n+\n+.PHONY: vuln\n+vuln: ## Run govulncheck (requires it installed)\n+\tgovulncheck ./...\n+\n+.PHONY: ci\n+ci: tidy-check build vet cover examples bench lint vuln wasm-build ## CI-parity local run (includes wasm-build)\n+\t@echo \"CI-like checks completed\"\n+\n+.PHONY: release\n+release: ## Run GoReleaser to publish a tagged release (requires tag and permissions)\n+\t$(GORELEASER) release --clean --config .goreleaser.yaml\n+\n+.PHONY: snapshot\n+snapshot: ## Run GoReleaser in snapshot mode (no publish)\n+\t$(GORELEASER) release --skip=publish --clean --config .goreleaser.yaml\n+\n+.PHONY: docs-serve\n+docs-serve: ## Serve MkDocs locally (requires mkdocs-material)\n+\t$(MKDOCS) serve -a 127.0.0.1:8000\n+\n+.PHONY: docs-build\n+docs-build: ## Build MkDocs site into site/\n+\t$(MKDOCS) build",
+    "path": "Makefile",
+    "commit_id": "8e62b4e51da51a9ace3a1370bc6266c4af24e725",
+    "original_commit_id": "b876c318817eae35412ea8ba1ba04ee07aa0406c",
+    "user": {
+      "login": "coderabbitai[bot]",
+      "id": 136622811,
+      "node_id": "BOT_kgDOCCSy2w",
+      "avatar_url": "https://avatars.githubusercontent.com/in/347564?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/coderabbitai%5Bbot%5D",
+      "html_url": "https://github.com/apps/coderabbitai",
+      "followers_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/followers",
+      "following_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/following{/other_user}",
+      "gists_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/subscriptions",
+      "organizations_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/orgs",
+      "repos_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/repos",
+      "events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/received_events",
+      "type": "Bot",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "body": "_🧹 Nitpick_ | _🔵 Trivial_\n\n**Consider adding a clean target.**\n\nThe Makefile is missing a `clean` target, which is a standard phony target for build systems. This would allow users to remove generated artifacts like `dist/`, `coverage.out`, `coverage.html`, and `bench.txt`.\n\n\n\n```diff\n+.PHONY: clean\n+clean: ## Remove generated files and directories\n+\trm -rf $(DIST_DIR) $(COVEROUT) $(COVERHTML) $(BENCHOUT)\n+\n```\n\n<!-- suggestion_start -->\n\n<details>\n<summary>📝 Committable suggestion</summary>\n\n> ‼️ **IMPORTANT**\n> Carefully review the code before committing. Ensure that it accurately replaces the highlighted code, contains no missing lines, and has no issues with indentation. Thoroughly test & benchmark the code to ensure it meets the requirements.\n\n```suggestion\n# Maintainer Makefile for Poindexter\n# Usage: `make <target>`\n# Many targets are CI-parity helpers for local use.\n\n# Tools (override with env if needed)\nGO           ?= go\nGOLANGCI_LINT?= golangci-lint\nGORELEASER   ?= goreleaser\nMKDOCS       ?= mkdocs\n\n# Params\nFUZZTIME ?= 10s\nBENCHOUT ?= bench.txt\nCOVEROUT ?= coverage.out\nCOVERHTML?= coverage.html\n\n.PHONY: help all\nall: help\nhelp: ## List available targets\n\t@awk 'BEGIN {FS = \":.*##\"}; /^[a-zA-Z0-9_.-]+:.*##/ {printf \"\\033[36m%-22s\\033[0m %s\\n\", $$1, $$2}' $(MAKEFILE_LIST) | sort\n\n.PHONY: tidy\ntidy: ## Run `go mod tidy`\n\t$(GO) mod tidy\n\n.PHONY: tidy-check\ntidy-check: ## Run tidy and ensure go.mod/go.sum unchanged\n\t$(GO) mod tidy\n\t@git diff --exit-code -- go.mod go.sum\n\n.PHONY: fmt\nfmt: ## Format code with go fmt\n\t$(GO) fmt ./...\n\n.PHONY: vet\nvet: ## Run go vet\n\t$(GO) vet ./...\n\n.PHONY: build\nbuild: ## Build all packages\n\t$(GO) build ./...\n\n# WebAssembly build outputs\nDIST_DIR ?= dist\nWASM_OUT ?= $(DIST_DIR)/poindexter.wasm\nWASM_EXEC ?= $(shell $(GO) env GOROOT)/lib/wasm/wasm_exec.js\n\n.PHONY: wasm-build\nwasm-build: ## Build WebAssembly module to $(WASM_OUT)\n\t@mkdir -p $(DIST_DIR)\n\tGOOS=js GOARCH=wasm $(GO) build -o $(WASM_OUT) ./wasm\n\t@set -e; \\\n\tif [ -n \"$$WASM_EXEC\" ] && [ -f \"$$WASM_EXEC\" ]; then \\\n\t  cp \"$$WASM_EXEC\" $(DIST_DIR)/wasm_exec.js; \\\n\telse \\\n\t  CAND1=\"$$($(GO) env GOROOT)/lib/wasm/wasm_exec.js\"; \\\n\t  CAND2=\"$$($(GO) env GOROOT)/libexec/lib/wasm/wasm_exec.js\"; \\\n\t  if [ -f \"$$CAND1\" ]; then cp \"$$CAND1\" $(DIST_DIR)/wasm_exec.js; \\\n\t  elif [ -f \"$$CAND2\" ]; then cp \"$$CAND2\" $(DIST_DIR)/wasm_exec.js; \\\n\t  else echo \"Warning: could not locate wasm_exec.js under GOROOT or WASM_EXEC; please copy it manually\"; fi; \\\n\tfi\n\t@echo \"WASM built: $(WASM_OUT)\"\n\n.PHONY: npm-pack\nnpm-pack: wasm-build ## Prepare npm package folder with dist artifacts\n\t@mkdir -p npm/poindexter-wasm\n\t@rm -rf npm/poindexter-wasm/dist\n\t@cp -R $(DIST_DIR) npm/poindexter-wasm/dist\n\t@cp LICENSE npm/poindexter-wasm/LICENSE\n\t@cp README.md npm/poindexter-wasm/PROJECT_README.md\n\t@echo \"npm package prepared in npm/poindexter-wasm\"\n\n.PHONY: examples\nexamples: ## Build all example programs under examples/\n\t@if [ -d examples ]; then $(GO) build ./examples/...; else echo \"No examples/ directory\"; fi\n\n.PHONY: test\ntest: ## Run unit tests\n\t$(GO) test ./...\n\n.PHONY: race\nrace: ## Run tests with race detector\n\t$(GO) test -race ./...\n\n.PHONY: cover\ncover: ## Run tests with race + coverage and summarize\n\t$(GO) test -race -coverprofile=$(COVEROUT) -covermode=atomic  ./...\n\t@$(GO) tool cover -func=$(COVEROUT) | tail -n 1\n\n.PHONY: coverfunc\ncoverfunc: ## Print per-function coverage from $(COVEROUT)\n\t@$(GO) tool cover -func=$(COVEROUT)\n\n.PHONY: cover-kdtree\ncover-kdtree: ## Print coverage details for kdtree.go only\n\t@$(GO) tool cover -func=$(COVEROUT) | grep 'kdtree.go' || true\n\n.PHONY: coverhtml\ncoverhtml: cover ## Generate HTML coverage report at $(COVERHTML)\n\t@$(GO) tool cover -html=$(COVEROUT) -o $(COVERHTML)\n\t@echo \"Wrote $(COVERHTML)\"\n\n.PHONY: fuzz\nfuzz: ## Run Go fuzz tests for $(FUZZTIME)\n\t@set -e; \\\n\tPKGS=\"$$($(GO) list ./...)\"; \\\n\tfor pkg in $$PKGS; do \\\n\t  FUZZES=\"$$($(GO) test -list '^Fuzz' $$pkg | grep '^Fuzz' || true)\"; \\\n\t  if [ -z \"$$FUZZES\" ]; then \\\n\t    echo \"==> Skipping $$pkg (no fuzz targets)\"; \\\n\t    continue; \\\n\t  fi; \\\n\t  for fz in $$FUZZES; do \\\n\t    echo \"==> Fuzzing $$pkg :: $$fz for $(FUZZTIME)\"; \\\n\t    $(GO) test -run=NONE -fuzz=^$${fz}$$ -fuzztime=$(FUZZTIME) $$pkg; \\\n\t  done; \\\n\tdone\n\n.PHONY: bench\nbench: ## Run benchmarks and write $(BENCHOUT)\n\t$(GO) test -bench . -benchmem -run=^$$ ./... | tee $(BENCHOUT)\n\n.PHONY: lint\nlint: ## Run golangci-lint (requires it installed)\n\t$(GOLANGCI_LINT) run\n\n.PHONY: vuln\nvuln: ## Run govulncheck (requires it installed)\n\tgovulncheck ./...\n\n.PHONY: ci\nci: tidy-check build vet cover examples bench lint vuln wasm-build ## CI-parity local run (includes wasm-build)\n\t@echo \"CI-like checks completed\"\n\n.PHONY: release\nrelease: ## Run GoReleaser to publish a tagged release (requires tag and permissions)\n\t$(GORELEASER) release --clean --config .goreleaser.yaml\n\n.PHONY: snapshot\nsnapshot: ## Run GoReleaser in snapshot mode (no publish)\n\t$(GORELEASER) release --skip=publish --clean --config .goreleaser.yaml\n\n.PHONY: docs-serve\ndocs-serve: ## Serve MkDocs locally (requires mkdocs-material)\n\t$(MKDOCS) serve -a 127.0.0.1:8000\n\n.PHONY: docs-build\ndocs-build: ## Build MkDocs site into site/\n\t$(MKDOCS) build\n\n.PHONY: clean\nclean: ## Remove generated files and directories\n\trm -rf $(DIST_DIR) $(COVEROUT) $(COVERHTML) $(BENCHOUT)\n```\n\n</details>\n\n<!-- suggestion_end -->\n\n<details>\n<summary>🧰 Tools</summary>\n\n<details>\n<summary>🪛 checkmake (0.2.2)</summary>\n\n[warning] 104-104: Target body for \"fuzz\" exceeds allowed length of 5 (13).\n\n(maxbodylength)\n\n---\n\n[warning] 147-147: Missing required phony target \"clean\"\n\n(minphony)\n\n</details>\n<details>\n<summary>🪛 GitHub Actions: CI</summary>\n\n[error] 1-1: golangci-lint run failed: configuration file is for golangci-lint v2 but the installed binary is v1. Please install/use golangci-lint v2.\n\n</details>\n\n</details>\n\n<details>\n<summary>🤖 Prompt for AI Agents</summary>\n\n```\nMakefile (lines 1-149): missing a standard `clean` target; add a `.PHONY: clean`\nand a `clean` target that removes generated artifacts (e.g. dist/,\nnpm/poindexter-wasm/dist, $(WASM_OUT) if present, $(COVEROUT), $(COVERHTML),\n$(BENCHOUT) and any temporary build outputs) using safe rm -rf and rm -f\ncommands so it doesn’t error if files are absent, and echo a confirmation\nmessage; place it near other PHONY targets (e.g. after `fmt` or `build`) so\nmaintainers can run `make clean` to reset the workspace.\n```\n\n</details>\n\n<!-- This is an auto-generated comment by CodeRabbit -->",
+    "created_at": "2025-11-03T20:32:39Z",
+    "updated_at": "2025-11-03T20:32:42Z",
+    "html_url": "https://github.com/Snider/Poindexter/pull/2#discussion_r2487777280",
+    "pull_request_url": "https://api.github.com/repos/Snider/Poindexter/pulls/2",
+    "_links": {
+      "self": {
+        "href": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777280"
+      },
+      "html": {
+        "href": "https://github.com/Snider/Poindexter/pull/2#discussion_r2487777280"
+      },
+      "pull_request": {
+        "href": "https://api.github.com/repos/Snider/Poindexter/pulls/2"
+      }
+    },
+    "reactions": {
+      "url": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777280/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "start_line": 1,
+    "original_start_line": 1,
+    "start_side": "RIGHT",
+    "line": null,
+    "original_line": 149,
+    "side": "RIGHT",
+    "author_association": "NONE",
+    "original_position": 149,
+    "position": 1,
+    "subject_type": "line"
+  },
+  {
+    "url": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777291",
+    "pull_request_review_id": 3412823328,
+    "id": 2487777291,
+    "node_id": "PRRC_kwDOQOcBaM6USHgL",
+    "diff_hunk": "@@ -0,0 +1,149 @@\n+# Maintainer Makefile for Poindexter\n+# Usage: `make <target>`\n+# Many targets are CI-parity helpers for local use.\n+\n+# Tools (override with env if needed)\n+GO           ?= go\n+GOLANGCI_LINT?= golangci-lint\n+GORELEASER   ?= goreleaser\n+MKDOCS       ?= mkdocs\n+\n+# Params\n+FUZZTIME ?= 10s\n+BENCHOUT ?= bench.txt\n+COVEROUT ?= coverage.out\n+COVERHTML?= coverage.html\n+\n+.PHONY: help all\n+all: help\n+help: ## List available targets\n+\t@awk 'BEGIN {FS = \":.*##\"}; /^[a-zA-Z0-9_.-]+:.*##/ {printf \"\\033[36m%-22s\\033[0m %s\\n\", $$1, $$2}' $(MAKEFILE_LIST) | sort\n+\n+.PHONY: tidy\n+tidy: ## Run `go mod tidy`\n+\t$(GO) mod tidy\n+\n+.PHONY: tidy-check\n+tidy-check: ## Run tidy and ensure go.mod/go.sum unchanged\n+\t$(GO) mod tidy\n+\t@git diff --exit-code -- go.mod go.sum\n+\n+.PHONY: fmt\n+fmt: ## Format code with go fmt\n+\t$(GO) fmt ./...\n+\n+.PHONY: vet\n+vet: ## Run go vet\n+\t$(GO) vet ./...\n+\n+.PHONY: build\n+build: ## Build all packages\n+\t$(GO) build ./...\n+\n+# WebAssembly build outputs\n+DIST_DIR ?= dist\n+WASM_OUT ?= $(DIST_DIR)/poindexter.wasm\n+WASM_EXEC ?= $(shell $(GO) env GOROOT)/lib/wasm/wasm_exec.js\n+\n+.PHONY: wasm-build\n+wasm-build: ## Build WebAssembly module to $(WASM_OUT)\n+\t@mkdir -p $(DIST_DIR)\n+\tGOOS=js GOARCH=wasm $(GO) build -o $(WASM_OUT) ./wasm\n+\t@set -e; \\\n+\tif [ -n \"$$WASM_EXEC\" ] && [ -f \"$$WASM_EXEC\" ]; then \\\n+\t  cp \"$$WASM_EXEC\" $(DIST_DIR)/wasm_exec.js; \\\n+\telse \\\n+\t  CAND1=\"$$($(GO) env GOROOT)/lib/wasm/wasm_exec.js\"; \\\n+\t  CAND2=\"$$($(GO) env GOROOT)/libexec/lib/wasm/wasm_exec.js\"; \\\n+\t  if [ -f \"$$CAND1\" ]; then cp \"$$CAND1\" $(DIST_DIR)/wasm_exec.js; \\\n+\t  elif [ -f \"$$CAND2\" ]; then cp \"$$CAND2\" $(DIST_DIR)/wasm_exec.js; \\\n+\t  else echo \"Warning: could not locate wasm_exec.js under GOROOT or WASM_EXEC; please copy it manually\"; fi; \\\n+\tfi\n+\t@echo \"WASM built: $(WASM_OUT)\"\n+\n+.PHONY: npm-pack\n+npm-pack: wasm-build ## Prepare npm package folder with dist artifacts\n+\t@mkdir -p npm/poindexter-wasm\n+\t@rm -rf npm/poindexter-wasm/dist\n+\t@cp -R $(DIST_DIR) npm/poindexter-wasm/dist\n+\t@cp LICENSE npm/poindexter-wasm/LICENSE\n+\t@cp README.md npm/poindexter-wasm/PROJECT_README.md\n+\t@echo \"npm package prepared in npm/poindexter-wasm\"\n+\n+.PHONY: examples\n+examples: ## Build all example programs under examples/\n+\t@if [ -d examples ]; then $(GO) build ./examples/...; else echo \"No examples/ directory\"; fi\n+\n+.PHONY: test\n+test: ## Run unit tests\n+\t$(GO) test ./...\n+\n+.PHONY: race\n+race: ## Run tests with race detector\n+\t$(GO) test -race ./...\n+\n+.PHONY: cover\n+cover: ## Run tests with race + coverage and summarize\n+\t$(GO) test -race -coverprofile=$(COVEROUT) -covermode=atomic  ./...\n+\t@$(GO) tool cover -func=$(COVEROUT) | tail -n 1\n+\n+.PHONY: coverfunc\n+coverfunc: ## Print per-function coverage from $(COVEROUT)\n+\t@$(GO) tool cover -func=$(COVEROUT)\n+\n+.PHONY: cover-kdtree\n+cover-kdtree: ## Print coverage details for kdtree.go only\n+\t@$(GO) tool cover -func=$(COVEROUT) | grep 'kdtree.go' || true\n+\n+.PHONY: coverhtml\n+coverhtml: cover ## Generate HTML coverage report at $(COVERHTML)\n+\t@$(GO) tool cover -html=$(COVEROUT) -o $(COVERHTML)\n+\t@echo \"Wrote $(COVERHTML)\"\n+\n+.PHONY: fuzz\n+fuzz: ## Run Go fuzz tests for $(FUZZTIME)\n+\t@set -e; \\\n+\tPKGS=\"$$($(GO) list ./...)\"; \\\n+\tfor pkg in $$PKGS; do \\\n+\t  FUZZES=\"$$($(GO) test -list '^Fuzz' $$pkg | grep '^Fuzz' || true)\"; \\\n+\t  if [ -z \"$$FUZZES\" ]; then \\\n+\t    echo \"==> Skipping $$pkg (no fuzz targets)\"; \\\n+\t    continue; \\\n+\t  fi; \\\n+\t  for fz in $$FUZZES; do \\\n+\t    echo \"==> Fuzzing $$pkg :: $$fz for $(FUZZTIME)\"; \\\n+\t    $(GO) test -run=NONE -fuzz=^$${fz}$$ -fuzztime=$(FUZZTIME) $$pkg; \\\n+\t  done; \\\n+\tdone\n+\n+.PHONY: bench\n+bench: ## Run benchmarks and write $(BENCHOUT)\n+\t$(GO) test -bench . -benchmem -run=^$$ ./... | tee $(BENCHOUT)\n+\n+.PHONY: lint\n+lint: ## Run golangci-lint (requires it installed)\n+\t$(GOLANGCI_LINT) run",
+    "path": "Makefile",
+    "commit_id": "8e62b4e51da51a9ace3a1370bc6266c4af24e725",
+    "original_commit_id": "b876c318817eae35412ea8ba1ba04ee07aa0406c",
+    "user": {
+      "login": "coderabbitai[bot]",
+      "id": 136622811,
+      "node_id": "BOT_kgDOCCSy2w",
+      "avatar_url": "https://avatars.githubusercontent.com/in/347564?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/coderabbitai%5Bbot%5D",
+      "html_url": "https://github.com/apps/coderabbitai",
+      "followers_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/followers",
+      "following_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/following{/other_user}",
+      "gists_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/subscriptions",
+      "organizations_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/orgs",
+      "repos_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/repos",
+      "events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/received_events",
+      "type": "Bot",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "body": "_⚠️ Potential issue_ | _🔴 Critical_\n\n<details>\n<summary>🧩 Analysis chain</summary>\n\n**Fix the golangci-lint configuration version mismatch.**\n\nThe pipeline failure indicates: \"configuration file is for golangci-lint v2 but the installed binary is v1\". This is blocking CI and must be resolved by either:\n1. Updating `.golangci-lint.yml` (or equivalent config) to v1 format, or\n2. Installing golangci-lint v2 in the CI environment.\n\n\n\n\nCheck the golangci-lint configuration version:\n\n---\n\n🏁 Script executed:\n\n```shell\n#!/bin/bash\n# Find and examine golangci-lint configuration\nfd -t f '^\\.golangci' | while read -r config; do\n  echo \"==> $config\"\n  head -20 \"$config\"\ndone\n```\n\nLength of output: 207\n\n---\n\n🏁 Script executed:\n\n```shell\n#!/bin/bash\n# Find and examine golangci-lint configuration with hidden file support\necho \"=== Searching for golangci-lint configuration files ===\"\nfd -H -t f '\\.golangci' \n\necho -e \"\\n=== Examining configuration file contents ===\"\nfd -H -t f '\\.golangci' | while read -r config; do\n  echo \"==> $config\"\n  cat \"$config\"\n  echo \"\"\ndone\n\necho -e \"\\n=== Searching for CI pipeline configuration ===\"\nfd -H -t f '(\\.gitlab-ci\\.yml|\\.travis\\.yml|\\.github/workflows)' | head -20\n```\n\nLength of output: 621\n\n---\n\n🏁 Script executed:\n\n```shell\n#!/bin/bash\n# Search for CI/workflow files and Makefile details\necho \"=== CI/Workflow files ===\"\nfind . -name \"*.yml\" -o -name \"*.yaml\" | grep -E '(workflow|ci|\\.github|gitlab)' | head -20\n\necho -e \"\\n=== Makefile content related to lint ===\"\ngrep -A 10 -B 5 'GOLANGCI_LINT\\|golangci-lint' Makefile 2>/dev/null || echo \"No Makefile or no golangci-lint references found\"\n\necho -e \"\\n=== Scripts directory ===\"\nfind . -type f -name \"*.sh\" | head -10\n\necho -e \"\\n=== Looking for Docker or version installation ===\"\nfd -H -t f '(Dockerfile|\\.dockerignore|go\\.mod)' | head -5\n```\n\nLength of output: 1090\n\n---\n\n🏁 Script executed:\n\n```shell\n#!/bin/bash\n# Examine CI workflow files for golangci-lint setup\necho \"=== Contents of .github/workflows/ci.yml ===\"\ncat .github/workflows/ci.yml\n\necho -e \"\\n=== Contents of .github/workflows/test.yml ===\"\ncat .github/workflows/test.yml\n\necho -e \"\\n=== Check go.mod for golang and tool versions ===\"\nhead -30 go.mod\n```\n\nLength of output: 2504\n\n---\n\n🌐 Web query:\n\n```web\ngolangci-lint v2 latest version 2024 2025\n```\n\n💡 Result:\n\nThe latest golangci-lint v2 release is v2.5.0 (released Sep 21, 2025). [1]\n\nSources:\n[1] GitHub — golangci/golangci-lint releases.\n\n---\n\n\n\n</details>\n\n**Pin golangci-lint to v2 in the CI workflow.**\n\nThe `.golangci.yml` configuration correctly specifies `version: \"2\"`, but `.github/workflows/ci.yml` installs golangci-lint using `@latest`, which pulled v1. Update the installation command to explicitly pin to v2:\n\nIn `.github/workflows/ci.yml`, change:\n```\ngo install github.com/golangci/golangci-lint/cmd/golangci-lint@latest\n```\n\nto:\n```\ngo install github.com/golangci/golangci-lint/cmd/golangci-lint@v2.5.0\n```\n\nThis resolves the version mismatch and allows the linter to correctly parse the v2 configuration format.\n\n<details>\n<summary>🤖 Prompt for AI Agents</summary>\n\n```\nIn Makefile around lines 123 to 125: CI currently installs golangci-lint with\n@latest which pulls v1 and mismatches .golangci.yml v2 config; open\n.github/workflows/ci.yml and replace the go install line that uses @latest with\na v2-pinned version (for example @v2.5.0) so the CI installs golangci-lint v2\nand the linter can parse the v2 configuration.\n```\n\n</details>\n\n<!-- This is an auto-generated comment by CodeRabbit -->\n\n✅ Addressed in commit 8e62b4e",
+    "created_at": "2025-11-03T20:32:39Z",
+    "updated_at": "2025-11-03T20:33:02Z",
+    "html_url": "https://github.com/Snider/Poindexter/pull/2#discussion_r2487777291",
+    "pull_request_url": "https://api.github.com/repos/Snider/Poindexter/pulls/2",
+    "_links": {
+      "self": {
+        "href": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777291"
+      },
+      "html": {
+        "href": "https://github.com/Snider/Poindexter/pull/2#discussion_r2487777291"
+      },
+      "pull_request": {
+        "href": "https://api.github.com/repos/Snider/Poindexter/pulls/2"
+      }
+    },
+    "reactions": {
+      "url": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777291/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "start_line": 123,
+    "original_start_line": 123,
+    "start_side": "RIGHT",
+    "line": null,
+    "original_line": 125,
+    "side": "RIGHT",
+    "author_association": "NONE",
+    "original_position": 125,
+    "position": 1,
+    "subject_type": "line"
+  },
+  {
+    "url": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777302",
+    "pull_request_review_id": 3412823328,
+    "id": 2487777302,
+    "node_id": "PRRC_kwDOQOcBaM6USHgW",
+    "diff_hunk": "@@ -0,0 +1,89 @@\n+// ESM loader for Poindexter WASM\n+// Usage:\n+//   import { init } from '@snider/poindexter-wasm';\n+//   const px = await init();\n+//   const tree = await px.newTree(2);\n+//   await tree.insert({ id: 'a', coords: [0,0], value: 'A' });\n+//   const res = await tree.nearest([0.1, 0.2]);\n+\n+async function loadScriptOnce(src) {\n+  return new Promise((resolve, reject) => {\n+    // If already present, resolve immediately\n+    if (document.querySelector(`script[src=\"${src}\"]`)) return resolve();\n+    const s = document.createElement('script');\n+    s.src = src;\n+    s.onload = () => resolve();\n+    s.onerror = (e) => reject(new Error(`Failed to load ${src}`));\n+    document.head.appendChild(s);\n+  });\n+}\n+\n+async function ensureWasmExec(url) {\n+  if (typeof window !== 'undefined' && typeof window.Go === 'function') return;\n+  await loadScriptOnce(url);\n+  if (typeof window === 'undefined' || typeof window.Go !== 'function') {\n+    throw new Error('wasm_exec.js did not define window.Go');\n+  }\n+}\n+\n+function unwrap(result) {\n+  if (!result || typeof result !== 'object') throw new Error('bad result');\n+  if (result.ok) return result.data;\n+  throw new Error(result.error || 'unknown error');\n+}\n+\n+function call(name, ...args) {\n+  const fn = globalThis[name];\n+  if (typeof fn !== 'function') throw new Error(`WASM function ${name} not found`);\n+  return unwrap(fn(...args));\n+}\n+\n+class PxTree {\n+  constructor(treeId) { this.treeId = treeId; }\n+  async len() { return call('pxTreeLen', this.treeId); }\n+  async dim() { return call('pxTreeDim', this.treeId); }\n+  async insert(point) { return call('pxInsert', this.treeId, point); }\n+  async deleteByID(id) { return call('pxDeleteByID', this.treeId, id); }\n+  async nearest(query) { return call('pxNearest', this.treeId, query); }\n+  async kNearest(query, k) { return call('pxKNearest', this.treeId, query, k); }\n+  async radius(query, r) { return call('pxRadius', this.treeId, query, r); }\n+  async exportJSON() { return call('pxExportJSON', this.treeId); }\n+}\n+\n+export async function init(options = {}) {\n+  const {\n+    wasmURL = new URL('./dist/poindexter.wasm', import.meta.url).toString(),\n+    wasmExecURL = new URL('./dist/wasm_exec.js', import.meta.url).toString(),\n+    instantiateWasm // optional custom instantiator: (source, importObject) => WebAssembly.Instance\n+  } = options;\n+\n+  await ensureWasmExec(wasmExecURL);\n+  const go = new window.Go();\n+\n+  let result;\n+  if (instantiateWasm) {\n+    const source = await fetch(wasmURL).then(r => r.arrayBuffer());\n+    const inst = await instantiateWasm(source, go.importObject);\n+    result = { instance: inst };\n+  } else if (WebAssembly.instantiateStreaming) {\n+    result = await WebAssembly.instantiateStreaming(fetch(wasmURL), go.importObject);\n+  } else {\n+    const resp = await fetch(wasmURL);\n+    const bytes = await resp.arrayBuffer();\n+    result = await WebAssembly.instantiate(bytes, go.importObject);\n+  }\n+\n+  // Run the Go program (it registers globals like pxNewTree, etc.)\n+  await go.run(result.instance);\n+\n+  const api = {\n+    version: async () => call('pxVersion'),\n+    hello: async (name) => call('pxHello', name ?? ''),\n+    newTree: async (dim) => {\n+      const info = call('pxNewTree', dim);\n+      return new PxTree(info.treeId);\n+    }\n+  };\n+\n+  return api;",
+    "path": "npm/poindexter-wasm/loader.js",
+    "commit_id": "8e62b4e51da51a9ace3a1370bc6266c4af24e725",
+    "original_commit_id": "b876c318817eae35412ea8ba1ba04ee07aa0406c",
+    "user": {
+      "login": "coderabbitai[bot]",
+      "id": 136622811,
+      "node_id": "BOT_kgDOCCSy2w",
+      "avatar_url": "https://avatars.githubusercontent.com/in/347564?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/coderabbitai%5Bbot%5D",
+      "html_url": "https://github.com/apps/coderabbitai",
+      "followers_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/followers",
+      "following_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/following{/other_user}",
+      "gists_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/subscriptions",
+      "organizations_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/orgs",
+      "repos_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/repos",
+      "events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/received_events",
+      "type": "Bot",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "body": "_⚠️ Potential issue_ | _🔴 Critical_\n\n**Do not await `go.run` because it never resolves**\n\n`go.run` only settles once the Go program exits, but the wasm `main` ends with `select {}` to stay alive, so this `await` prevents `init()` from ever resolving. Kick off the runtime without awaiting (optionally handle errors via `.catch(...)`) so callers can actually obtain the API. Based on review\n\n```diff\n-  // Run the Go program (it registers globals like pxNewTree, etc.)\n-  await go.run(result.instance);\n+  // Run the Go program (it registers globals like pxNewTree, etc.)\n+  go.run(result.instance);\n```\n\n<!-- suggestion_start -->\n\n<details>\n<summary>📝 Committable suggestion</summary>\n\n> ‼️ **IMPORTANT**\n> Carefully review the code before committing. Ensure that it accurately replaces the highlighted code, contains no missing lines, and has no issues with indentation. Thoroughly test & benchmark the code to ensure it meets the requirements.\n\n```suggestion\n  // Run the Go program (it registers globals like pxNewTree, etc.)\n  go.run(result.instance);\n\n  const api = {\n    version: async () => call('pxVersion'),\n    hello: async (name) => call('pxHello', name ?? ''),\n    newTree: async (dim) => {\n      const info = call('pxNewTree', dim);\n      return new PxTree(info.treeId);\n    }\n  };\n\n  return api;\n```\n\n</details>\n\n<!-- suggestion_end -->\n\n<details>\n<summary>🤖 Prompt for AI Agents</summary>\n\n```\nIn npm/poindexter-wasm/loader.js around lines 76 to 88, do not await\ngo.run(result.instance) because it never resolves; instead start the Go runtime\nwithout awaiting so init() can complete — call go.run(result.instance) and\nattach a .catch handler to log or surface any startup errors (so the runtime is\nkicked off but init() returns the API). Ensure the rest of init() returns the\nconstructed api immediately after starting the runtime.\n```\n\n</details>\n\n<!-- fingerprinting:phantom:medusa:sabertoothed -->\n\n<!-- This is an auto-generated comment by CodeRabbit -->",
+    "created_at": "2025-11-03T20:32:39Z",
+    "updated_at": "2025-11-03T20:32:42Z",
+    "html_url": "https://github.com/Snider/Poindexter/pull/2#discussion_r2487777302",
+    "pull_request_url": "https://api.github.com/repos/Snider/Poindexter/pulls/2",
+    "_links": {
+      "self": {
+        "href": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777302"
+      },
+      "html": {
+        "href": "https://github.com/Snider/Poindexter/pull/2#discussion_r2487777302"
+      },
+      "pull_request": {
+        "href": "https://api.github.com/repos/Snider/Poindexter/pulls/2"
+      }
+    },
+    "reactions": {
+      "url": "https://api.github.com/repos/Snider/Poindexter/pulls/comments/2487777302/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "start_line": 76,
+    "original_start_line": 76,
+    "start_side": "RIGHT",
+    "line": null,
+    "original_line": 88,
+    "side": "RIGHT",
+    "author_association": "NONE",
+    "original_position": 88,
+    "position": 1,
+    "subject_type": "line"
+  }
+]

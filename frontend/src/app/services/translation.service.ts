@@ -28,7 +28,10 @@ export class TranslationService {
       console.log('TranslationService: Using ngx-translate for development.');
     } else {
       try {
-        const allMessages: Record<string, string> = await GetAllMessages(lang);
+        const allMessages: Record<string, string> | null = await GetAllMessages(lang);
+        if (!allMessages) {
+          return
+        }
         this.translations.clear();
         for (const key in allMessages) {
           if (Object.prototype.hasOwnProperty.call(allMessages, key)) {

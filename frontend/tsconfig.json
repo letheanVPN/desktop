@@ -6,7 +6,7 @@
     "baseUrl": "./",
     "paths": {
       "@bindings/*": [
-        "bindings/github.com/letheanVPN/desktop/services/*"
+        "bindings/*"
       ],
       "@lthn/*": [
         "bindings/github.com/letheanVPN/desktop/services/*"

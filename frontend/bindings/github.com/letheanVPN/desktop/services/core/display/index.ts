@@ -6,6 +6,6 @@ export {
     Service
 };
 
-export {
+export type {
     Service
 } from "./models.js";

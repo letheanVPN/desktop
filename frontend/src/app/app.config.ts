@@ -8,6 +8,7 @@ import {TranslateModule} from '@ngx-translate/core';
 import {provideHttpClient} from '@angular/common/http';
 import {provideTranslateHttpLoader} from '@ngx-translate/http-loader';
 import {StyleManagerService} from './services/style-manager.service';
+import { provideHighcharts } from 'highcharts-angular';
 
 const translationProviders = [
   provideHttpClient(),
@@ -16,6 +17,25 @@ const translationProviders = [
       fallbackLang: 'en',
     })
   ),
+  provideHighcharts({
+    options: {
+      title: {
+        style: {
+          color: 'tomato',
+        },
+      },
+      legend: {
+        enabled: false,
+      },
+    },
+    modules: () => {
+      return [
+        import('highcharts/esm/modules/accessibility'),
+        import('highcharts/esm/modules/exporting'),
+        import('highcharts/esm/themes/sunset'),
+      ];
+    },
+  }),
   ...(isDevMode()
     ? [
       provideTranslateHttpLoader({

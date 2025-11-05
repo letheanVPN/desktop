@@ -12,5 +12,12 @@ package:
 test:
 	go test ./services/*
 
+fetch-reviews:
+ifeq ($(PR),)
+	$(error PR is not set. Usage: make fetch-reviews PR=<number>)
+endif
+	gh pr view $(PR) --json reviews > reviews.json
+	task
+
 bindings:
 	wails3 generate bindings -ts

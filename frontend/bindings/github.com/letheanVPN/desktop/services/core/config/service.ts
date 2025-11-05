@@ -8,7 +8,7 @@
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore: Unused imports
-import { Call as $Call, CancellablePromise as $CancellablePromise, Create as $Create } from "@wailsio/runtime";
+import { Call as $Call, CancellablePromise as $CancellablePromise } from "@wailsio/runtime";
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore: Unused imports
@@ -25,9 +25,7 @@ export function EnableFeature(feature: string): $CancellablePromise<void> {
  * Get returns the loaded configuration.
  */
 export function Get(): $CancellablePromise<$models.Config | null> {
-    return $Call.ByID(1956316061).then(($result: any) => {
-        return $$createType1($result);
-    });
+    return $Call.ByID(1956316061);
 }
 
 /**
@@ -43,7 +41,3 @@ export function IsFeatureEnabled(feature: string): $CancellablePromise<boolean> 
 export function Save(): $CancellablePromise<void> {
     return $Call.ByID(2065272110);
 }
-
-// Private type creation functions
-const $$createType0 = $models.Config.createFrom;
-const $$createType1 = $Create.Nullable($$createType0);

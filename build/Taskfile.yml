@@ -14,7 +14,7 @@ tasks:
       - package.json
       - package-lock.json
     generates:
-      - node_modules/*
+      - node_modules/.bin/*
     preconditions:
       - sh: npm version
         msg: "Looks like npm isn't installed. Npm is part of the Node installer: https://nodejs.org/en/download/"
@@ -39,6 +39,7 @@ tasks:
           BUILD_FLAGS:
             ref: .BUILD_FLAGS
     cmds:
+      - echo "Building frontend with BUILD_COMMAND={{.BUILD_COMMAND}}"
       - npm run {{.BUILD_COMMAND}} -q
     env:
       PRODUCTION: '{{.PRODUCTION | default "false"}}'
@@ -61,7 +62,7 @@ tasks:
     generates:
       - frontend/bindings/**/*
     cmds:
-      - wails3 generate bindings -f '{{.BUILD_FLAGS}}' -clean=false -ts
+      - wails3 generate bindings -f '{{.BUILD_FLAGS}}' -clean=false -ts -i
 
   generate:icons:
     summary: Generates Windows `.ico` and Mac `.icns` files from an image
@@ -84,7 +85,7 @@ tasks:
     cmds:
       # The '--' is important to pass the flags to the 'ng serve' command.
       # 'npm start' should be configured to run 'ng serve' in package.json.
-      - npm start -- --port {{.VITE_PORT | default "4200"}}
+      - npm run dev -- --port {{.VITE_PORT | default "4200"}}
 
   update:build-assets:
     summary: Updates the build assets

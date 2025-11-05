@@ -32,3 +32,30 @@ tasks:
     cmds:
       - wails3 dev -config ./build/config.yml -port {{.VITE_PORT}}
 
+
+
+  fetch-reviews:
+    summary: Fetches reviews from GitHub
+    vars:
+      PR: '{{.PR | default "1"}}'
+      USER_WORKING_DIR: '{{.USER_WORKING_DIR | default "."}}'
+    cmds:
+      - gh pr view '{{.PR}}' -c --json reviews > reviews.json
+
+
+  process-reviews:
+    summary: Extracts and cleans reviews from coderabbitai[bot] into reviews.txt.
+    sources:
+      - '{{.REVIEWS_JSON}}'
+    generates:
+      - '{{.REVIEWS_TXT}}'
+    vars:
+      REVIEWS_JSON: '{{.USER_WORKING_DIR}}/reviews.json'
+      REVIEWS_TXT: '{{.USER_WORKING_DIR}}/reviews.txt'
+    preconditions:
+      - sh: 'command -v jq'
+        msg: "jq is not installed. Please install it to continue (e.g., 'brew install jq' or 'sudo apt-get install jq')."
+      - sh: 'command -v sed'
+        msg: "sed is not installed. Please install it to continue (e.g., 'brew install sed' or 'sudo apt-get install sed')."
+    cmds:
+      - jq '.[] | select(.user.login == "coderabbitai[bot]") | .body' {{.REVIEWS_JSON}} | sed 's/<!--.*-->//g' > {{.REVIEWS_TXT}}

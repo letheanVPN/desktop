@@ -40,7 +40,11 @@ export class I18nService {
     if (isDevMode()) {
       return Promise.resolve(['en']); // For dev, we can mock this.
     }
-    return AvailableLanguages();
+    return AvailableLanguages().then((languages) => {
+      if (languages == null || languages?.length == 0)
+        return Promise.resolve(['en']);
+      return Promise.resolve(languages)
+    });
   }
 
   public onReady(): Promise<void> {

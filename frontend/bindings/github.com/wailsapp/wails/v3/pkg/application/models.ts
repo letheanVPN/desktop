@@ -3,10 +3,6 @@
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore: Unused imports
-import { Create as $Create } from "@wailsio/runtime";
-
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore: Unused imports
 import * as u$0 from "../../../../../leaanthony/u/models.js";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore: Unused imports
@@ -15,7 +11,7 @@ import * as events$0 from "../events/models.js";
 // @ts-ignore: Unused imports
 import * as slog$0 from "../../../../../../log/slog/models.js";
 
-export class App {
+export interface App {
     /**
      * Manager pattern for organized API
      */
@@ -31,104 +27,6 @@ export class App {
     "Clipboard": ClipboardManager | null;
     "SystemTray": SystemTrayManager | null;
     "Logger": slog$0.Logger | null;
-
-    /** Creates a new App instance. */
-    constructor($$source: Partial<App> = {}) {
-        if (!("Window" in $$source)) {
-            this["Window"] = null;
-        }
-        if (!("ContextMenu" in $$source)) {
-            this["ContextMenu"] = null;
-        }
-        if (!("KeyBinding" in $$source)) {
-            this["KeyBinding"] = null;
-        }
-        if (!("Browser" in $$source)) {
-            this["Browser"] = null;
-        }
-        if (!("Env" in $$source)) {
-            this["Env"] = null;
-        }
-        if (!("Dialog" in $$source)) {
-            this["Dialog"] = null;
-        }
-        if (!("Event" in $$source)) {
-            this["Event"] = null;
-        }
-        if (!("Menu" in $$source)) {
-            this["Menu"] = null;
-        }
-        if (!("Screen" in $$source)) {
-            this["Screen"] = null;
-        }
-        if (!("Clipboard" in $$source)) {
-            this["Clipboard"] = null;
-        }
-        if (!("SystemTray" in $$source)) {
-            this["SystemTray"] = null;
-        }
-        if (!("Logger" in $$source)) {
-            this["Logger"] = null;
-        }
-
-        Object.assign(this, $$source);
-    }
-
-    /**
-     * Creates a new App instance from a string or object.
-     */
-    static createFrom($$source: any = {}): App {
-        const $$createField0_0 = $$createType1;
-        const $$createField1_0 = $$createType3;
-        const $$createField2_0 = $$createType5;
-        const $$createField3_0 = $$createType7;
-        const $$createField4_0 = $$createType9;
-        const $$createField5_0 = $$createType11;
-        const $$createField6_0 = $$createType13;
-        const $$createField7_0 = $$createType15;
-        const $$createField8_0 = $$createType17;
-        const $$createField9_0 = $$createType19;
-        const $$createField10_0 = $$createType21;
-        const $$createField11_0 = $$createType23;
-        let $$parsedSource = typeof $$source === 'string' ? JSON.parse($$source) : $$source;
-        if ("Window" in $$parsedSource) {
-            $$parsedSource["Window"] = $$createField0_0($$parsedSource["Window"]);
-        }
-        if ("ContextMenu" in $$parsedSource) {
-            $$parsedSource["ContextMenu"] = $$createField1_0($$parsedSource["ContextMenu"]);
-        }
-        if ("KeyBinding" in $$parsedSource) {
-            $$parsedSource["KeyBinding"] = $$createField2_0($$parsedSource["KeyBinding"]);
-        }
-        if ("Browser" in $$parsedSource) {
-            $$parsedSource["Browser"] = $$createField3_0($$parsedSource["Browser"]);
-        }
-        if ("Env" in $$parsedSource) {
-            $$parsedSource["Env"] = $$createField4_0($$parsedSource["Env"]);
-        }
-        if ("Dialog" in $$parsedSource) {
-            $$parsedSource["Dialog"] = $$createField5_0($$parsedSource["Dialog"]);
-        }
-        if ("Event" in $$parsedSource) {
-            $$parsedSource["Event"] = $$createField6_0($$parsedSource["Event"]);
-        }
-        if ("Menu" in $$parsedSource) {
-            $$parsedSource["Menu"] = $$createField7_0($$parsedSource["Menu"]);
-        }
-        if ("Screen" in $$parsedSource) {
-            $$parsedSource["Screen"] = $$createField8_0($$parsedSource["Screen"]);
-        }
-        if ("Clipboard" in $$parsedSource) {
-            $$parsedSource["Clipboard"] = $$createField9_0($$parsedSource["Clipboard"]);
-        }
-        if ("SystemTray" in $$parsedSource) {
-            $$parsedSource["SystemTray"] = $$createField10_0($$parsedSource["SystemTray"]);
-        }
-        if ("Logger" in $$parsedSource) {
-            $$parsedSource["Logger"] = $$createField11_0($$parsedSource["Logger"]);
-        }
-        return new App($$parsedSource as Partial<App>);
-    }
 }
 
 export enum BackdropType {
@@ -158,21 +56,7 @@ export enum BackgroundType {
 /**
  * BrowserManager manages browser-related operations
  */
-export class BrowserManager {
-
-    /** Creates a new BrowserManager instance. */
-    constructor($$source: Partial<BrowserManager> = {}) {
-
-        Object.assign(this, $$source);
-    }
-
-    /**
-     * Creates a new BrowserManager instance from a string or object.
-     */
-    static createFrom($$source: any = {}): BrowserManager {
-        let $$parsedSource = typeof $$source === 'string' ? JSON.parse($$source) : $$source;
-        return new BrowserManager($$parsedSource as Partial<BrowserManager>);
-    }
+export interface BrowserManager {
 }
 
 export enum ButtonState {
@@ -189,41 +73,13 @@ export enum ButtonState {
 /**
  * ClipboardManager manages clipboard operations
  */
-export class ClipboardManager {
-
-    /** Creates a new ClipboardManager instance. */
-    constructor($$source: Partial<ClipboardManager> = {}) {
-
-        Object.assign(this, $$source);
-    }
-
-    /**
-     * Creates a new ClipboardManager instance from a string or object.
-     */
-    static createFrom($$source: any = {}): ClipboardManager {
-        let $$parsedSource = typeof $$source === 'string' ? JSON.parse($$source) : $$source;
-        return new ClipboardManager($$parsedSource as Partial<ClipboardManager>);
-    }
+export interface ClipboardManager {
 }
 
 /**
  * ContextMenuManager manages all context menu operations
  */
-export class ContextMenuManager {
-
-    /** Creates a new ContextMenuManager instance. */
-    constructor($$source: Partial<ContextMenuManager> = {}) {
-
-        Object.assign(this, $$source);
-    }
-
-    /**
-     * Creates a new ContextMenuManager instance from a string or object.
-     */
-    static createFrom($$source: any = {}): ContextMenuManager {
-        let $$parsedSource = typeof $$source === 'string' ? JSON.parse($$source) : $$source;
-        return new ContextMenuManager($$parsedSource as Partial<ContextMenuManager>);
-    }
+export interface ContextMenuManager {
 }
 
 export enum CoreWebView2PermissionState {
@@ -240,21 +96,7 @@ export enum CoreWebView2PermissionState {
 /**
  * DialogManager manages dialog-related operations
  */
-export class DialogManager {
-
-    /** Creates a new DialogManager instance. */
-    constructor($$source: Partial<DialogManager> = {}) {
-
-        Object.assign(this, $$source);
-    }
-
-    /**
-     * Creates a new DialogManager instance from a string or object.
-     */
-    static createFrom($$source: any = {}): DialogManager {
-        let $$parsedSource = typeof $$source === 'string' ? JSON.parse($$source) : $$source;
-        return new DialogManager($$parsedSource as Partial<DialogManager>);
-    }
+export interface DialogManager {
 }
 
 export enum DragEffect {
@@ -287,72 +129,30 @@ export enum DragEffect {
 /**
  * EnvironmentManager manages environment-related operations
  */
-export class EnvironmentManager {
-
-    /** Creates a new EnvironmentManager instance. */
-    constructor($$source: Partial<EnvironmentManager> = {}) {
-
-        Object.assign(this, $$source);
-    }
-
-    /**
-     * Creates a new EnvironmentManager instance from a string or object.
-     */
-    static createFrom($$source: any = {}): EnvironmentManager {
-        let $$parsedSource = typeof $$source === 'string' ? JSON.parse($$source) : $$source;
-        return new EnvironmentManager($$parsedSource as Partial<EnvironmentManager>);
-    }
+export interface EnvironmentManager {
 }
 
 /**
  * EventManager manages event-related operations
  */
-export class EventManager {
-
-    /** Creates a new EventManager instance. */
-    constructor($$source: Partial<EventManager> = {}) {
-
-        Object.assign(this, $$source);
-    }
-
-    /**
-     * Creates a new EventManager instance from a string or object.
-     */
-    static createFrom($$source: any = {}): EventManager {
-        let $$parsedSource = typeof $$source === 'string' ? JSON.parse($$source) : $$source;
-        return new EventManager($$parsedSource as Partial<EventManager>);
-    }
+export interface EventManager {
 }
 
 /**
  * KeyBindingManager manages all key binding operations
  */
-export class KeyBindingManager {
-
-    /** Creates a new KeyBindingManager instance. */
-    constructor($$source: Partial<KeyBindingManager> = {}) {
-
-        Object.assign(this, $$source);
-    }
-
-    /**
-     * Creates a new KeyBindingManager instance from a string or object.
-     */
-    static createFrom($$source: any = {}): KeyBindingManager {
-        let $$parsedSource = typeof $$source === 'string' ? JSON.parse($$source) : $$source;
-        return new KeyBindingManager($$parsedSource as Partial<KeyBindingManager>);
-    }
+export interface KeyBindingManager {
 }
 
 /**
  * LinuxWindow specific to Linux windows
  */
-export class LinuxWindow {
+export interface LinuxWindow {
     /**
      * Icon Sets up the icon representing the window. This icon is used when the window is minimized
      * (also known as iconified).
      */
-    "Icon": string;
+    "Icon": string | null;
 
     /**
      * WindowIsTranslucent sets the window's background to transparent when enabled.
@@ -381,43 +181,6 @@ export class LinuxWindow {
      * Menu is the window's menu
      */
     "Menu": Menu | null;
-
-    /** Creates a new LinuxWindow instance. */
-    constructor($$source: Partial<LinuxWindow> = {}) {
-        if (!("Icon" in $$source)) {
-            this["Icon"] = "";
-        }
-        if (!("WindowIsTranslucent" in $$source)) {
-            this["WindowIsTranslucent"] = false;
-        }
-        if (!("WebviewGpuPolicy" in $$source)) {
-            this["WebviewGpuPolicy"] = WebviewGpuPolicy.$zero;
-        }
-        if (!("WindowDidMoveDebounceMS" in $$source)) {
-            this["WindowDidMoveDebounceMS"] = 0;
-        }
-        if (!("Menu" in $$source)) {
-            this["Menu"] = null;
-        }
-
-        Object.assign(this, $$source);
-    }
-
-    /**
-     * Creates a new LinuxWindow instance from a string or object.
-     */
-    static createFrom($$source: any = {}): LinuxWindow {
-        const $$createField0_0 = $Create.ByteSlice;
-        const $$createField4_0 = $$createType25;
-        let $$parsedSource = typeof $$source === 'string' ? JSON.parse($$source) : $$source;
-        if ("Icon" in $$parsedSource) {
-            $$parsedSource["Icon"] = $$createField0_0($$parsedSource["Icon"]);
-        }
-        if ("Menu" in $$parsedSource) {
-            $$parsedSource["Menu"] = $$createField4_0($$parsedSource["Menu"]);
-        }
-        return new LinuxWindow($$parsedSource as Partial<LinuxWindow>);
-    }
 }
 
 /**
@@ -503,7 +266,7 @@ export enum MacBackdrop {
 /**
  * MacLiquidGlass contains configuration for the Liquid Glass effect
  */
-export class MacLiquidGlass {
+export interface MacLiquidGlass {
     /**
      * Style of the glass effect
      */
@@ -534,42 +297,6 @@ export class MacLiquidGlass {
      * Spacing between grouped glass elements (in points)
      */
     "GroupSpacing": number;
-
-    /** Creates a new MacLiquidGlass instance. */
-    constructor($$source: Partial<MacLiquidGlass> = {}) {
-        if (!("Style" in $$source)) {
-            this["Style"] = MacLiquidGlassStyle.$zero;
-        }
-        if (!("Material" in $$source)) {
-            this["Material"] = NSVisualEffectMaterial.$zero;
-        }
-        if (!("CornerRadius" in $$source)) {
-            this["CornerRadius"] = 0;
-        }
-        if (!("TintColor" in $$source)) {
-            this["TintColor"] = null;
-        }
-        if (!("GroupID" in $$source)) {
-            this["GroupID"] = "";
-        }
-        if (!("GroupSpacing" in $$source)) {
-            this["GroupSpacing"] = 0;
-        }
-
-        Object.assign(this, $$source);
-    }
-
-    /**
-     * Creates a new MacLiquidGlass instance from a string or object.
-     */
-    static createFrom($$source: any = {}): MacLiquidGlass {
-        const $$createField3_0 = $$createType27;
-        let $$parsedSource = typeof $$source === 'string' ? JSON.parse($$source) : $$source;
-        if ("TintColor" in $$parsedSource) {
-            $$parsedSource["TintColor"] = $$createField3_0($$parsedSource["TintColor"]);
-        }
-        return new MacLiquidGlass($$parsedSource as Partial<MacLiquidGlass>);
-    }
 }
 
 /**
@@ -605,7 +332,7 @@ export enum MacLiquidGlassStyle {
 /**
  * MacTitleBar contains options for the Mac titlebar
  */
-export class MacTitleBar {
+export interface MacTitleBar {
     /**
      * AppearsTransparent will make the titlebar transparent
      */
@@ -645,44 +372,6 @@ export class MacTitleBar {
      * ToolbarStyle is the style of toolbar to use
      */
     "ToolbarStyle": MacToolbarStyle;
-
-    /** Creates a new MacTitleBar instance. */
-    constructor($$source: Partial<MacTitleBar> = {}) {
-        if (!("AppearsTransparent" in $$source)) {
-            this["AppearsTransparent"] = false;
-        }
-        if (!("Hide" in $$source)) {
-            this["Hide"] = false;
-        }
-        if (!("HideTitle" in $$source)) {
-            this["HideTitle"] = false;
-        }
-        if (!("FullSizeContent" in $$source)) {
-            this["FullSizeContent"] = false;
-        }
-        if (!("UseToolbar" in $$source)) {
-            this["UseToolbar"] = false;
-        }
-        if (!("HideToolbarSeparator" in $$source)) {
-            this["HideToolbarSeparator"] = false;
-        }
-        if (!("ShowToolbarWhenFullscreen" in $$source)) {
-            this["ShowToolbarWhenFullscreen"] = false;
-        }
-        if (!("ToolbarStyle" in $$source)) {
-            this["ToolbarStyle"] = MacToolbarStyle.$zero;
-        }
-
-        Object.assign(this, $$source);
-    }
-
-    /**
-     * Creates a new MacTitleBar instance from a string or object.
-     */
-    static createFrom($$source: any = {}): MacTitleBar {
-        let $$parsedSource = typeof $$source === 'string' ? JSON.parse($$source) : $$source;
-        return new MacTitleBar($$parsedSource as Partial<MacTitleBar>);
-    }
 }
 
 /**
@@ -723,7 +412,7 @@ export enum MacToolbarStyle {
 /**
  * MacWebviewPreferences contains preferences for the Mac webview
  */
-export class MacWebviewPreferences {
+export interface MacWebviewPreferences {
     /**
      * TabFocusesLinks will enable tabbing to links
      */
@@ -743,54 +432,12 @@ export class MacWebviewPreferences {
      * AllowsBackForwardNavigationGestures enables horizontal swipe gestures for back/forward navigation
      */
     "AllowsBackForwardNavigationGestures": u$0.Bool;
-
-    /** Creates a new MacWebviewPreferences instance. */
-    constructor($$source: Partial<MacWebviewPreferences> = {}) {
-        if (!("TabFocusesLinks" in $$source)) {
-            this["TabFocusesLinks"] = (new u$0.Bool());
-        }
-        if (!("TextInteractionEnabled" in $$source)) {
-            this["TextInteractionEnabled"] = (new u$0.Bool());
-        }
-        if (!("FullscreenEnabled" in $$source)) {
-            this["FullscreenEnabled"] = (new u$0.Bool());
-        }
-        if (!("AllowsBackForwardNavigationGestures" in $$source)) {
-            this["AllowsBackForwardNavigationGestures"] = (new u$0.Bool());
-        }
-
-        Object.assign(this, $$source);
-    }
-
-    /**
-     * Creates a new MacWebviewPreferences instance from a string or object.
-     */
-    static createFrom($$source: any = {}): MacWebviewPreferences {
-        const $$createField0_0 = $$createType28;
-        const $$createField1_0 = $$createType28;
-        const $$createField2_0 = $$createType28;
-        const $$createField3_0 = $$createType28;
-        let $$parsedSource = typeof $$source === 'string' ? JSON.parse($$source) : $$source;
-        if ("TabFocusesLinks" in $$parsedSource) {
-            $$parsedSource["TabFocusesLinks"] = $$createField0_0($$parsedSource["TabFocusesLinks"]);
-        }
-        if ("TextInteractionEnabled" in $$parsedSource) {
-            $$parsedSource["TextInteractionEnabled"] = $$createField1_0($$parsedSource["TextInteractionEnabled"]);
-        }
-        if ("FullscreenEnabled" in $$parsedSource) {
-            $$parsedSource["FullscreenEnabled"] = $$createField2_0($$parsedSource["FullscreenEnabled"]);
-        }
-        if ("AllowsBackForwardNavigationGestures" in $$parsedSource) {
-            $$parsedSource["AllowsBackForwardNavigationGestures"] = $$createField3_0($$parsedSource["AllowsBackForwardNavigationGestures"]);
-        }
-        return new MacWebviewPreferences($$parsedSource as Partial<MacWebviewPreferences>);
-    }
 }
 
 /**
  * MacWindow contains macOS specific options for Webview Windows
  */
-export class MacWindow {
+export interface MacWindow {
     /**
      * Backdrop is the backdrop type for the window
      */
@@ -819,7 +466,7 @@ export class MacWindow {
     /**
      * Maps events from platform specific to common event types
      */
-    "EventMapping": { [_: `${number}`]: events$0.WindowEventType };
+    "EventMapping": { [_: `${number}`]: events$0.WindowEventType } | null;
 
     /**
      * EnableFraudulentWebsiteWarnings will enable warnings for fraudulent websites.
@@ -841,66 +488,6 @@ export class MacWindow {
      * LiquidGlass contains configuration for the Liquid Glass effect
      */
     "LiquidGlass": MacLiquidGlass;
-
-    /** Creates a new MacWindow instance. */
-    constructor($$source: Partial<MacWindow> = {}) {
-        if (!("Backdrop" in $$source)) {
-            this["Backdrop"] = MacBackdrop.$zero;
-        }
-        if (!("DisableShadow" in $$source)) {
-            this["DisableShadow"] = false;
-        }
-        if (!("TitleBar" in $$source)) {
-            this["TitleBar"] = (new MacTitleBar());
-        }
-        if (!("Appearance" in $$source)) {
-            this["Appearance"] = MacAppearanceType.$zero;
-        }
-        if (!("InvisibleTitleBarHeight" in $$source)) {
-            this["InvisibleTitleBarHeight"] = 0;
-        }
-        if (!("EventMapping" in $$source)) {
-            this["EventMapping"] = {};
-        }
-        if (!("EnableFraudulentWebsiteWarnings" in $$source)) {
-            this["EnableFraudulentWebsiteWarnings"] = false;
-        }
-        if (!("WebviewPreferences" in $$source)) {
-            this["WebviewPreferences"] = (new MacWebviewPreferences());
-        }
-        if (!("WindowLevel" in $$source)) {
-            this["WindowLevel"] = MacWindowLevel.$zero;
-        }
-        if (!("LiquidGlass" in $$source)) {
-            this["LiquidGlass"] = (new MacLiquidGlass());
-        }
-
-        Object.assign(this, $$source);
-    }
-
-    /**
-     * Creates a new MacWindow instance from a string or object.
-     */
-    static createFrom($$source: any = {}): MacWindow {
-        const $$createField2_0 = $$createType29;
-        const $$createField5_0 = $$createType30;
-        const $$createField7_0 = $$createType31;
-        const $$createField9_0 = $$createType32;
-        let $$parsedSource = typeof $$source === 'string' ? JSON.parse($$source) : $$source;
-        if ("TitleBar" in $$parsedSource) {
-            $$parsedSource["TitleBar"] = $$createField2_0($$parsedSource["TitleBar"]);
-        }
-        if ("EventMapping" in $$parsedSource) {
-            $$parsedSource["EventMapping"] = $$createField5_0($$parsedSource["EventMapping"]);
-        }
-        if ("WebviewPreferences" in $$parsedSource) {
-            $$parsedSource["WebviewPreferences"] = $$createField7_0($$parsedSource["WebviewPreferences"]);
-        }
-        if ("LiquidGlass" in $$parsedSource) {
-            $$parsedSource["LiquidGlass"] = $$createField9_0($$parsedSource["LiquidGlass"]);
-        }
-        return new MacWindow($$parsedSource as Partial<MacWindow>);
-    }
 }
 
 export enum MacWindowLevel {
@@ -919,24 +506,10 @@ export enum MacWindowLevel {
     MacWindowLevelScreenSaver = "screenSaver",
 };
 
-export class Menu {
-
-    /** Creates a new Menu instance. */
-    constructor($$source: Partial<Menu> = {}) {
-
-        Object.assign(this, $$source);
-    }
-
-    /**
-     * Creates a new Menu instance from a string or object.
-     */
-    static createFrom($$source: any = {}): Menu {
-        let $$parsedSource = typeof $$source === 'string' ? JSON.parse($$source) : $$source;
-        return new Menu($$parsedSource as Partial<Menu>);
-    }
+export interface Menu {
 }
 
-export class MenuBarTheme {
+export interface MenuBarTheme {
     /**
      * Default is the default theme
      */
@@ -951,61 +524,12 @@ export class MenuBarTheme {
      * Selected defines the theme to use when the menu item is selected
      */
     "Selected": TextTheme | null;
-
-    /** Creates a new MenuBarTheme instance. */
-    constructor($$source: Partial<MenuBarTheme> = {}) {
-        if (!("Default" in $$source)) {
-            this["Default"] = null;
-        }
-        if (!("Hover" in $$source)) {
-            this["Hover"] = null;
-        }
-        if (!("Selected" in $$source)) {
-            this["Selected"] = null;
-        }
-
-        Object.assign(this, $$source);
-    }
-
-    /**
-     * Creates a new MenuBarTheme instance from a string or object.
-     */
-    static createFrom($$source: any = {}): MenuBarTheme {
-        const $$createField0_0 = $$createType34;
-        const $$createField1_0 = $$createType34;
-        const $$createField2_0 = $$createType34;
-        let $$parsedSource = typeof $$source === 'string' ? JSON.parse($$source) : $$source;
-        if ("Default" in $$parsedSource) {
-            $$parsedSource["Default"] = $$createField0_0($$parsedSource["Default"]);
-        }
-        if ("Hover" in $$parsedSource) {
-            $$parsedSource["Hover"] = $$createField1_0($$parsedSource["Hover"]);
-        }
-        if ("Selected" in $$parsedSource) {
-            $$parsedSource["Selected"] = $$createField2_0($$parsedSource["Selected"]);
-        }
-        return new MenuBarTheme($$parsedSource as Partial<MenuBarTheme>);
-    }
 }
 
 /**
  * MenuManager manages menu-related operations
  */
-export class MenuManager {
-
-    /** Creates a new MenuManager instance. */
-    constructor($$source: Partial<MenuManager> = {}) {
-
-        Object.assign(this, $$source);
-    }
-
-    /**
-     * Creates a new MenuManager instance from a string or object.
-     */
-    static createFrom($$source: any = {}): MenuManager {
-        let $$parsedSource = typeof $$source === 'string' ? JSON.parse($$source) : $$source;
-        return new MenuManager($$parsedSource as Partial<MenuManager>);
-    }
+export interface MenuManager {
 }
 
 /**
@@ -1044,77 +568,23 @@ export enum NSVisualEffectMaterial {
     NSVisualEffectMaterialAuto = -1,
 };
 
-export class RGBA {
+export interface RGBA {
     "Red": number;
     "Green": number;
     "Blue": number;
     "Alpha": number;
-
-    /** Creates a new RGBA instance. */
-    constructor($$source: Partial<RGBA> = {}) {
-        if (!("Red" in $$source)) {
-            this["Red"] = 0;
-        }
-        if (!("Green" in $$source)) {
-            this["Green"] = 0;
-        }
-        if (!("Blue" in $$source)) {
-            this["Blue"] = 0;
-        }
-        if (!("Alpha" in $$source)) {
-            this["Alpha"] = 0;
-        }
-
-        Object.assign(this, $$source);
-    }
-
-    /**
-     * Creates a new RGBA instance from a string or object.
-     */
-    static createFrom($$source: any = {}): RGBA {
-        let $$parsedSource = typeof $$source === 'string' ? JSON.parse($$source) : $$source;
-        return new RGBA($$parsedSource as Partial<RGBA>);
-    }
 }
 
-export class ScreenManager {
-
-    /** Creates a new ScreenManager instance. */
-    constructor($$source: Partial<ScreenManager> = {}) {
-
-        Object.assign(this, $$source);
-    }
-
-    /**
-     * Creates a new ScreenManager instance from a string or object.
-     */
-    static createFrom($$source: any = {}): ScreenManager {
-        let $$parsedSource = typeof $$source === 'string' ? JSON.parse($$source) : $$source;
-        return new ScreenManager($$parsedSource as Partial<ScreenManager>);
-    }
+export interface ScreenManager {
 }
 
 /**
  * SystemTrayManager manages system tray-related operations
  */
-export class SystemTrayManager {
-
-    /** Creates a new SystemTrayManager instance. */
-    constructor($$source: Partial<SystemTrayManager> = {}) {
-
-        Object.assign(this, $$source);
-    }
-
-    /**
-     * Creates a new SystemTrayManager instance from a string or object.
-     */
-    static createFrom($$source: any = {}): SystemTrayManager {
-        let $$parsedSource = typeof $$source === 'string' ? JSON.parse($$source) : $$source;
-        return new SystemTrayManager($$parsedSource as Partial<SystemTrayManager>);
-    }
+export interface SystemTrayManager {
 }
 
-export class TextTheme {
+export interface TextTheme {
     /**
      * Text is the colour of the text
      */
@@ -1124,26 +594,6 @@ export class TextTheme {
      * Background is the background colour of the text
      */
     "Background": number | null;
-
-    /** Creates a new TextTheme instance. */
-    constructor($$source: Partial<TextTheme> = {}) {
-        if (!("Text" in $$source)) {
-            this["Text"] = null;
-        }
-        if (!("Background" in $$source)) {
-            this["Background"] = null;
-        }
-
-        Object.assign(this, $$source);
-    }
-
-    /**
-     * Creates a new TextTheme instance from a string or object.
-     */
-    static createFrom($$source: any = {}): TextTheme {
-        let $$parsedSource = typeof $$source === 'string' ? JSON.parse($$source) : $$source;
-        return new TextTheme($$parsedSource as Partial<TextTheme>);
-    }
 }
 
 export enum Theme {
@@ -1172,7 +622,7 @@ export enum Theme {
  * ThemeSettings defines custom colours to use in dark or light mode.
  * They may be set using the hex values: 0x00BBGGRR
  */
-export class ThemeSettings {
+export interface ThemeSettings {
     /**
      * Dark mode active window
      */
@@ -1202,62 +652,6 @@ export class ThemeSettings {
      * Light mode MenuBar
      */
     "LightModeMenuBar": MenuBarTheme | null;
-
-    /** Creates a new ThemeSettings instance. */
-    constructor($$source: Partial<ThemeSettings> = {}) {
-        if (!("DarkModeActive" in $$source)) {
-            this["DarkModeActive"] = null;
-        }
-        if (!("DarkModeInactive" in $$source)) {
-            this["DarkModeInactive"] = null;
-        }
-        if (!("LightModeActive" in $$source)) {
-            this["LightModeActive"] = null;
-        }
-        if (!("LightModeInactive" in $$source)) {
-            this["LightModeInactive"] = null;
-        }
-        if (!("DarkModeMenuBar" in $$source)) {
-            this["DarkModeMenuBar"] = null;
-        }
-        if (!("LightModeMenuBar" in $$source)) {
-            this["LightModeMenuBar"] = null;
-        }
-
-        Object.assign(this, $$source);
-    }
-
-    /**
-     * Creates a new ThemeSettings instance from a string or object.
-     */
-    static createFrom($$source: any = {}): ThemeSettings {
-        const $$createField0_0 = $$createType36;
-        const $$createField1_0 = $$createType36;
-        const $$createField2_0 = $$createType36;
-        const $$createField3_0 = $$createType36;
-        const $$createField4_0 = $$createType38;
-        const $$createField5_0 = $$createType38;
-        let $$parsedSource = typeof $$source === 'string' ? JSON.parse($$source) : $$source;
-        if ("DarkModeActive" in $$parsedSource) {
-            $$parsedSource["DarkModeActive"] = $$createField0_0($$parsedSource["DarkModeActive"]);
-        }
-        if ("DarkModeInactive" in $$parsedSource) {
-            $$parsedSource["DarkModeInactive"] = $$createField1_0($$parsedSource["DarkModeInactive"]);
-        }
-        if ("LightModeActive" in $$parsedSource) {
-            $$parsedSource["LightModeActive"] = $$createField2_0($$parsedSource["LightModeActive"]);
-        }
-        if ("LightModeInactive" in $$parsedSource) {
-            $$parsedSource["LightModeInactive"] = $$createField3_0($$parsedSource["LightModeInactive"]);
-        }
-        if ("DarkModeMenuBar" in $$parsedSource) {
-            $$parsedSource["DarkModeMenuBar"] = $$createField4_0($$parsedSource["DarkModeMenuBar"]);
-        }
-        if ("LightModeMenuBar" in $$parsedSource) {
-            $$parsedSource["LightModeMenuBar"] = $$createField5_0($$parsedSource["LightModeMenuBar"]);
-        }
-        return new ThemeSettings($$parsedSource as Partial<ThemeSettings>);
-    }
 }
 
 /**
@@ -1285,7 +679,7 @@ export enum WebviewGpuPolicy {
     WebviewGpuPolicyNever = 2,
 };
 
-export class WebviewWindowOptions {
+export interface WebviewWindowOptions {
     /**
      * Name is a unique identifier that can be given to a window.
      */
@@ -1453,7 +847,7 @@ export class WebviewWindowOptions {
     /**
      * KeyBindings is a map of key bindings to functions
      */
-    "KeyBindings": { [_: string]: any };
+    "KeyBindings": { [_: string]: any } | null;
 
     /**
      * IgnoreMouseEvents will ignore mouse events in the window (Windows + Mac only)
@@ -1466,171 +860,12 @@ export class WebviewWindowOptions {
      * Best-effort protection with platform-specific caveats (see docs).
      */
     "ContentProtectionEnabled": boolean;
-
-    /** Creates a new WebviewWindowOptions instance. */
-    constructor($$source: Partial<WebviewWindowOptions> = {}) {
-        if (!("Name" in $$source)) {
-            this["Name"] = "";
-        }
-        if (!("Title" in $$source)) {
-            this["Title"] = "";
-        }
-        if (!("Width" in $$source)) {
-            this["Width"] = 0;
-        }
-        if (!("Height" in $$source)) {
-            this["Height"] = 0;
-        }
-        if (!("AlwaysOnTop" in $$source)) {
-            this["AlwaysOnTop"] = false;
-        }
-        if (!("URL" in $$source)) {
-            this["URL"] = "";
-        }
-        if (!("DisableResize" in $$source)) {
-            this["DisableResize"] = false;
-        }
-        if (!("Frameless" in $$source)) {
-            this["Frameless"] = false;
-        }
-        if (!("MinWidth" in $$source)) {
-            this["MinWidth"] = 0;
-        }
-        if (!("MinHeight" in $$source)) {
-            this["MinHeight"] = 0;
-        }
-        if (!("MaxWidth" in $$source)) {
-            this["MaxWidth"] = 0;
-        }
-        if (!("MaxHeight" in $$source)) {
-            this["MaxHeight"] = 0;
-        }
-        if (!("StartState" in $$source)) {
-            this["StartState"] = WindowState.$zero;
-        }
-        if (!("BackgroundType" in $$source)) {
-            this["BackgroundType"] = BackgroundType.$zero;
-        }
-        if (!("BackgroundColour" in $$source)) {
-            this["BackgroundColour"] = (new RGBA());
-        }
-        if (!("HTML" in $$source)) {
-            this["HTML"] = "";
-        }
-        if (!("JS" in $$source)) {
-            this["JS"] = "";
-        }
-        if (!("CSS" in $$source)) {
-            this["CSS"] = "";
-        }
-        if (!("InitialPosition" in $$source)) {
-            this["InitialPosition"] = WindowStartPosition.$zero;
-        }
-        if (!("X" in $$source)) {
-            this["X"] = 0;
-        }
-        if (!("Y" in $$source)) {
-            this["Y"] = 0;
-        }
-        if (!("Hidden" in $$source)) {
-            this["Hidden"] = false;
-        }
-        if (!("Zoom" in $$source)) {
-            this["Zoom"] = 0;
-        }
-        if (!("ZoomControlEnabled" in $$source)) {
-            this["ZoomControlEnabled"] = false;
-        }
-        if (!("EnableDragAndDrop" in $$source)) {
-            this["EnableDragAndDrop"] = false;
-        }
-        if (!("OpenInspectorOnStartup" in $$source)) {
-            this["OpenInspectorOnStartup"] = false;
-        }
-        if (!("Mac" in $$source)) {
-            this["Mac"] = (new MacWindow());
-        }
-        if (!("Windows" in $$source)) {
-            this["Windows"] = (new WindowsWindow());
-        }
-        if (!("Linux" in $$source)) {
-            this["Linux"] = (new LinuxWindow());
-        }
-        if (!("MinimiseButtonState" in $$source)) {
-            this["MinimiseButtonState"] = ButtonState.$zero;
-        }
-        if (!("MaximiseButtonState" in $$source)) {
-            this["MaximiseButtonState"] = ButtonState.$zero;
-        }
-        if (!("CloseButtonState" in $$source)) {
-            this["CloseButtonState"] = ButtonState.$zero;
-        }
-        if (!("DevToolsEnabled" in $$source)) {
-            this["DevToolsEnabled"] = false;
-        }
-        if (!("DefaultContextMenuDisabled" in $$source)) {
-            this["DefaultContextMenuDisabled"] = false;
-        }
-        if (!("KeyBindings" in $$source)) {
-            this["KeyBindings"] = {};
-        }
-        if (!("IgnoreMouseEvents" in $$source)) {
-            this["IgnoreMouseEvents"] = false;
-        }
-        if (!("ContentProtectionEnabled" in $$source)) {
-            this["ContentProtectionEnabled"] = false;
-        }
-
-        Object.assign(this, $$source);
-    }
-
-    /**
-     * Creates a new WebviewWindowOptions instance from a string or object.
-     */
-    static createFrom($$source: any = {}): WebviewWindowOptions {
-        const $$createField14_0 = $$createType26;
-        const $$createField26_0 = $$createType39;
-        const $$createField27_0 = $$createType40;
-        const $$createField28_0 = $$createType41;
-        const $$createField34_0 = $$createType42;
-        let $$parsedSource = typeof $$source === 'string' ? JSON.parse($$source) : $$source;
-        if ("BackgroundColour" in $$parsedSource) {
-            $$parsedSource["BackgroundColour"] = $$createField14_0($$parsedSource["BackgroundColour"]);
-        }
-        if ("Mac" in $$parsedSource) {
-            $$parsedSource["Mac"] = $$createField26_0($$parsedSource["Mac"]);
-        }
-        if ("Windows" in $$parsedSource) {
-            $$parsedSource["Windows"] = $$createField27_0($$parsedSource["Windows"]);
-        }
-        if ("Linux" in $$parsedSource) {
-            $$parsedSource["Linux"] = $$createField28_0($$parsedSource["Linux"]);
-        }
-        if ("KeyBindings" in $$parsedSource) {
-            $$parsedSource["KeyBindings"] = $$createField34_0($$parsedSource["KeyBindings"]);
-        }
-        return new WebviewWindowOptions($$parsedSource as Partial<WebviewWindowOptions>);
-    }
 }
 
 /**
  * WindowManager manages all window-related operations
  */
-export class WindowManager {
-
-    /** Creates a new WindowManager instance. */
-    constructor($$source: Partial<WindowManager> = {}) {
-
-        Object.assign(this, $$source);
-    }
-
-    /**
-     * Creates a new WindowManager instance from a string or object.
-     */
-    static createFrom($$source: any = {}): WindowManager {
-        let $$parsedSource = typeof $$source === 'string' ? JSON.parse($$source) : $$source;
-        return new WindowManager($$parsedSource as Partial<WindowManager>);
-    }
+export interface WindowManager {
 }
 
 export enum WindowStartPosition {
@@ -1655,7 +890,7 @@ export enum WindowState {
     WindowStateFullscreen = 3,
 };
 
-export class WindowTheme {
+export interface WindowTheme {
     /**
      * BorderColour is the colour of the window border
      */
@@ -1670,32 +905,9 @@ export class WindowTheme {
      * TitleTextColour is the colour of the window title text
      */
     "TitleTextColour": number | null;
-
-    /** Creates a new WindowTheme instance. */
-    constructor($$source: Partial<WindowTheme> = {}) {
-        if (!("BorderColour" in $$source)) {
-            this["BorderColour"] = null;
-        }
-        if (!("TitleBarColour" in $$source)) {
-            this["TitleBarColour"] = null;
-        }
-        if (!("TitleTextColour" in $$source)) {
-            this["TitleTextColour"] = null;
-        }
-
-        Object.assign(this, $$source);
-    }
-
-    /**
-     * Creates a new WindowTheme instance from a string or object.
-     */
-    static createFrom($$source: any = {}): WindowTheme {
-        let $$parsedSource = typeof $$source === 'string' ? JSON.parse($$source) : $$source;
-        return new WindowTheme($$parsedSource as Partial<WindowTheme>);
-    }
 }
 
-export class WindowsWindow {
+export interface WindowsWindow {
     /**
      * Select the type of translucent backdrop. Requires Windows 11 22621 or later.
      * Only used when window's `BackgroundType` is set to `BackgroundTypeTranslucent`.
@@ -1732,7 +944,7 @@ export class WindowsWindow {
      * WindowMask is used to set the window shape. Use a PNG with an alpha channel to create a custom shape.
      * Default: nil
      */
-    "WindowMask": string;
+    "WindowMask": string | null;
 
     /**
      * WindowMaskDraggable is used to make the window draggable by clicking on the window mask.
@@ -1758,7 +970,7 @@ export class WindowsWindow {
      * Event mapping for the window. This allows you to define a translation from one event to another.
      * Default: nil
      */
-    "EventMapping": { [_: `${number}`]: events$0.WindowEventType };
+    "EventMapping": { [_: `${number}`]: events$0.WindowEventType } | null;
 
     /**
      * HiddenOnTaskbar hides the window from the taskbar
@@ -1786,7 +998,7 @@ export class WindowsWindow {
     /**
      * Permissions map for WebView2. If empty, default permissions will be granted.
      */
-    "Permissions": { [_: `${number}`]: CoreWebView2PermissionState };
+    "Permissions": { [_: `${number}`]: CoreWebView2PermissionState } | null;
 
     /**
      * ExStyle is the extended window style
@@ -1811,167 +1023,7 @@ export class WindowsWindow {
      * and aren't necessarily supported long-term.
      * AdditionalLaunchArgs should always be preceded by "--"
      */
-    "EnabledFeatures": string[];
-    "DisabledFeatures": string[];
-    "AdditionalLaunchArgs": string[];
-
-    /** Creates a new WindowsWindow instance. */
-    constructor($$source: Partial<WindowsWindow> = {}) {
-        if (!("BackdropType" in $$source)) {
-            this["BackdropType"] = BackdropType.$zero;
-        }
-        if (!("DisableIcon" in $$source)) {
-            this["DisableIcon"] = false;
-        }
-        if (!("Theme" in $$source)) {
-            this["Theme"] = Theme.$zero;
-        }
-        if (!("CustomTheme" in $$source)) {
-            this["CustomTheme"] = (new ThemeSettings());
-        }
-        if (!("DisableFramelessWindowDecorations" in $$source)) {
-            this["DisableFramelessWindowDecorations"] = false;
-        }
-        if (!("WindowMask" in $$source)) {
-            this["WindowMask"] = "";
-        }
-        if (!("WindowMaskDraggable" in $$source)) {
-            this["WindowMaskDraggable"] = false;
-        }
-        if (!("ResizeDebounceMS" in $$source)) {
-            this["ResizeDebounceMS"] = 0;
-        }
-        if (!("WindowDidMoveDebounceMS" in $$source)) {
-            this["WindowDidMoveDebounceMS"] = 0;
-        }
-        if (!("EventMapping" in $$source)) {
-            this["EventMapping"] = {};
-        }
-        if (!("HiddenOnTaskbar" in $$source)) {
-            this["HiddenOnTaskbar"] = false;
-        }
-        if (!("EnableSwipeGestures" in $$source)) {
-            this["EnableSwipeGestures"] = false;
-        }
-        if (!("Menu" in $$source)) {
-            this["Menu"] = null;
-        }
-        if (!("OnEnterEffect" in $$source)) {
-            this["OnEnterEffect"] = DragEffect.$zero;
-        }
-        if (!("OnOverEffect" in $$source)) {
-            this["OnOverEffect"] = DragEffect.$zero;
-        }
-        if (!("Permissions" in $$source)) {
-            this["Permissions"] = {};
-        }
-        if (!("ExStyle" in $$source)) {
-            this["ExStyle"] = 0;
-        }
-        if (!("GeneralAutofillEnabled" in $$source)) {
-            this["GeneralAutofillEnabled"] = false;
-        }
-        if (!("PasswordAutosaveEnabled" in $$source)) {
-            this["PasswordAutosaveEnabled"] = false;
-        }
-        if (!("EnabledFeatures" in $$source)) {
-            this["EnabledFeatures"] = [];
-        }
-        if (!("DisabledFeatures" in $$source)) {
-            this["DisabledFeatures"] = [];
-        }
-        if (!("AdditionalLaunchArgs" in $$source)) {
-            this["AdditionalLaunchArgs"] = [];
-        }
-
-        Object.assign(this, $$source);
-    }
-
-    /**
-     * Creates a new WindowsWindow instance from a string or object.
-     */
-    static createFrom($$source: any = {}): WindowsWindow {
-        const $$createField3_0 = $$createType43;
-        const $$createField5_0 = $Create.ByteSlice;
-        const $$createField9_0 = $$createType30;
-        const $$createField12_0 = $$createType25;
-        const $$createField15_0 = $$createType44;
-        const $$createField19_0 = $$createType45;
-        const $$createField20_0 = $$createType45;
-        const $$createField21_0 = $$createType45;
-        let $$parsedSource = typeof $$source === 'string' ? JSON.parse($$source) : $$source;
-        if ("CustomTheme" in $$parsedSource) {
-            $$parsedSource["CustomTheme"] = $$createField3_0($$parsedSource["CustomTheme"]);
-        }
-        if ("WindowMask" in $$parsedSource) {
-            $$parsedSource["WindowMask"] = $$createField5_0($$parsedSource["WindowMask"]);
-        }
-        if ("EventMapping" in $$parsedSource) {
-            $$parsedSource["EventMapping"] = $$createField9_0($$parsedSource["EventMapping"]);
-        }
-        if ("Menu" in $$parsedSource) {
-            $$parsedSource["Menu"] = $$createField12_0($$parsedSource["Menu"]);
-        }
-        if ("Permissions" in $$parsedSource) {
-            $$parsedSource["Permissions"] = $$createField15_0($$parsedSource["Permissions"]);
-        }
-        if ("EnabledFeatures" in $$parsedSource) {
-            $$parsedSource["EnabledFeatures"] = $$createField19_0($$parsedSource["EnabledFeatures"]);
-        }
-        if ("DisabledFeatures" in $$parsedSource) {
-            $$parsedSource["DisabledFeatures"] = $$createField20_0($$parsedSource["DisabledFeatures"]);
-        }
-        if ("AdditionalLaunchArgs" in $$parsedSource) {
-            $$parsedSource["AdditionalLaunchArgs"] = $$createField21_0($$parsedSource["AdditionalLaunchArgs"]);
-        }
-        return new WindowsWindow($$parsedSource as Partial<WindowsWindow>);
-    }
+    "EnabledFeatures": string[] | null;
+    "DisabledFeatures": string[] | null;
+    "AdditionalLaunchArgs": string[] | null;
 }
-
-// Private type creation functions
-const $$createType0 = WindowManager.createFrom;
-const $$createType1 = $Create.Nullable($$createType0);
-const $$createType2 = ContextMenuManager.createFrom;
-const $$createType3 = $Create.Nullable($$createType2);
-const $$createType4 = KeyBindingManager.createFrom;
-const $$createType5 = $Create.Nullable($$createType4);
-const $$createType6 = BrowserManager.createFrom;
-const $$createType7 = $Create.Nullable($$createType6);
-const $$createType8 = EnvironmentManager.createFrom;
-const $$createType9 = $Create.Nullable($$createType8);
-const $$createType10 = DialogManager.createFrom;
-const $$createType11 = $Create.Nullable($$createType10);
-const $$createType12 = EventManager.createFrom;
-const $$createType13 = $Create.Nullable($$createType12);
-const $$createType14 = MenuManager.createFrom;
-const $$createType15 = $Create.Nullable($$createType14);
-const $$createType16 = ScreenManager.createFrom;
-const $$createType17 = $Create.Nullable($$createType16);
-const $$createType18 = ClipboardManager.createFrom;
-const $$createType19 = $Create.Nullable($$createType18);
-const $$createType20 = SystemTrayManager.createFrom;
-const $$createType21 = $Create.Nullable($$createType20);
-const $$createType22 = slog$0.Logger.createFrom;
-const $$createType23 = $Create.Nullable($$createType22);
-const $$createType24 = Menu.createFrom;
-const $$createType25 = $Create.Nullable($$createType24);
-const $$createType26 = RGBA.createFrom;
-const $$createType27 = $Create.Nullable($$createType26);
-const $$createType28 = u$0.Var.createFrom($Create.Any);
-const $$createType29 = MacTitleBar.createFrom;
-const $$createType30 = $Create.Map($Create.Any, $Create.Any);
-const $$createType31 = MacWebviewPreferences.createFrom;
-const $$createType32 = MacLiquidGlass.createFrom;
-const $$createType33 = TextTheme.createFrom;
-const $$createType34 = $Create.Nullable($$createType33);
-const $$createType35 = WindowTheme.createFrom;
-const $$createType36 = $Create.Nullable($$createType35);
-const $$createType37 = MenuBarTheme.createFrom;
-const $$createType38 = $Create.Nullable($$createType37);
-const $$createType39 = MacWindow.createFrom;
-const $$createType40 = WindowsWindow.createFrom;
-const $$createType41 = LinuxWindow.createFrom;
-const $$createType42 = $Create.Map($Create.Any, $Create.Any);
-const $$createType43 = ThemeSettings.createFrom;
-const $$createType44 = $Create.Map($Create.Any, $Create.Any);
-const $$createType45 = $Create.Array($Create.Any);

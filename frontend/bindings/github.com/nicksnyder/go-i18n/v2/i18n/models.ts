@@ -3,10 +3,6 @@
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore: Unused imports
-import { Create as $Create } from "@wailsio/runtime";
-
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore: Unused imports
 import * as template$1 from "./template/models.js";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore: Unused imports
@@ -19,27 +15,13 @@ import * as template$0 from "../../../../../text/template/models.js";
  * It is not goroutine safe to modify the bundle while Localizers
  * are reading from it.
  */
-export class Bundle {
-
-    /** Creates a new Bundle instance. */
-    constructor($$source: Partial<Bundle> = {}) {
-
-        Object.assign(this, $$source);
-    }
-
-    /**
-     * Creates a new Bundle instance from a string or object.
-     */
-    static createFrom($$source: any = {}): Bundle {
-        let $$parsedSource = typeof $$source === 'string' ? JSON.parse($$source) : $$source;
-        return new Bundle($$parsedSource as Partial<Bundle>);
-    }
+export interface Bundle {
 }
 
 /**
  * LocalizeConfig configures a call to the Localize method on Localizer.
  */
-export class LocalizeConfig {
+export interface LocalizeConfig {
     /**
      * MessageID is the id of the message to lookup.
      * This field is ignored if DefaultMessage is set.
@@ -73,52 +55,12 @@ export class LocalizeConfig {
      * If one is not set, a template.TextParser is used (configured with Funcs if it is set).
      */
     "TemplateParser": template$1.Parser;
-
-    /** Creates a new LocalizeConfig instance. */
-    constructor($$source: Partial<LocalizeConfig> = {}) {
-        if (!("MessageID" in $$source)) {
-            this["MessageID"] = "";
-        }
-        if (!("TemplateData" in $$source)) {
-            this["TemplateData"] = null;
-        }
-        if (!("PluralCount" in $$source)) {
-            this["PluralCount"] = null;
-        }
-        if (!("DefaultMessage" in $$source)) {
-            this["DefaultMessage"] = null;
-        }
-        if (!("Funcs" in $$source)) {
-            this["Funcs"] = {};
-        }
-        if (!("TemplateParser" in $$source)) {
-            this["TemplateParser"] = null;
-        }
-
-        Object.assign(this, $$source);
-    }
-
-    /**
-     * Creates a new LocalizeConfig instance from a string or object.
-     */
-    static createFrom($$source: any = {}): LocalizeConfig {
-        const $$createField3_0 = $$createType1;
-        const $$createField4_0 = $$createType2;
-        let $$parsedSource = typeof $$source === 'string' ? JSON.parse($$source) : $$source;
-        if ("DefaultMessage" in $$parsedSource) {
-            $$parsedSource["DefaultMessage"] = $$createField3_0($$parsedSource["DefaultMessage"]);
-        }
-        if ("Funcs" in $$parsedSource) {
-            $$parsedSource["Funcs"] = $$createField4_0($$parsedSource["Funcs"]);
-        }
-        return new LocalizeConfig($$parsedSource as Partial<LocalizeConfig>);
-    }
 }
 
 /**
  * Message is a string that can be localized.
  */
-export class Message {
+export interface Message {
     /**
      * ID uniquely identifies the message.
      */
@@ -175,62 +117,4 @@ export class Message {
      * Other is the content of the message for the CLDR plural form "other".
      */
     "Other": string;
-
-    /** Creates a new Message instance. */
-    constructor($$source: Partial<Message> = {}) {
-        if (!("ID" in $$source)) {
-            this["ID"] = "";
-        }
-        if (!("Hash" in $$source)) {
-            this["Hash"] = "";
-        }
-        if (!("Description" in $$source)) {
-            this["Description"] = "";
-        }
-        if (!("LeftDelim" in $$source)) {
-            this["LeftDelim"] = "";
-        }
-        if (!("RightDelim" in $$source)) {
-            this["RightDelim"] = "";
-        }
-        if (!("Zero" in $$source)) {
-            this["Zero"] = "";
-        }
-        if (!("One" in $$source)) {
-            this["One"] = "";
-        }
-        if (!("Two" in $$source)) {
-            this["Two"] = "";
-        }
-        if (!("Few" in $$source)) {
-            this["Few"] = "";
-        }
-        if (!("Many" in $$source)) {
-            this["Many"] = "";
-        }
-        if (!("Other" in $$source)) {
-            this["Other"] = "";
-        }
-
-        Object.assign(this, $$source);
-    }
-
-    /**
-     * Creates a new Message instance from a string or object.
-     */
-    static createFrom($$source: any = {}): Message {
-        let $$parsedSource = typeof $$source === 'string' ? JSON.parse($$source) : $$source;
-        return new Message($$parsedSource as Partial<Message>);
-    }
 }
-
-// Private type creation functions
-const $$createType0 = Message.createFrom;
-const $$createType1 = $Create.Nullable($$createType0);
-var $$createType2 = (function $$initCreateType2(...args: any[]): any {
-    if ($$createType2 === $$initCreateType2) {
-        $$createType2 = $$createType3;
-    }
-    return $$createType2(...args);
-});
-const $$createType3 = $Create.Map($Create.Any, $Create.Any);

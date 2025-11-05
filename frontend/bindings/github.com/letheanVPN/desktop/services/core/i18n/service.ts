@@ -9,7 +9,7 @@
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore: Unused imports
-import { Call as $Call, CancellablePromise as $CancellablePromise, Create as $Create } from "@wailsio/runtime";
+import { Call as $Call, CancellablePromise as $CancellablePromise } from "@wailsio/runtime";
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore: Unused imports
@@ -21,29 +21,23 @@ import * as language$0 from "../../../../../../golang.org/x/text/language/models
 /**
  * AvailableLanguages returns the list of available languages.
  */
-export function AvailableLanguages(): $CancellablePromise<language$0.Tag[]> {
-    return $Call.ByID(1795050163).then(($result: any) => {
-        return $$createType0($result);
-    });
+export function AvailableLanguages(): $CancellablePromise<language$0.Tag[] | null> {
+    return $Call.ByID(1795050163);
 }
 
 /**
  * Bundle returns the underlying i18n.Bundle.
  */
 export function Bundle(): $CancellablePromise<i18n$0.Bundle | null> {
-    return $Call.ByID(3872115765).then(($result: any) => {
-        return $$createType2($result);
-    });
+    return $Call.ByID(3872115765);
 }
 
 /**
  * GetAllMessages returns all messages for a given language as a map.
  * This is intended for frontend pre-loading to enable synchronous lookups.
  */
-export function GetAllMessages(lang: string): $CancellablePromise<{ [_: string]: string }> {
-    return $Call.ByID(3739048462, lang).then(($result: any) => {
-        return $$createType3($result);
-    });
+export function GetAllMessages(lang: string): $CancellablePromise<{ [_: string]: string } | null> {
+    return $Call.ByID(3739048462, lang);
 }
 
 /**
@@ -66,9 +60,3 @@ export function Translate(messageID: string): $CancellablePromise<string> {
 export function TranslateWithConfig(lc: i18n$0.LocalizeConfig | null): $CancellablePromise<string> {
     return $Call.ByID(1844970395, lc);
 }
-
-// Private type creation functions
-const $$createType0 = $Create.Array($Create.Any);
-const $$createType1 = i18n$0.Bundle.createFrom;
-const $$createType2 = $Create.Nullable($$createType1);
-const $$createType3 = $Create.Map($Create.Any, $Create.Any);

@@ -5,8 +5,7 @@
   "compilerOptions": {
     "outDir": "./out-tsc/app",
     "types": [
-      "@wailsio/runtime",
-      "./node_modules/@awesome.me/webawesome/dist/custom-elements-jsx.d.ts"
+      "node"
     ]
   },
   "files": [
