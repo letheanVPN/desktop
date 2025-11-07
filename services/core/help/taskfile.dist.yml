@@ -1,0 +1,36 @@
+version: '3'
+
+tasks:
+  default:
+    cmds:
+      - task: dev
+    desc: "Start the development server."
+
+  install:
+    cmds:
+      - pip install -r requirements.txt
+    desc: "Install documentation dependencies."
+    status:
+      - test -f requirements.txt
+
+  dev:
+    run: always
+    cmds:
+      - mkdocs serve -o -c -w src -w mkdocs.yml
+    desc: "Start the live-reloading documentation server."
+    sources:
+      - mkdocs.yml
+      - "src/**/*"
+      - "src/**/*.css"
+    generates:
+      - "public/**/*"
+
+  build:
+    cmds:
+      - mkdocs build --clean -d public
+    desc: "Build the static documentation site."
+
+  deploy:
+    desc: "Deploy the documentation to GitHub Pages."
+    cmds:
+      - mkdocs gh-deploy --force

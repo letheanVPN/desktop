@@ -126,7 +126,6 @@ func (m *XMRigMiner) Install() error {
 	return m.untar(tmpfile.Name(), m.Path)
 }
 
-
 // Start the miner
 func (m *XMRigMiner) Start(config *Config) error {
 	m.mu.Lock()
@@ -223,7 +222,6 @@ func (m *XMRigMiner) GetStats() (*PerformanceMetrics, error) {
 	}, nil
 }
 
-
 func (m *XMRigMiner) createConfig(config *Config) error {
 	configPath, err := xdg.ConfigFile("lethean-desktop/xmrig.json")
 	if err != nil {
@@ -243,18 +241,18 @@ func (m *XMRigMiner) createConfig(config *Config) error {
 	// Create the config
 	c := map[string]interface{}{
 		"api": map[string]interface{}{
-			"enabled":    m.API.Enabled,
-			"listen":     fmt.Sprintf("%s:%d", m.API.ListenHost, m.API.ListenPort),
+			"enabled":      m.API.Enabled,
+			"listen":       fmt.Sprintf("%s:%d", m.API.ListenHost, m.API.ListenPort),
 			"access-token": nil,
-			"restricted": true,
+			"restricted":   true,
 		},
 		"pools": []map[string]interface{}{
 			{
-				"url":   config.Pool,
-				"user":  config.Wallet,
-				"pass":  "x",
+				"url":       config.Pool,
+				"user":      config.Wallet,
+				"pass":      "x",
 				"keepalive": true,
-				"tls":     config.TLS,
+				"tls":       config.TLS,
 			},
 		},
 		"cpu": map[string]interface{}{
@@ -271,7 +269,6 @@ func (m *XMRigMiner) createConfig(config *Config) error {
 	}
 	return os.WriteFile(m.ConfigPath, data, 0644)
 }
-
 
 func (m *XMRigMiner) unzip(src, dest string) error {
 	r, err := zip.OpenReader(src)
