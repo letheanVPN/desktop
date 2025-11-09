@@ -9,7 +9,7 @@
     "build:dev": "ng build --configuration development",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "wa-link": "cd ~/Code/lib/webawesome && npm pack && cd - && npm link @awesome.me/webawesome",
+    "wa-link": "cd ~/Code/lib/webawesome && npm link && cd - && npm link @awesome.me/webawesome",
     "fa-link": "cd ~/Code/lib/fontawesome/npm && npm link && cd - && npm link @fortawesome/fontawesome-free"
   },
   "prettier": {
@@ -32,8 +32,8 @@
     "@angular/forms": "^20.3.0",
     "@angular/platform-browser": "^20.3.0",
     "@angular/router": "^20.3.0",
-    "@awesome.me/webawesome": "file:../build/bundle-1.tgz",
-    "@fortawesome/fontawesome-free": "file:../build/bundle-2.tgz",
+    "@awesome.me/webawesome": "3.0.0",
+    "@fortawesome/fontawesome-free": "7.0.1",
     "@ngx-translate/core": "^17.0.0",
     "@ngx-translate/http-loader": "^17.0.0",
     "@tailwindplus/elements": "^1.0.18",

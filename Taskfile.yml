@@ -10,7 +10,6 @@ vars:
   APP_NAME: "lethean"
   BIN_DIR: "bin"
   VITE_PORT: '{{.WAILS_VITE_PORT | default 9245}}'
-  ARCH: '{{default "amd64" .ARCH}}'
 
 tasks:
   build:
