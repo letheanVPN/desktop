@@ -32,7 +32,7 @@ func (s *Service) ServiceStartup() error {
 // Start activates a specific blockchain network.
 func (s *Service) Start(networkID string) error {
 	if s.activeNetwork != nil {
-		s.activeNetwork.Disconnect()
+		_ = s.activeNetwork.Disconnect() // Intentionally ignoring; we're switching networks
 	}
 
 	network, exists := s.networks[networkID]

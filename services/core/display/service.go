@@ -134,7 +134,7 @@ func (s *Service) ServiceStartup(ctx context.Context, options application.Servic
 		defaultRoute, err := s.configService.Get().Key("DefaultRoute")
 		if err != nil {
 			defaultRoute = "/" // Fallback to a safe default if the key is somehow missing.
-			s.app.Logger.Error("Could not get DefaultRoute from config, using fallback: %v", err)
+			s.app.Logger.Error("Could not get DefaultRoute from config, using fallback", "error", err)
 		}
 
 		s.OpenWindow("main", application.WebviewWindowOptions{

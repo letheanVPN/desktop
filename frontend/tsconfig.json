@@ -10,6 +10,9 @@
       ],
       "@lthn/*": [
         "bindings/github.com/letheanVPN/desktop/services/*"
+      ],
+      "@lib/*": [
+        "src/lib/*"
       ]
     },
     "allowJs": true,

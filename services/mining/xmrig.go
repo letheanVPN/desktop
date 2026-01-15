@@ -89,8 +89,10 @@ func (m *XMRigMiner) Install() error {
 	if err != nil {
 		return err
 	}
-	defer os.Remove(tmpfile.Name())
-	defer tmpfile.Close()
+	defer func() {
+		tmpfile.Close()
+		os.Remove(tmpfile.Name())
+	}()
 
 	// Download the release
 	resp, err := httpClient.Get(url)
@@ -126,7 +128,6 @@ func (m *XMRigMiner) Install() error {
 	return m.untar(tmpfile.Name(), m.Path)
 }
 
-
 // Start the miner
 func (m *XMRigMiner) Start(config *Config) error {
 	m.mu.Lock()
@@ -161,7 +162,7 @@ func (m *XMRigMiner) Start(config *Config) error {
 	m.Running = true
 
 	go func() {
-		m.cmd.Wait()
+		_ = m.cmd.Wait() // Error intentionally ignored; process state tracked via m.Running
 		m.mu.Lock()
 		m.Running = false
 		m.cmd = nil
@@ -223,7 +224,6 @@ func (m *XMRigMiner) GetStats() (*PerformanceMetrics, error) {
 	}, nil
 }
 
-
 func (m *XMRigMiner) createConfig(config *Config) error {
 	configPath, err := xdg.ConfigFile("lethean-desktop/xmrig.json")
 	if err != nil {
@@ -243,18 +243,18 @@ func (m *XMRigMiner) createConfig(config *Config) error {
 	// Create the config
 	c := map[string]interface{}{
 		"api": map[string]interface{}{
-			"enabled":    m.API.Enabled,
-			"listen":     fmt.Sprintf("%s:%d", m.API.ListenHost, m.API.ListenPort),
+			"enabled":      m.API.Enabled,
+			"listen":       fmt.Sprintf("%s:%d", m.API.ListenHost, m.API.ListenPort),
 			"access-token": nil,
-			"restricted": true,
+			"restricted":   true,
 		},
 		"pools": []map[string]interface{}{
 			{
-				"url":   config.Pool,
-				"user":  config.Wallet,
-				"pass":  "x",
+				"url":       config.Pool,
+				"user":      config.Wallet,
+				"pass":      "x",
 				"keepalive": true,
-				"tls":     config.TLS,
+				"tls":       config.TLS,
 			},
 		},
 		"cpu": map[string]interface{}{
@@ -271,7 +271,6 @@ func (m *XMRigMiner) createConfig(config *Config) error {
 	}
 	return os.WriteFile(m.ConfigPath, data, 0644)
 }
-
 
 func (m *XMRigMiner) unzip(src, dest string) error {
 	r, err := zip.OpenReader(src)
@@ -291,7 +290,9 @@ func (m *XMRigMiner) unzip(src, dest string) error {
 
 		if f.FileInfo().IsDir() {
 			// Make Folder
-			os.MkdirAll(fpath, os.ModePerm)
+			if err := os.MkdirAll(fpath, os.ModePerm); err != nil {
+				return err
+			}
 			continue
 		}
 
@@ -313,11 +314,13 @@ func (m *XMRigMiner) unzip(src, dest string) error {
 		_, err = io.Copy(outFile, rc)
 
 		// Close the file without defer to close before next iteration of loop
-		outFile.Close()
-		rc.Close()
-
+		closeErr := outFile.Close()
+		_ = rc.Close() // Intentionally ignoring rc.Close error as outFile error is more important
 		if err != nil {
 			return err
+		}
+		if closeErr != nil {
+			return closeErr
 		}
 	}
 	return nil
@@ -390,11 +393,14 @@ func (m *XMRigMiner) untar(src, dest string) error {
 
 			// copy over contents
 			if _, err := io.Copy(f, tr); err != nil {
+				f.Close()
 				return err
 			}
 
 			// manually close here after each file operation; defering would cause each file to wait until all operations have completed.
-			f.Close()
+			if err := f.Close(); err != nil {
+				return err
+			}
 		}
 	}
 }

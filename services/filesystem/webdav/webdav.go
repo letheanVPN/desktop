@@ -2,7 +2,6 @@ package webdav
 
 import (
 	"bytes"
-	_ "context"
 	"fmt"
 	"io"
 	"net/http"
@@ -31,7 +30,7 @@ func New(cfg ConnectionConfig) (*Medium, error) {
 	if err != nil {
 		return nil, fmt.Errorf("webdav: connection test failed: %w", err)
 	}
-	resp.Body.Close()
+	_ = resp.Body.Close()
 	if resp.StatusCode != http.StatusMultiStatus && resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("webdav: connection test failed with status %s", resp.Status)
 	}
@@ -114,7 +113,7 @@ func (m *Medium) EnsureDir(p string) error {
 		if err != nil {
 			return fmt.Errorf("webdav: MKCOL request for %s failed: %w", currentPath, err)
 		}
-		resp.Body.Close()
+		_ = resp.Body.Close()
 
 		// 405 Method Not Allowed means it already exists, which is fine for us.
 		// 201 Created is a success.
